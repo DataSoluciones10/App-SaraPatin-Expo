@@ -24,9 +24,6 @@ module.exports = {
           tertiary: Colors.dark.tertiary,
         }
       }
-
-
-
     },
   },
   plugins: [],

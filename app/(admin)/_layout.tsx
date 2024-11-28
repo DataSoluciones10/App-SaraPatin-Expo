@@ -35,7 +35,8 @@ const CheckAuthenticationLayout = () => {
 
 
     if(status === 'unauthenticated'){
-        return <Redirect href='/auth/login' />
+        // return <Redirect href='/home' />
+        return <Redirect href='/tabs/home' />
     }
 
 

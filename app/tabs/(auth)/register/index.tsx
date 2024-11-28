@@ -12,9 +12,7 @@ import ThemedLink from '@/presentation/components/shared/ThemedLink';
 
 
 
-
-
-const LoginSreen = () => {
+const RegisterScreen = () => {
 
 
     const { height } = useWindowDimensions();
@@ -28,23 +26,36 @@ const LoginSreen = () => {
         <KeyboardAvoidingView style={{flex:1}}>
             <ScrollView style={{paddingHorizontal:30, backgroundColor:bgcolor}}>
 
-                <View style={{paddingTop:height * 0.3}}>
-                    <ThemedText type='h1' bold>Ingresar</ThemedText>
-                    <ThemedText>Por favor ingrese para continuar</ThemedText>
+                <View style={{paddingTop:height * 0.25}}>
+                    <ThemedText type='h1' bold>Crear Cuenta</ThemedText>
+                    <ThemedText>Por favor crea una cuenta</ThemedText>
 
                     <View style={{marginTop:20}}>
+                        <TextInputThemed
+                            placeholder='Nombre Completo'
+                            autoCapitalize='none'
+                            icon={'person-outline'}
+                        />
+
+                        <TextInputThemed
+                            placeholder='Tipo de Documento'
+                            autoCapitalize='none'
+                            icon={'keypad-outline'}
+                        />
+
+
+                        <TextInputThemed
+                            placeholder='Numero de Documento'
+                            autoCapitalize='none'
+                            icon={'id-card-outline'}
+                        />
+
+
                         <TextInputThemed
                             placeholder='Correo Electronico'
                             keyboardType='email-address'
                             autoCapitalize='none'
                             icon={'mail-outline'}
-                        />
-
-                        <TextInputPassword
-                            placeholder='Contraseña'
-                            secureTextEntry
-                            autoCapitalize='none'
-                            icon={'lock-closed-outline'}
                         />
 
                     </View>
@@ -55,19 +66,17 @@ const LoginSreen = () => {
 
 
                 <ThemedButton
-                    icon="log-in-outline"
+                    icon="save-outline"
                     // onPress={onLogin}
                     // disabled={isPosting}
                 >
-                    Ingresar
+                    Crear Cuenta
                 </ThemedButton>
 
 
-
-
                 <View className="flex-row justify-center items-center mt-7">
-                    <ThemedText>¿No tienes cuenta?</ThemedText>
-                    <ThemedLink href="/auth/register" style={{color:textColor, marginLeft:7}}>Crear cuenta</ThemedLink>
+                    <ThemedText>Ya tienes cuenta?</ThemedText>
+                    <ThemedLink href="/tabs/login" style={{color:textColor, marginLeft:7}}>Ingresar</ThemedLink>
                 </View>
 
 
@@ -80,4 +89,4 @@ const LoginSreen = () => {
 
 
 
-export default LoginSreen
+export default RegisterScreen

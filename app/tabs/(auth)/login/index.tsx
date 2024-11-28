@@ -7,18 +7,21 @@ import TextInputThemed from '@/presentation/components/inputs/TextInputThemed';
 import TextInputPassword from '@/presentation/components/inputs/TextInputPassword';
 import ThemedText from '@/presentation/components/shared/ThemedText';
 import ThemedLink from '@/presentation/components/shared/ThemedLink';
+import { Pressable } from 'react-native-gesture-handler';
+import { router } from 'expo-router';
 
 
 
 
 
-const RegisterScreen = () => {
+
+
+const LoginSreen = () => {
 
 
     const { height } = useWindowDimensions();
     const textColor = useThemeColor({}, 'primary');
     const bgcolor = useThemeColor({}, 'background');
-
 
 
     return (
@@ -27,35 +30,22 @@ const RegisterScreen = () => {
             <ScrollView style={{paddingHorizontal:30, backgroundColor:bgcolor}}>
 
                 <View style={{paddingTop:height * 0.3}}>
-                    <ThemedText type='h1' bold>Crear Cuenta</ThemedText>
-                    <ThemedText>Por favor crea una cuenta</ThemedText>
+                    <ThemedText type='h1' bold>Ingresar</ThemedText>
+                    <ThemedText>Por favor ingrese para continuar</ThemedText>
 
                     <View style={{marginTop:20}}>
-                        <TextInputThemed
-                            placeholder='Nombre Completo'
-                            autoCapitalize='none'
-                            icon={'person-outline'}
-                        />
-
-                        <TextInputThemed
-                            placeholder='Tipo de Documento'
-                            autoCapitalize='none'
-                            icon={'keypad-outline'}
-                        />
-
-
-                        <TextInputThemed
-                            placeholder='Numero de Documento'
-                            autoCapitalize='none'
-                            icon={'id-card-outline'}
-                        />
-
-
                         <TextInputThemed
                             placeholder='Correo Electronico'
                             keyboardType='email-address'
                             autoCapitalize='none'
                             icon={'mail-outline'}
+                        />
+
+                        <TextInputPassword
+                            placeholder='Contraseña'
+                            secureTextEntry
+                            autoCapitalize='none'
+                            icon={'lock-closed-outline'}
                         />
 
                     </View>
@@ -66,17 +56,18 @@ const RegisterScreen = () => {
 
 
                 <ThemedButton
-                    icon="save-outline"
+                    icon="log-in-outline"
                     // onPress={onLogin}
                     // disabled={isPosting}
                 >
-                    Crear Cuenta
+                    Ingresar
                 </ThemedButton>
 
 
+
                 <View className="flex-row justify-center items-center mt-7">
-                    <ThemedText>Ya tienes cuenta?</ThemedText>
-                    <ThemedLink href="/auth/login" style={{color:textColor, marginLeft:7}}>Ingresar</ThemedLink>
+                    <ThemedText>¿No tienes cuenta?</ThemedText>
+                    <ThemedLink href="/tabs/register" style={{color:textColor, marginLeft:7}}>Crear cuenta</ThemedLink>
                 </View>
 
 
@@ -89,4 +80,4 @@ const RegisterScreen = () => {
 
 
 
-export default RegisterScreen
+export default LoginSreen
