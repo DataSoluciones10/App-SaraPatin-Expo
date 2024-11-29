@@ -1,8 +1,9 @@
 
 import { useEffect } from 'react';
-import { Redirect, Stack } from 'expo-router';
-
 import { View, ActivityIndicator } from 'react-native';
+import { Redirect, Slot, Stack } from 'expo-router';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+
 import { useAuthStore } from '@/presentation/stores';
 import { useThemeColor } from '@/presentation/themes/hooks/useThemeColor';
 
@@ -15,7 +16,6 @@ const CheckAuthenticationLayout = () => {
 
     const { status, checkStatus } = useAuthStore();
     const bgcolor = useThemeColor({}, 'background');
-
 
 
     useEffect(() => {
@@ -34,6 +34,7 @@ const CheckAuthenticationLayout = () => {
 
 
 
+
     if(status === 'unauthenticated'){
         // return <Redirect href='/home' />
         return <Redirect href='/tabs/home' />
@@ -42,14 +43,18 @@ const CheckAuthenticationLayout = () => {
 
 
     return (
-        <Stack screenOptions={{headerShadowVisible:false, 
-            headerStyle:{backgroundColor:bgcolor}, contentStyle:{backgroundColor:bgcolor}
-        }}>
+        // <Stack screenOptions={{headerShadowVisible:false, 
+        //     headerStyle:{backgroundColor:bgcolor}, contentStyle:{backgroundColor:bgcolor}
+        // }}>
 
-            <Stack.Screen name="login/index" options={{ title: 'Login' }}/>
-            <Stack.Screen name="register/index" options={{ title: 'Register' }}/>
+        //     <Stack.Screen name="login/index" options={{ title: 'Login' }}/>
+        //     <Stack.Screen name="register/index" options={{ title: 'Register' }}/>
 
-        </Stack>
+        // </Stack>
+
+        <GestureHandlerRootView style={{ flex: 1 }}>
+            <Slot />
+        </GestureHandlerRootView>
     )
 
 

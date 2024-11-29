@@ -1,6 +1,7 @@
 
-import { useThemeColor } from '@/presentation/themes/hooks/useThemeColor';
 import { useWindowDimensions, Image, ScrollView, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useThemeColor } from '@/presentation/themes/hooks/useThemeColor';
 
 import MainSlideShow from '@/presentation/components/components/MainSlideShow';
 import ThemedText from '@/presentation/components/shared/ThemedText';
@@ -20,8 +21,8 @@ const HomeScreen = () => {
     // const safeArea = useSafeAreaInsets();
 
 
-
     return (
+        <SafeAreaView style={{ flex: 1, backgroundColor: bgcolor }}>
             <ScrollView style={{backgroundColor:bgcolor, paddingBottom:10}}>
                 <View style={{height: height * 0.5}}>
                     <Image
@@ -40,6 +41,7 @@ const HomeScreen = () => {
 
 
             </ScrollView>
+        </SafeAreaView>
     )
 }
 
