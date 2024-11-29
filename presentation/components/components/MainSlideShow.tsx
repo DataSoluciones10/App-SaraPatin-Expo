@@ -18,7 +18,7 @@ const MainSlideShow = ({ datos }:Props) => {
 
 
     const ref = useRef<ICarouselInstance>(null);
-    const width = useWindowDimensions().width;
+    const { width } = useWindowDimensions(); 
 
 
     return (
@@ -30,8 +30,8 @@ const MainSlideShow = ({ datos }:Props) => {
                 width={200}
                 height={350}
                 style={{width:width, height:350, justifyContent:'center', alignItems:'center'}}
-                // mode="parallax"
-                // modeConfig={{parallaxScrollingScale:0.9, parallaxScrollingOffset:50}}
+                mode="parallax"
+                modeConfig={{parallaxScrollingScale:0.8, parallaxScrollingOffset:40}}
                 defaultIndex={1}
             />
         </View>

@@ -12,7 +12,7 @@ const TabsLayaout = () => {
 
 
     const color = useThemeColor({}, 'primary');
-    const bgcolor = useThemeColor({}, 'background');
+    // const bgcolor = useThemeColor({}, 'background');
 
 
     return (
