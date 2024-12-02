@@ -19,7 +19,7 @@ const ThemedButton = ({ children, icon, ...rest }: Props) => {
 
     return (
 
-        <Pressable {...rest} style={{backgroundColor: primaryColor}}
+        <Pressable style={{backgroundColor: primaryColor}}  { ...rest }
             className="px-4 py-3 rounded-md flex-row items-center justify-center bg-primary active:opacity-70"
         >
             {icon && (

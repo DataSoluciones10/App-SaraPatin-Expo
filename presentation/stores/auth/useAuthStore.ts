@@ -1,5 +1,6 @@
 
 import { authCheckStatus, authLogin } from '@/core/actions';
+import { SecureStorage } from '@/core/adapters/secure-storage';
 import { create } from 'zustand';
 
 
@@ -13,10 +14,10 @@ export interface AuthState {
     user?: any;
 
 
-    login: (email:string, password:string) => Promise<boolean>;
+    startLogin: (email:string, password:string) => Promise<boolean>;
     checkStatus: () => Promise<boolean>;
     logout: () => Promise<void>;
-    changeStatus: (token?:string, user?:any) => boolean;
+    changeStatus: (token?:string, user?:any) => Promise<boolean>;
 
 }
 
@@ -30,13 +31,15 @@ export const useAuthStore = create<AuthState>()( (set, get) => ({
 
 
 
-    changeStatus: (token?:string, user?:any) => {
+    changeStatus: async(token?:string, user?:any) => {
         if(!token || !user){
             set({status: 'unauthenticated', token: undefined, user: undefined});
+            await SecureStorage.deleteItem('token');
             return false;
         }
 
         set({ status: 'authenticated', token: token, user: user });
+        await SecureStorage.setItem('token', token);
         return true;
     },
 
@@ -44,31 +47,25 @@ export const useAuthStore = create<AuthState>()( (set, get) => ({
 
 
 
-    login: async(email:string, password:string) => {
-        const resp = await authLogin({email, password});
-        return get().changeStatus(resp.token, resp.user);
+    startLogin: async(correo:string, password:string) => {
+        const { token, usuario } = await authLogin({correo, password});
+        return get().changeStatus(token, usuario);
     },
 
 
 
     
     checkStatus: async() => {
-        // const resp = await authCheckStatus();
-        const resp = {token: undefined, user: undefined};
-        return get().changeStatus(resp.token, resp.user);
+        const { token, usuario } = await authCheckStatus();
+        return get().changeStatus(token, usuario);
     },
-
 
 
 
     logout: async() => {
-
-
+        SecureStorage.deleteItem('token');
         set({ status: 'unauthenticated', token: undefined, user: undefined });
-
     },
-
-
 
 
 

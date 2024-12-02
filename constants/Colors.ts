@@ -10,13 +10,14 @@ export const Colors = {
     success: '#52d49B',
     background: '#FFFFFF',
     text: '#11181C',
+    opaco: 'gray',
+    error: '#F44336'
     // tint: tintColorLight,
     // icon: '#687076',
     // tabIconDefault: '#687076',
     // tabIconSelected: tintColorLight,
   },
 
-  
   dark: {
     primary: '#0088F0',
     secondary: '#05B350',
@@ -24,6 +25,8 @@ export const Colors = {
     success: '#52d49B',
     background: '#151718',
     text: '#ECEDEE',
+    opaco: 'gray',
+    error: '#FF4B5C'
     // tint: tintColorDark,
     // icon: '#9BA1A6',
     // tabIconDefault: '#9BA1A6',

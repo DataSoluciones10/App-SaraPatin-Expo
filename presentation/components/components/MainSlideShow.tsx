@@ -22,16 +22,17 @@ const MainSlideShow = ({ datos }:Props) => {
 
 
     return (
-        <View className='h-[250px] w-full'>
+
+        <View className='h-[220px] w-full'>
             <Carousel 
                 ref={ref}
                 data={ datos }
-                renderItem={({ item }) => ( <ImagenPoster id={item.id} poster={item.img} /> )}
-                width={200}
-                height={350}
-                style={{width:width, height:350, justifyContent:'center', alignItems:'center'}}
-                mode="parallax"
-                modeConfig={{parallaxScrollingScale:0.8, parallaxScrollingOffset:40}}
+                renderItem={({ item }) => ( <ImagenPoster id={item.id} poster={item.img} titulo={item.titulo} /> )}
+                width={160}
+                height={210}
+                style={{width:width, height:250, justifyContent:'center', alignItems:'center'}}
+                // mode="parallax"
+                // modeConfig={{parallaxScrollingScale:0.9, parallaxScrollingOffset:50}}
                 defaultIndex={1}
             />
         </View>

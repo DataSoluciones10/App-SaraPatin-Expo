@@ -17,11 +17,17 @@ module.exports = {
           primary: Colors.light.primary,
           secondary: Colors.light.secondary,
           tertiary: Colors.light.tertiary,
+          text: Colors.light.text,
+          opaco: Colors.light.opaco,
+          error: Colors.light.error
         },
         dark: {
           primary: Colors.dark.primary,
           secondary: Colors.dark.secondary,
           tertiary: Colors.dark.tertiary,
+          text: Colors.dark.text,
+          opaco: Colors.dark.opaco,
+          error: Colors.dark.error
         }
       }
     },

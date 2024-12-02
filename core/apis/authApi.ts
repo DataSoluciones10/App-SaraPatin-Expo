@@ -1,6 +1,7 @@
 
 import axios from 'axios';
 import { Platform } from 'react-native';
+import { SecureStorage } from '../adapters/secure-storage';
 
 
 const STAGE = process.env.EXPO_PUBLIC_STAGE || 'dev';
@@ -15,11 +16,17 @@ export const API_URL =
 
 
 
-
 const authApi = axios.create({
-    baseURL: API_URL
+    baseURL: `${API_URL}/auth`,
 });
 
+
+
+authApi.interceptors.request.use(async(config) => {
+    const token = await SecureStorage.getItem('token');
+    if( token ){ config.headers.Authorization = `Bearer ${token}` }
+    return config;
+})
 
 
 

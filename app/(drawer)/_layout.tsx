@@ -1,16 +1,13 @@
 
-
-import { Drawer } from 'expo-router/drawer';
-
 import { useEffect } from 'react';
-import { Redirect } from 'expo-router';
 import { ActivityIndicator, View } from 'react-native';
 
-
+import { Redirect } from 'expo-router';
+import { Drawer } from 'expo-router/drawer';
 import { useAuthStore } from '@/presentation/stores';
-import { useThemeColor } from '@/presentation/themes/hooks/useThemeColor';
-
-
+import useThemeColors from '@/presentation/hooks/global/useThemeColors';
+import CustomDrawer from '@/presentation/components/components/CustomDrawer';
+import { Ionicons } from '@expo/vector-icons';
 
 
 
@@ -20,7 +17,7 @@ const DrawerLayout = () => {
 
 
     const { status, checkStatus } = useAuthStore();
-    const bgcolor = useThemeColor({}, 'background');
+    const { background } = useThemeColors();
 
 
     useEffect(() => {
@@ -28,34 +25,44 @@ const DrawerLayout = () => {
     }, [])
     
 
+
     if(status === 'cheking') {
         return (
-            <View style={{flex:1, justifyContent:'center', alignItems:'center', marginBottom:5}}>
-                <ActivityIndicator />
-            </View>
+        <View style={{flex:1, justifyContent:'center', alignItems:'center', marginBottom:5}}>
+            <ActivityIndicator />
+        </View>
     )}
 
 
 
-    if(status === 'unauthenticated'){
-        // return <Redirect href='/home' />
+    if(true){
         return <Redirect href='/home' />
     }
 
 
 
-    
-
     return (
-        <Drawer>
-            <Drawer.Screen
-                name="index" 
-                options={{ drawerLabel: 'Home', title: 'overview' }}
-            />
-            <Drawer.Screen
-                name="user/[id]" 
-                options={{ drawerLabel: 'User', title: 'overview' }}
-            />
+        <Drawer drawerContent={CustomDrawer} screenOptions={{headerTitleAlign:'center', 
+            headerShadowVisible:false, overlayColor:'rgba(0,0,0,0.7)', drawerStyle:{backgroundColor:background} 
+        }}>
+
+            <Drawer.Screen name='(dashboard)' options={{ drawerLabel:'Dashboard', 
+                title:'Dashboard', headerShown:false, drawerIcon: ({ color, size }) => (
+                    <Ionicons name="nuclear-outline" size={size} color={color} />
+                ),
+            }}/>
+
+            <Drawer.Screen name="deportistas/index"  options={{ drawerLabel:'Mis Deportistas', 
+                title:'Mis Deportistas', drawerIcon: ({ color, size }) => (
+                    <Ionicons name="people-circle-outline" size={size} color={color} />
+                ),
+            }}/>
+
+            {/* <Drawer.Screen name="pagos/index"  options={{ drawerLabel:'Mis Deportistas', 
+                title:'Mis Deportistas', drawerIcon: ({ color, size }) => (
+                    <Ionicons name="people-circle-outline" size={size} color={color} />
+                ),
+            }}/> */}
         </Drawer>
     )
 
