@@ -14,7 +14,7 @@ interface Props extends ViewProps {
 
 
 
-const ThemedView = ({ style, className, margin=false, children, safe=false, bgColor}: Props) => {
+export const ThemedView = ({ style, className, margin=false, children, safe=false, bgColor}: Props) => {
 
     const backgroundColor = bgColor ??  useThemeColor({}, 'background');
     const safeArea = useSafeAreaInsets();
@@ -30,5 +30,3 @@ const ThemedView = ({ style, className, margin=false, children, safe=false, bgCo
     )
 
 }
-
-export default ThemedView

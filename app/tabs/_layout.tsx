@@ -16,7 +16,6 @@ const TabsLayaout = () => {
 
     return (
         <Tabs screenOptions={{ tabBarActiveTintColor:primary, headerShown:false }}>
-
             <Tabs.Screen name='home/index'
                 options={{title:'Home', tabBarIcon:({ color }) => <Ionicons size={28} name="home" color={color} />}}
             />

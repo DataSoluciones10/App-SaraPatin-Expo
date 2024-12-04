@@ -18,7 +18,7 @@ interface Props extends TextInputProps {
 
 
 
-const TextInputPassword = ({ icon, name, ...rest }: Props) => {
+export const TextInputPassword = ({ icon, name, ...rest }: Props) => {
 
 
     const inputRef = useRef<TextInput>(null);
@@ -27,7 +27,7 @@ const TextInputPassword = ({ icon, name, ...rest }: Props) => {
     const [isActive, setIsActive] = useState(false);
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const [field, meta] = useField<any>(name);
-    const hasError = meta.touched || meta.error;
+    const hasError = meta.error;
 
 
 
@@ -73,5 +73,4 @@ const TextInputPassword = ({ icon, name, ...rest }: Props) => {
         </View>
     )
 }
-export default TextInputPassword;
 

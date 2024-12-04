@@ -6,7 +6,7 @@ import { create } from 'zustand';
 
 
 
-export type AuthStatus = 'authenticated' | 'unauthenticated' | 'cheking';
+export type AuthStatus = 'authenticated' | 'unauthenticated' | 'checking';
 
 export interface AuthState {
     status: AuthStatus;
@@ -15,17 +15,17 @@ export interface AuthState {
 
 
     startLogin: (email:string, password:string) => Promise<boolean>;
-    checkStatus: () => Promise<boolean>;
-    logout: () => Promise<void>;
-    changeStatus: (token?:string, user?:any) => Promise<boolean>;
+    startCheckStatus: () => Promise<boolean>;
+    startLogout: () => Promise<void>;
 
+    changeStatus: (token?:string, user?:any) => Promise<boolean>;
 }
 
 
 
 export const useAuthStore = create<AuthState>()( (set, get) => ({
 
-    status: 'cheking',
+    status: 'checking',
     token: undefined,
     user: undefined,
 
@@ -55,15 +55,19 @@ export const useAuthStore = create<AuthState>()( (set, get) => ({
 
 
     
-    checkStatus: async() => {
-        const { token, usuario } = await authCheckStatus();
-        return get().changeStatus(token, usuario);
+    startCheckStatus: async() => {
+        const resp = await authCheckStatus();
+        if( !resp ){
+            set({ status:'unauthenticated', token:undefined, user:undefined });
+            return false;
+        }
+        return get().changeStatus(resp.token, resp.usuario);
     },
 
 
 
-    logout: async() => {
-        SecureStorage.deleteItem('token');
+    startLogout: async() => {
+        await SecureStorage.deleteItem('token');
         set({ status: 'unauthenticated', token: undefined, user: undefined });
     },
 

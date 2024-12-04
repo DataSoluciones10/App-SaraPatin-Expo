@@ -3,7 +3,7 @@
 import { Link } from 'expo-router';
 
 
-const ThemedLink = ({ style, color, ...rest }: any) => {
+export const ThemedLink = ({ style, color, ...rest }: any) => {
 
     return (
       <Link style={[style]} {...rest} />
@@ -11,5 +11,3 @@ const ThemedLink = ({ style, color, ...rest }: any) => {
 
 };
 
-
-export default ThemedLink;

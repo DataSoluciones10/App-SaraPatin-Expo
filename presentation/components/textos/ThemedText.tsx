@@ -17,11 +17,9 @@ export type ThemedTextProps = TextProps & {
 
 
 
-const ThemedText = ({ style, lightColor, darkColor, type='normal', className, bold, ...rest }: ThemedTextProps) => {
+export const ThemedText = ({ style, lightColor, darkColor, type='normal', className, bold, ...rest }: ThemedTextProps) => {
 
-  
   const color = useThemeColor({ light: lightColor, dark: darkColor }, 'text');
-
 
   return (
 
@@ -43,4 +41,3 @@ const ThemedText = ({ style, lightColor, darkColor, type='normal', className, bo
   );
 }
 
-export default ThemedText

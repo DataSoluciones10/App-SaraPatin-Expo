@@ -18,7 +18,7 @@ interface Props extends TextInputProps {
 
 
 
-const TextInputThemed = ({ icon, name, ...rest }: Props) => {
+export const TextInputThemed = ({ icon, name, ...rest }: Props) => {
 
 
     const inputRef = useRef<TextInput>(null);
@@ -26,8 +26,7 @@ const TextInputThemed = ({ icon, name, ...rest }: Props) => {
 
     const [isActive, setIsActive] = useState(false);
     const [field, meta] = useField<any>(name);
-    const hasError = meta.touched || meta.error;
-
+    const hasError = meta.error;
 
 
     return (
@@ -62,4 +61,3 @@ const TextInputThemed = ({ icon, name, ...rest }: Props) => {
     )
 
 }
-export default TextInputThemed;

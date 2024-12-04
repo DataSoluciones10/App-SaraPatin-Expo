@@ -1,6 +1,6 @@
 
-import { useThemeColor } from '@/presentation/themes/hooks/useThemeColor';
 import { Stack } from 'expo-router';
+import { useThemeColor } from '@/presentation/themes/hooks/useThemeColor';
 
 
 
@@ -10,8 +10,6 @@ const CheckAuthenticationLayout = () => {
 
 
     const bgcolor = useThemeColor({}, 'background');
-
-
 
 
     return (

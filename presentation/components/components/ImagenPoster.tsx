@@ -1,6 +1,7 @@
 
-import { Pressable, Image, Text } from 'react-native';
-import ThemedText from '../shared/ThemedText';
+import { Pressable, Image } from 'react-native';
+import { ThemedText } from '../textos/ThemedText';
+
 
 
 interface Props {
@@ -11,7 +12,7 @@ interface Props {
 }
 
 
-const ImagenPoster = ({ poster, titulo, }:Props) => {
+export const ImagenPoster = ({ poster, titulo, }:Props) => {
 
 
     return (
@@ -26,8 +27,4 @@ const ImagenPoster = ({ poster, titulo, }:Props) => {
         </Pressable>
     )
 
-
-
 }
-
-export default ImagenPoster

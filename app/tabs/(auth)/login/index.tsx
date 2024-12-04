@@ -6,13 +6,9 @@ import { router } from 'expo-router';
 import * as Yup from 'yup';
 import { Formik } from "formik";
 
-import ThemedButton from '@/presentation/components/shared/ThemedButton';
-import TextInputThemed from '@/presentation/components/inputs/TextInputThemed';
-import TextInputPassword from '@/presentation/components/inputs/TextInputPassword';
-import ThemedText from '@/presentation/components/shared/ThemedText';
-import ThemedLink from '@/presentation/components/shared/ThemedLink';
-import useThemeColors from '@/presentation/hooks/global/useThemeColors';
+import { TextInputThemed, TextInputPassword, ThemedText, ThemedButton, ThemedLink, ButtonIsPosting } from '@/presentation/components';
 import { useAuthStore } from '@/presentation/stores';
+import useThemeColors from '@/presentation/hooks/global/useThemeColors';
 
 
 
@@ -28,13 +24,14 @@ const LoginSreen = () => {
     const { startLogin } = useAuthStore();
 
 
+
     const handleLogin = async(values:any, resetForm:any) => {
         setIsPosting(true);
         const wasSuccessful = await startLogin(values.correo, values.password);
         setIsPosting(false);
 
         if(wasSuccessful) {
-            router.replace('/inicio');
+            router.replace('/');
             resetForm();
             return;
         }
@@ -50,6 +47,8 @@ const LoginSreen = () => {
                 initialValues={{ 
                     correo: 'd@gmail.com', 
                     password: 'saraisa249096dc', 
+                    // correo: '', 
+                    // password: '', 
                 }}
                 onSubmit={ ( values:any, { resetForm } ) => {
                     handleLogin(values, resetForm);
@@ -98,16 +97,16 @@ const LoginSreen = () => {
 
                     <View className='mt-2' />
 
-                    <ThemedButton icon="log-in-outline"
-                        onPress={ () => handleSubmit() } disabled={isPosting}
-                    >
-                        Ingresar
-                    </ThemedButton>
-
+                    {(isPosting)
+                    ?   <ButtonIsPosting />
+                    :   <ThemedButton icon="log-in-outline" onPress={ () => handleSubmit() } disabled={isPosting}>
+                            Ingresar
+                        </ThemedButton>
+                    }
 
                     <View className="flex-row justify-center items-center mt-7">
                         <ThemedText>¿No tienes cuenta?</ThemedText>
-                        <ThemedLink href="/register" style={{color:primary, marginLeft:7}}>Crear cuenta</ThemedLink>
+                        <ThemedLink href="/tabs/register" style={{color:primary, marginLeft:7, fontWeight:'bold'}}>Crear cuenta</ThemedLink>
                     </View>
                 </ScrollView>
             )}

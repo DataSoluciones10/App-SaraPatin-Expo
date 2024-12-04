@@ -1,19 +1,18 @@
 
-
-import { datosPrincipales } from '@/presentation/data/datos';
 import { useRef } from 'react';
 import { Image, useWindowDimensions, View } from 'react-native';
+import { datosPrincipales } from '@/presentation/data/datos';
 import Carousel, { ICarouselInstance } from 'react-native-reanimated-carousel';
 
 
 
 
-const CarruselPrincipal = () => {
+
+export const CarruselPrincipal = () => {
 
 
     const ref = useRef<ICarouselInstance>(null);
     const { height, width } = useWindowDimensions();
-
 
 
     return (
@@ -40,5 +39,3 @@ const CarruselPrincipal = () => {
 
     )
 }
-
-export default CarruselPrincipal

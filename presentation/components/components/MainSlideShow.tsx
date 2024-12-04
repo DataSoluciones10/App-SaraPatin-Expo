@@ -3,7 +3,7 @@ import { useRef } from 'react';
 
 import { View, useWindowDimensions } from 'react-native';
 import Carousel, { ICarouselInstance } from 'react-native-reanimated-carousel';
-import ImagenPoster from './ImagenPoster';
+import { ImagenPoster } from './ImagenPoster';
 
 
 
@@ -14,7 +14,7 @@ interface Props {
 
 
 
-const MainSlideShow = ({ datos }:Props) => {
+export const MainSlideShow = ({ datos }:Props) => {
 
 
     const ref = useRef<ICarouselInstance>(null);
@@ -40,5 +40,3 @@ const MainSlideShow = ({ datos }:Props) => {
 
 
 }
-
-export default MainSlideShow

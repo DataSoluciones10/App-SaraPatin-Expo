@@ -18,15 +18,19 @@ export const API_URL =
 
 const authApi = axios.create({
     baseURL: `${API_URL}/auth`,
+    headers: {
+        'Content-Type': 'application/json'
+    }
 });
 
 
-
-authApi.interceptors.request.use(async(config) => {
-    const token = await SecureStorage.getItem('token');
-    if( token ){ config.headers.Authorization = `Bearer ${token}` }
-    return config;
-})
+authApi.interceptors.request.use(
+    async (config) => {
+        const token = await SecureStorage.getItem('token');
+        if( token ) { config.headers['Authorization'] = `Bearer ${ token }`; }
+        return config;
+    }
+)
 
 
 
