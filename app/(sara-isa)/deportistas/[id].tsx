@@ -21,6 +21,14 @@ const DeportistaScreen = () => {
     const { startListadoRegiones } = useCiudadesStore();
 
 
+    useEffect(() => {
+        startListadoRegiones();
+        // return () => funcionImagen(undefined);
+    }, [])
+
+    
+
+
     if(deportistaQueryId.isLoading) {
         return (
             <DisenioPagina title='Información Deportista'>
@@ -36,12 +44,6 @@ const DeportistaScreen = () => {
 
 
     const deportista = deportistaQueryId.data!;
-
-
-    useEffect(() => {
-        startListadoRegiones();
-        // return () => funcionImagen(undefined);
-    }, [])
 
 
 

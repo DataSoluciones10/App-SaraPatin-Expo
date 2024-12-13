@@ -25,7 +25,6 @@ export const FormDeportistas = ({ deportista, handleFuncion, id }:any) => {
 
 
 
-
     return (
         <Formik
             initialValues={ deportista }
@@ -149,7 +148,7 @@ export const FormDeportistas = ({ deportista, handleFuncion, id }:any) => {
                         }}
                     />}
 
-                    {ciudades &&
+                    {ciudades &&   //! PENDIENTE
                     <SelectIdNombre
                         name='ciudad'
                         label='Ciudad'
