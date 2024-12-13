@@ -1,13 +1,13 @@
 
 import axios from 'axios';
 import { Platform } from 'react-native';
-import { SecureStorage } from '../adapters/secure-storage';
+import { SecureStorage } from '@/core/adapters/secure-storage';
 
 
 const STAGE = process.env.EXPO_PUBLIC_STAGE || 'dev';
 
 
-export const API_URL = 
+const API_URL = 
     (STAGE === 'prod')
     ? process.env.EXPO_PUBLIC_API_URL
     : (Platform.OS) === 'ios'
@@ -16,15 +16,13 @@ export const API_URL =
 
 
 
-const authApi = axios.create({
-    baseURL: `${API_URL}/auth`,
-    headers: {
-        'Content-Type': 'application/json'
-    }
+const clubesApi = axios.create({
+    baseURL: `${API_URL}/clubes`,
 });
 
 
-authApi.interceptors.request.use(
+
+clubesApi.interceptors.request.use(
     async (config) => {
         const token = await SecureStorage.getItem('token');
         if( token ) { config.headers['Authorization'] = `Bearer ${ token }`; }
@@ -35,4 +33,4 @@ authApi.interceptors.request.use(
 
 
 
-export { authApi }
+export { clubesApi }

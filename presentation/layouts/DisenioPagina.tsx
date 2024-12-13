@@ -45,17 +45,18 @@ export const DisenioPagina = ({ title, subtitle, rightAction, rightActionIcon, c
     };
 
 
-        
     return (
         <SafeAreaView style={{ flex:1, backgroundColor:background }}>
-            <View className="flex-row items-center justify-between px-4 py-2 border-b border-gray-200">
+            <View className="flex-row items-center justify-between px-4 py-3" 
+                style={{backgroundColor:background, borderBottomWidth:0.2, borderBottomColor:'gray', paddingBottom:subtitle ? 10 : 15}}
+            >
                 {/* Left Action */}
                 {canGoBack() ? renderBackAction() : <View className="w-8" />}
 
                 {/* Title & Subtitle */}
                 <View className="flex-1 items-center">
                     <ThemedText type='h2' bold>{title}</ThemedText>
-                    { subtitle && ( <ThemedText type='normal' bold>{subtitle}</ThemedText>) }
+                    {(subtitle) &&( <ThemedText style={{marginTop:-3}} type='normal'>{subtitle}</ThemedText>) }
                 </View>
 
                 {/* Right Action */}
@@ -64,10 +65,9 @@ export const DisenioPagina = ({ title, subtitle, rightAction, rightActionIcon, c
 
 
             {/* Content */}
-            <View className="flex-1">
+            <View className="flex-1" style={{backgroundColor:background}}>
                 {children}
             </View>
-
 
         </SafeAreaView>
     );

@@ -19,7 +19,8 @@ module.exports = {
           tertiary: Colors.light.tertiary,
           text: Colors.light.text,
           opaco: Colors.light.opaco,
-          error: Colors.light.error
+          error: Colors.light.error,
+          success: Colors.light.success,
         },
         dark: {
           primary: Colors.dark.primary,
@@ -27,7 +28,8 @@ module.exports = {
           tertiary: Colors.dark.tertiary,
           text: Colors.dark.text,
           opaco: Colors.dark.opaco,
-          error: Colors.dark.error
+          error: Colors.dark.error,
+          success: Colors.dark.success,
         }
       }
     },

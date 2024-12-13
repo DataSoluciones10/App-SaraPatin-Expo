@@ -14,7 +14,7 @@ interface Props {
 export const CargandoScreen = ({ titulo }: Props) => {
     return (
         <View style={{flex:1, justifyContent:'center', alignItems:'center', marginBottom:5, flexDirection:'column'}}>
-            <ActivityIndicator size={50} />
+            <ActivityIndicator size={40} />
             <ThemedText type='semi-bold' bold>{ titulo }</ThemedText>
         </View>
     )

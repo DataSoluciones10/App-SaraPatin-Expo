@@ -13,10 +13,9 @@ export interface AuthState {
     token?: string;
     user?: any;
 
-
     startLogin: (email:string, password:string) => Promise<boolean>;
     startCheckStatus: () => Promise<boolean>;
-    startLogout: () => Promise<void>;
+    startLogout: () => Promise<boolean>;
 
     changeStatus: (token?:string, user?:any) => Promise<boolean>;
 }
@@ -54,21 +53,24 @@ export const useAuthStore = create<AuthState>()( (set, get) => ({
 
 
 
+
     
     startCheckStatus: async() => {
         const resp = await authCheckStatus();
         if( !resp ){
-            set({ status:'unauthenticated', token:undefined, user:undefined });
-            return false;
+            return get().changeStatus(undefined, undefined);
         }
         return get().changeStatus(resp.token, resp.usuario);
     },
 
 
 
+
+
     startLogout: async() => {
         await SecureStorage.deleteItem('token');
         set({ status: 'unauthenticated', token: undefined, user: undefined });
+        return false; 
     },
 
 

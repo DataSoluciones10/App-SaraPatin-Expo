@@ -45,8 +45,8 @@ const LoginSreen = () => {
         <KeyboardAvoidingView style={{flex:1}}>
             <Formik
                 initialValues={{ 
-                    correo: 'd@gmail.com', 
-                    password: 'saraisa249096dc', 
+                    correo: 'melissaquintero2803@gmail.com', 
+                    password: '1234567Sa', 
                     // correo: '', 
                     // password: '', 
                 }}

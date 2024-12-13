@@ -1,2 +1,5 @@
 
-export * from './authApi';
+export * from './auth/authApi';
+export * from './usuarios/deportistasApi';
+export * from './usuarios/clubesApi';
+export * from './sistema/ciudadesApi';

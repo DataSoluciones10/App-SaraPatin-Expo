@@ -13,12 +13,13 @@ import useThemeColors from '@/presentation/hooks/global/useThemeColors';
 interface Props extends TextInputProps {
     icon?: keyof typeof Ionicons.glyphMap;
     name: string;
+    style?: any;
 }
 
 
 
 
-export const TextInputThemed = ({ icon, name, ...rest }: Props) => {
+export const TextInputThemed = ({ icon, name, style, ...rest }: Props) => {
 
 
     const inputRef = useRef<TextInput>(null);
@@ -31,17 +32,16 @@ export const TextInputThemed = ({ icon, name, ...rest }: Props) => {
 
     return (
         
-        <View className='mb-4'>
+        <View style={[{marginBottom:16}, style]}>
+
             <View onTouchStart={() => inputRef.current?.focus()} style={{borderColor: hasError ? error : isActive ? primary : opaco}}
                 className={`flex-row items-center border rounded-md px-2 py-1`}
             >
 
                 {icon && 
                 <Ionicons 
-                    name={icon}
-                    size={21}
+                    name={icon} size={21} className="mr-2"
                     color={hasError ? error : isActive ? primary : opaco}
-                    className="mr-2"
                 />}
 
                 <TextInput

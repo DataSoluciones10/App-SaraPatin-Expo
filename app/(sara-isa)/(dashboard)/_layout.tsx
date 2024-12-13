@@ -16,17 +16,15 @@ const TabsLayaout = () => {
 
 
     return (
-        <Tabs screenOptions={{tabBarActiveTintColor:primary, headerTitleAlign:'center'}}>
+        <Tabs screenOptions={{tabBarActiveTintColor:primary, headerTitleAlign:'center', headerShown:false}}>
 
             <Tabs.Screen name='(inicio)/index'
-                options={{title:'Inicio', headerShown:false,
-                    tabBarIcon:({ color }) => <Ionicons size={28} name="home" color={color} 
-                />}}
+                options={{title:'Inicio', tabBarIcon:({ color }) => <Ionicons size={28} name="home" color={color} />}}
             />
 
             <Tabs.Screen
-                name='favoritos/index'
-                options={{title:'Favoritos', tabBarIcon:({ color }) => <Ionicons size={28} name="star" color={color} /> }}
+                name='perfil/index'
+                options={{title:'Mi Perfil', tabBarIcon:({ color }) => <Ionicons size={28} name="person-circle" color={color} /> }}
             />
 
             <Tabs.Screen

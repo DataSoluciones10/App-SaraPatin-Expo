@@ -3,7 +3,7 @@ import { useRef } from 'react';
 
 import { View, useWindowDimensions } from 'react-native';
 import Carousel, { ICarouselInstance } from 'react-native-reanimated-carousel';
-import { ImagenPoster } from './ImagenPoster';
+import { ImagenPoster } from '../poster/ImagenPoster';
 
 
 
@@ -13,7 +13,7 @@ interface Props {
 
 
 
-
+//! PENDIENTE POR ELIMINAR O AJUSTAR
 export const MainSlideShow = ({ datos }:Props) => {
 
 

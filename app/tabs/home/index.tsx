@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { deportesData } from '@/presentation/data/datos';
 import useThemeColors from '@/presentation/hooks/global/useThemeColors';
-import { CarruselPrincipal, MainSlideShow, ThemedText } from '@/presentation/components';
+import { CarruselHorizontal, CarruselPrincipal, ThemedText } from '@/presentation/components';
 
 
 
@@ -16,7 +16,7 @@ const HomeScreen = () => {
 
 
     const { background } = useThemeColors();
-    // const safeArea = useSafeAreaInsets();
+
 
 
     return (
@@ -27,9 +27,15 @@ const HomeScreen = () => {
                 <CarruselPrincipal />
 
                 {/* Carrusel de Imagenes */}
-                <View className='my-10'>
-                    <ThemedText type='h2' bold className='pl-3'>Expertos en:</ThemedText>
-                    <MainSlideShow datos={deportesData ?? []} />
+                <View className='my-5 mt-10'>
+                    <ThemedText type='h2' bold className='pl-4 pb-1'>Expertos en:</ThemedText>
+                    <CarruselHorizontal datos={deportesData} />
+                </View>
+
+
+                <View className='my-5'>
+                    <ThemedText type='h2' bold className='pl-4 pb-1'>Expertos en:</ThemedText>
+                    <CarruselHorizontal datos={deportesData} />
                 </View>
 
 

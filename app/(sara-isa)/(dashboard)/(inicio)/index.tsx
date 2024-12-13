@@ -1,11 +1,11 @@
 
 import { ScrollView, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-
-import { deportesData } from '@/presentation/data/datos';
 import useThemeColors from '@/presentation/hooks/global/useThemeColors';
 import { useAuthStore } from '@/presentation/stores';
-import { CarruselPrincipal, MainSlideShow, ThemedButton, ThemedText } from '@/presentation/components';
+import { CarruselHorizontal, CarruselPrincipal, ThemedButton, ThemedText } from '@/presentation/components';
+import { deportesData } from '@/presentation/data';
+
 
 
 
@@ -16,7 +16,7 @@ const DashboardScreen = () => {
 
     const { background } = useThemeColors();
     const { startLogout } = useAuthStore();
-    // const safeArea = useSafeAreaInsets();
+
 
 
 
@@ -34,9 +34,14 @@ const DashboardScreen = () => {
                 <CarruselPrincipal />
 
                 {/* Carrusel de Imagenes */}
-                <View className='my-10'>
-                    <ThemedText type='h2' bold className='pl-3'>Expertos en:</ThemedText>
-                    <MainSlideShow datos={deportesData ?? []} />
+                <View className='my-5'>
+                    <ThemedText type='h2' bold className='pl-4 pb-1'>Expertos en:</ThemedText>
+                    <CarruselHorizontal datos={deportesData} />
+                </View>
+
+                <View className='my-5'>
+                    <ThemedText type='h2' bold className='pl-4 pb-1'>Ofrecemos:</ThemedText>
+                    <CarruselHorizontal datos={deportesData} />
                 </View>
 
 

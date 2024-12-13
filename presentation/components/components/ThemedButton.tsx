@@ -1,7 +1,7 @@
 
 import { Text, Pressable, PressableProps } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { useThemeColor } from '@/presentation/themes/hooks/useThemeColor';
+import useThemeColors from '@/presentation/hooks/global/useThemeColors';
 
 
 
@@ -16,15 +16,16 @@ interface Props extends PressableProps {
 
 export const ThemedButton = ({ children, icon, radius=5, ...rest }: Props) => {
 
-    const primaryColor = useThemeColor({}, 'primary');
+    const { primary } = useThemeColors();
+
 
     return (
 
-        <Pressable style={{backgroundColor: primaryColor, borderRadius:radius }}  { ...rest }
+        <Pressable style={{backgroundColor: primary, borderRadius:radius }}  { ...rest }
             className="px-4 py-3 flex-row items-center justify-center bg-primary active:opacity-70 gap-3"
         >
-            { icon && ( <Ionicons name={icon} size={24} color="white" /> )}
-            <Text className="text-white font-semibold">{children}</Text>
+            { icon && ( <Ionicons name={icon} size={22} color="white" /> )}
+            <Text style={{fontSize:15, color:'white', fontWeight:'600'}}>{ children }</Text>
         </Pressable>
     );
 };

@@ -5,15 +5,19 @@ import { Redirect, Stack } from 'expo-router';
 import { useAuthStore } from '@/presentation/stores';
 import useThemeColors from '@/presentation/hooks/global/useThemeColors';
 import { CargandoScreen } from '@/presentation/components';
-
-
-// import CustomDrawer from '@/presentation/components/components/CustomDrawer';
-// import { Drawer } from 'expo-router/drawer';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 
 
+const queryClient = new QueryClient({
+    defaultOptions: { queries: { retry: false } }
+})
 
-const DrawerLayout = () => {
+
+
+
+
+const RootLayout = () => {
 
 
     const { status, startCheckStatus } = useAuthStore();
@@ -40,19 +44,24 @@ const DrawerLayout = () => {
 
 
     return (
-        <Stack
-            screenOptions={{
-                headerShadowVisible: false,
-                headerStyle: { backgroundColor:background },
-                contentStyle: {backgroundColor: background},
-                headerShown:false
-            }}
-        >
-            <Stack.Screen name='(dashboard)' options={{ title: 'Dashboard' }} />
-        </Stack>
+
+        <QueryClientProvider client={ queryClient }>
+            <Stack
+                screenOptions={{
+                    headerShadowVisible: false,
+                    headerStyle: { backgroundColor:background },
+                    contentStyle: {backgroundColor: background},
+                    headerShown:false
+                }}
+            >
+                <Stack.Screen name='(dashboard)' options={{ title: 'Dashboard' }} />
+                <Stack.Screen name='deportistas/index' options={{ title: 'Deportistas' }} />
+                <Stack.Screen name='profesores/index' options={{ title: 'Profesores' }} />
+
+            </Stack>
+        </QueryClientProvider>
+
     )
-
-
 }
 
-export default DrawerLayout
+export default RootLayout

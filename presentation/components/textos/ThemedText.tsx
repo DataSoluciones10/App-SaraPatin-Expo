@@ -20,11 +20,12 @@ export type ThemedTextProps = TextProps & {
 export const ThemedText = ({ style, lightColor, darkColor, type='normal', className, bold, ...rest }: ThemedTextProps) => {
 
   const color = useThemeColor({ light: lightColor, dark: darkColor }, 'text');
+  
 
   return (
 
       <Text
-        style={[{ color }]}
+        style={[{ color }, style]}
         className={[
           // 'text-light-text dark:text-dark-text',
           type === 'normal' ? 'font-normal' : undefined,
