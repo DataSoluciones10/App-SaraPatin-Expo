@@ -1,5 +1,6 @@
 
 import { deportistasApi } from "@/core/apis";
+import { Deportista, DeportistaResp, FormDeportista } from "@/core/interfaces";
 
 
 
@@ -19,7 +20,7 @@ const emptyDeportista = {
     talla: '',
     eps: '',
     informacion: '',
-}
+};
 
 
 export const deportistaPorID = async(id:string):Promise<any> => {
@@ -60,3 +61,75 @@ export const listadoMisDeportistas = async({ page=0, termino='' }):Promise<any> 
         throw new Error(errores);
     }
 }
+
+
+
+
+
+export const updateCreateDeportistas = async({ img, club, profesor, ...deportista}: FormDeportista):Promise<Deportista> => {
+    try {
+        const formData = new FormData();
+        formData.append('images', img);  
+        formData.append('club', JSON.stringify(club));
+        formData.append('profesor', JSON.stringify(profesor));
+
+        Object.entries(deportista).forEach(([key, value]:any) => {
+            formData.append(key, value.toString());
+        });
+
+        if( deportista.id && deportista.id !== 'new' ) {
+            // console.log('actualizar', deportista.id, {formData})
+            const { data } = await deportistasApi.put<DeportistaResp>(`/${deportista.id}`, formData, 
+                { headers: { 'Content-Type': 'multipart/form-data' }
+            });
+
+            return data.data;
+        }
+
+        console.log('crear')
+        const { data } = await deportistasApi.post<DeportistaResp>('/', formData);
+        return data.data;
+
+    } catch (error: any) {
+        const errores = error.response.data['msg'] || error.response.data.errors[0]['msg'];
+        throw new Error(errores);
+    }
+}
+
+
+
+
+
+// export const updateCreateDeportistas = async({ img, club, profesor, ...deportista}: FormDeportista):Promise<Deportista> => {
+//     try {
+//         const formData = new FormData();
+//         if ( img ){ formData.append('images', img) } 
+//         formData.append('club', JSON.stringify(club));
+//         formData.append('profesor', JSON.stringify(profesor));
+
+//         // Object.entries(deportista).forEach(([key, value]:any) => {
+//         //     formData.append(key, value.toString());
+//         // });
+
+//         Object.entries(deportista).forEach(([key, value]) => {
+//             if (value !== undefined && value !== null) {
+//                 formData.append(key, value.toString());
+//             }
+//         });
+
+//         if( deportista.id && deportista.id !== 'new' ) {
+//             const { data } = await deportistasApi.put<DeportistaResp>(`/${deportista.id}`, formData);
+//             return data.data;
+//         }
+
+//         console.log('crear')
+//         const { data } = await deportistasApi.post<DeportistaResp>('/', formData);
+//         return data.data;
+
+//     } catch (error: any) {
+//         const errores = error.response.data['msg'] || error.response.data.errors[0]['msg'];
+//         throw new Error(errores);
+//     }
+// }
+
+

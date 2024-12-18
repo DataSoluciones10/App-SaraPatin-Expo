@@ -7,6 +7,7 @@ import { useDeportistaId } from '@/presentation/hooks';
 import { FormDeportistas } from '@/presentation/screen/usuarios';
 import { useCiudadesStore } from '@/presentation/stores';
 import { useEffect } from 'react';
+import { FormikState } from 'formik';
 
 
 
@@ -17,7 +18,7 @@ const DeportistaScreen = () => {
 
 
     const { id } = useLocalSearchParams();
-    const { deportistaQueryId } = useDeportistaId(`${id}`);
+    const { deportistaQueryId, deportistaMutation } = useDeportistaId(`${id}`);
     const { startListadoRegiones } = useCiudadesStore();
 
 
@@ -48,17 +49,17 @@ const DeportistaScreen = () => {
 
 
 
-    const handleLogin = async(values:any, resetForm:any) => {
+    const handleLogin = async(values:any, resetForm:(nextState?: Partial<FormikState<any>> | undefined) => void) => {
         // setIsPosting(true);
-        // const wasSuccessful = await startLogin(values.correo, values.password);
+        deportistaMutation.mutate(values);
         // setIsPosting(false);
 
-        // if(wasSuccessful) {
-        //     router.replace('/');
-        //     resetForm();
-        //     return;
+        // if( resp ) {
+            // router.replace('/');
+            // resetForm();
+            // return;
         // }
-        console.log('todo bien', values)
+        // console.log('todo bien', values)
     }
 
 

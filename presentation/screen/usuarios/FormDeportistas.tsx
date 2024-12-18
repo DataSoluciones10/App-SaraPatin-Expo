@@ -1,9 +1,10 @@
 
+import { useEffect } from 'react';
 import { KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native';
 
 import * as Yup from 'yup';
 import { Formik } from 'formik';
-import { InputFormText, SelectIdNombre, SelectNormalThemed, ThemedView } from '../../../presentation/components';
+import { InputFormText, MultiSelectNombreID, SelectIdNombre, SelectNormalThemed, ThemedView } from '../../../presentation/components';
 import { ThemedButton } from '../../../presentation/components/components/ThemedButton';
 import { epsData, ramaData, tipoDocumento, tipoPatin } from '@/presentation/data';
 import { AvatarScreen } from '@/presentation/components/components/AvatarScreen';
@@ -22,6 +23,12 @@ export const FormDeportistas = ({ deportista, handleFuncion, id }:any) => {
 
     const { regiones, ciudades, startListadoCiudades } = useCiudadesStore();
 
+
+    useEffect(() => {
+        if (deportista?.departamento) {
+            startListadoCiudades(deportista?.departamento);
+        }
+    }, [deportista?.departamento]);
 
 
 
@@ -53,8 +60,8 @@ export const FormDeportistas = ({ deportista, handleFuncion, id }:any) => {
                     //         .required('Campo Requerido'),
                     departamento: Yup.string()
                             .required('Campo Requerido'),
-                    // ciudad: Yup.string()
-                            // .required('Campo Requerido'),
+                    ciudad: Yup.string()
+                            .required('Campo Requerido'),
                     rama: Yup.string()
                             .required('Campo Requerido'),
                     patin: Yup.string()
@@ -133,6 +140,7 @@ export const FormDeportistas = ({ deportista, handleFuncion, id }:any) => {
                         setFieldValue={ setFieldValue }
                         value={values.club}
                     />
+                    {/* <MultiSelectNombreID /> */}
 
                     {regiones &&
                     <SelectIdNombre
@@ -148,7 +156,7 @@ export const FormDeportistas = ({ deportista, handleFuncion, id }:any) => {
                         }}
                     />}
 
-                    {ciudades &&   //! PENDIENTE
+                    {ciudades && 
                     <SelectIdNombre
                         name='ciudad'
                         label='Ciudad'
