@@ -9,7 +9,7 @@ import { ThemedButton } from '../../../presentation/components/components/Themed
 import { epsData, ramaData, tipoDocumento, tipoPatin } from '@/presentation/data';
 import { AvatarScreen } from '@/presentation/components/components/AvatarScreen';
 import { DateFormInput } from '@/presentation/components/inputs/DateFormInput';
-import { useCiudadesStore } from '@/presentation/stores';
+import { useCiudadesStore, useClubStore, useProfesoresStore } from '@/presentation/stores';
 
 
 
@@ -21,6 +21,8 @@ import { useCiudadesStore } from '@/presentation/stores';
 export const FormDeportistas = ({ deportista, handleFuncion, id }:any) => {
 
 
+    const { clubes } = useClubStore();
+    const { profesores } = useProfesoresStore();
     const { regiones, ciudades, startListadoCiudades } = useCiudadesStore();
 
 
@@ -55,9 +57,12 @@ export const FormDeportistas = ({ deportista, handleFuncion, id }:any) => {
                             .max(10, 'El movil debe de ser maximo de 10 caracteres')
                             .min(10, 'El movil debe de ser minimo de 10 caracteres')
                             .required('Campo Requerido'),
-                    // club: Yup.array()
-                    //         .min(1, 'Debe seleccionar por lo menos una organización')
-                    //         .required('Campo Requerido'),
+                    club: Yup.array()
+                            .min(1, 'Debe seleccionar por lo menos una organización')
+                            .required('Campo Requerido'),
+                    profesor: Yup.array()
+                            .min(1, 'Debe seleccionar por lo menos una profesor')
+                            .required('Campo Requerido'),
                     departamento: Yup.string()
                             .required('Campo Requerido'),
                     ciudad: Yup.string()
@@ -132,15 +137,23 @@ export const FormDeportistas = ({ deportista, handleFuncion, id }:any) => {
                         name='movil'
                     />
 
-                    <SelectNormalThemed
+                    <MultiSelectNombreID 
                         name='club'
                         label='Club'
-                        options={ [] }
+                        options={ clubes }
                         titulo='Club'
                         setFieldValue={ setFieldValue }
                         value={values.club}
                     />
-                    {/* <MultiSelectNombreID /> */}
+
+                    <MultiSelectNombreID 
+                        label="Profesores" 
+                        name="profesor"
+                        options={ profesores }
+                        titulo='Profesores'
+                        setFieldValue={ setFieldValue }
+                        value={values.profesor}
+                    />
 
                     {regiones &&
                     <SelectIdNombre

@@ -1,18 +1,15 @@
 
 import { useState } from 'react';
 import { View, Text } from 'react-native';
-import { Picker } from '@react-native-picker/picker';
 import { useField } from 'formik';
-import { ThemedText } from '../textos/ThemedText';
 import useThemeColors from '@/presentation/hooks/global/useThemeColors';
-
-
+import { Dropdown } from 'react-native-element-dropdown';
 
 
 interface Props {
     name: string;
     label: string;
-    options: string[];
+    options: any[];
     titulo?: string;
     value?: string;
     setFieldValue: any;
@@ -23,45 +20,81 @@ interface Props {
 export const SelectNormalThemed = ({ name, options, label, value, titulo, setFieldValue, ...rest }: Props) => {
 
 
+
     const { primary, opaco, text, error, background } = useThemeColors();
     const [isActive, setIsActive] = useState(false);
-    const [field, meta] = useField<any>(name);
+    const [_, meta] = useField<any>(name);
     const hasError = meta.error && meta.touched; 
-
 
 
     return (
 
-        <View style={{marginBottom:16}}>
+        // <View style={{marginBottom:16}}>
 
-            {titulo && 
-                <ThemedText style={{fontSize:13, fontWeight:'bold', marginBottom:1, color: hasError ? error : text}}>
-                    { titulo }
-                </ThemedText> 
-            }
+        //     {titulo && 
+        //         <ThemedText style={{fontSize:13, fontWeight:'bold', marginBottom:1, color: hasError ? error : text}}>
+        //             { titulo }
+        //         </ThemedText> 
+        //     }
 
-            <View className={`border rounded-md `} 
-                style={{ borderColor: hasError ? error : isActive ? primary : opaco, height:45, justifyContent:'center' }}>
+        //     <View className={`border rounded-md `} 
+        //         style={{ borderColor: hasError ? error : isActive ? primary : opaco, height:45, justifyContent:'center' }}>
 
-                <Picker
-                    mode="dropdown"
-                    style={{ color:( field.value === '' || !field.value) ? 'gray' : hasError ? error : text }}
-                    itemStyle={{ backgroundColor:background }}
-                    selectedValue={value}
-                    onValueChange={(value) => { setFieldValue(name, value) }}
+        //         <Picker
+        //             mode="dropdown"
+        //             style={{ color:( field.value === '' || !field.value) ? 'gray' : hasError ? error : text }}
+        //             itemStyle={{ backgroundColor:background }}
+        //             selectedValue={value}
+        //             onValueChange={(value) => { setFieldValue(name, value) }}
+        //             onFocus={() => setIsActive(true)}
+        //             onBlur={() => setIsActive(false)}
+        //             {...rest}
+        //         >
+        //             <Picker.Item label={label} value="" style={{color: 'gray'}}/>
+        //             {options.map((option) => (
+        //                 <Picker.Item key={option} label={option} value={option} />
+        //             ))}
+        //         </Picker>
+        //     </View>
+
+        //     {hasError && <Text style={{ color: error }}>{meta.error}</Text>}
+        // </View>
+
+
+        <View style={{ marginBottom: 16 }}>
+            {titulo && (
+            <Text style={{ fontSize: 13, fontWeight: 'bold', marginBottom: 1, color: hasError ? error : text }}>
+                {titulo}
+            </Text>
+            )}
+
+            {/* Dropdown */}
+            <View style={{ borderWidth:1, borderColor: hasError ? error : isActive ? primary : opaco, 
+                borderRadius:6, height:45, justifyContent:'center', backgroundColor:background }}
+            >
+                <Dropdown
+                    data={options.map((option) => ({ label: option, value: option }))}
+                    value={value}
+                    activeColor={primary}
+                    labelField="label"
+                    valueField="value"
+                    placeholder={label}
+                    style={{paddingHorizontal:15}}
+                    placeholderStyle={{ color:'gray' }}
+                    selectedTextStyle={{ color: hasError ? error : text }}
+                    itemContainerStyle={{ backgroundColor: background }}
+                    itemTextStyle={{ color:text }}
                     onFocus={() => setIsActive(true)}
                     onBlur={() => setIsActive(false)}
+                    onChange={(item:any) => setFieldValue(name, item.value)}
                     {...rest}
-                >
-                    <Picker.Item label={label} value="" style={{color: 'gray'}}/>
-                    {options.map((option) => (
-                        <Picker.Item key={option} label={option} value={option} />
-                    ))}
-                </Picker>
+                />
             </View>
-
+            {/* Mensaje de error */}
             {hasError && <Text style={{ color: error }}>{meta.error}</Text>}
         </View>
+
+
     );
 };
 

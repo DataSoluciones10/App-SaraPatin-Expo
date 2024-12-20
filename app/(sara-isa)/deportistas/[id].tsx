@@ -1,13 +1,13 @@
 
+import { useEffect } from 'react';
 import { Redirect, useLocalSearchParams } from 'expo-router';
+import { FormikState } from 'formik';
 
 import { DisenioPagina } from '@/presentation/layouts'
 import { CargandoScreen } from '../../../presentation/components';
 import { useDeportistaId } from '@/presentation/hooks';
 import { FormDeportistas } from '@/presentation/screen/usuarios';
-import { useCiudadesStore } from '@/presentation/stores';
-import { useEffect } from 'react';
-import { FormikState } from 'formik';
+import { useCiudadesStore, useClubStore, useProfesoresStore } from '@/presentation/stores';
 
 
 
@@ -20,11 +20,25 @@ const DeportistaScreen = () => {
     const { id } = useLocalSearchParams();
     const { deportistaQueryId, deportistaMutation } = useDeportistaId(`${id}`);
     const { startListadoRegiones } = useCiudadesStore();
+    const { startClubPorDirector } = useClubStore();
+    const { adminAndProfesores } = useProfesoresStore();
 
 
     useEffect(() => {
         startListadoRegiones();
         // return () => funcionImagen(undefined);
+    }, []);
+
+
+
+    useEffect(() => {
+        startClubPorDirector();
+    }, [])
+
+
+
+    useEffect(() => {
+        adminAndProfesores();
     }, [])
 
     
@@ -44,14 +58,14 @@ const DeportistaScreen = () => {
     }   
 
 
-    const deportista = deportistaQueryId.data!;
 
+    const deportista = deportistaQueryId.data!;
 
 
 
     const handleLogin = async(values:any, resetForm:(nextState?: Partial<FormikState<any>> | undefined) => void) => {
         // setIsPosting(true);
-        deportistaMutation.mutate(values);
+        // deportistaMutation.mutate(values);
         // setIsPosting(false);
 
         // if( resp ) {
@@ -59,7 +73,7 @@ const DeportistaScreen = () => {
             // resetForm();
             // return;
         // }
-        // console.log('todo bien', values)
+        console.log('todo bien', values)
     }
 
 

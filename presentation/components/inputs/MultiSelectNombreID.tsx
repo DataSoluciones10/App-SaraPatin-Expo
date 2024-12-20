@@ -1,53 +1,104 @@
 
-
+import { useField } from 'formik';
 import { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
-import { FlatList } from 'react-native-gesture-handler';
+import { View, Text, TouchableOpacity } from 'react-native'
+import { MultiSelect } from 'react-native-element-dropdown';
+import useThemeColors from '@/presentation/hooks/global/useThemeColors';
+import { Ionicons } from '@expo/vector-icons';
 
 
 
 
+interface Props {
+  name: string;
+  label: string;
+  options: any[];
+  titulo?: string;
+  value?: any;
+  setFieldValue: any;
+}
 
-export const MultiSelectNombreID = () => {
 
-    const [selectedItems, setSelectedItems] = useState<any>([]);
+
+
+export const MultiSelectNombreID = ({ name, options, label, value, titulo, setFieldValue, ...rest }: Props) => {
+
+
+
+  const { primary, opaco, text, error, background } = useThemeColors();
+  const [isActive, setIsActive] = useState(false);
+  const [selectedValues, setSelectedValues] = useState<string[]>(value || []);
+  const [_, meta] = useField<any>(name);
+  const hasError = meta.error && meta.touched; 
+
+
+   // useEffect(() => {
+  //   if (value) {
+  //     setSelectedValues(value);
+  //   }
+  // }, [value]);
+
+
+
+  const handleSelect = (valor: any) => {
+      setSelectedValues(valor);
+      setFieldValue(name, valor);
+  };
+
+
+  
     const items = [
-      { id: '1', label: 'Manzana' },
-      { id: '2', label: 'Banana' },
-      { id: '3', label: 'Cereza' },
+      { id: '1', nombre: 'Manzana' },
+      { id: '2', nombre: 'Banana' },
+      { id: '3', nombre: 'Cereza' },
     ];
 
 
-
-    const toggleItem = (item:any) => {
-        if (selectedItems.includes(item.id)) {
-            setSelectedItems(selectedItems.filter((id:any) => id !== item.id));
-        } else {
-            setSelectedItems([...selectedItems, item.id]);
-        }
-    };
-    
-
-
-
     return (
-        <View style={styles.container}>
-            <FlatList
-                data={items}
-                keyExtractor={(item) => item.id}
-                renderItem={({ item }) => (
-                <TouchableOpacity
-                    style={[
-                    styles.item,
-                    selectedItems.includes(item.id) && styles.selectedItem,
-                    ]}
-                    onPress={() => toggleItem(item)}
-                >
-                    <Text style={styles.itemText}>{item.label}</Text>
-                </TouchableOpacity>
-                )}
-            />
-            <Text style={styles.selectedText}>Seleccionados: {selectedItems.join(', ')}</Text>
+
+        <View style={{ marginBottom: 16 }}>
+            {titulo && (
+            <Text style={{ fontSize:13, fontWeight:'bold', marginBottom:1, color:hasError ? error : text }}>
+                {titulo}
+            </Text>
+            )}
+
+            {/* Dropdown */}
+            <View style={{ borderWidth:1, borderColor: hasError ? error : isActive ? primary : opaco, borderRadius:6, 
+                minHeight:45, justifyContent:'center', backgroundColor:background, position:'relative' }}
+            >
+
+              <MultiSelect
+                  placeholderStyle={{ color: opaco }}
+                  selectedTextStyle={{ color: hasError ? error : text }}
+                  itemContainerStyle={{ backgroundColor: background }}
+                  itemTextStyle={{ color: text }}
+                  style={{paddingHorizontal:15, position:'absolute', flex:1, width:'100%'}}
+                  data={ options }
+                  labelField="nombre"
+                  valueField="id"
+                  placeholder={selectedValues.length === 0 ? label : ''} 
+                  value={ selectedValues }
+                  onChange={ handleSelect }
+                  activeColor={ primary }
+                  onFocus={() => setIsActive(true)}
+                  onBlur={() => setIsActive(false)}
+                  renderSelectedItem={(item, unselect) => (
+                    <TouchableOpacity
+                      onPress={() => unselect?.(item)}
+                      style={{ flexDirection:'row', alignItems:'center', backgroundColor:`${primary}90`,
+                        borderRadius:4, paddingHorizontal:8, paddingVertical:4, marginVertical: 2, marginRight: 4,
+                    }}>
+                      <Text style={{ color:'white', fontSize:13, marginRight:4 }}>
+                        {item.nombre}
+                      </Text>
+                      <Ionicons name="close-circle" size={16} color='white' />
+                    </TouchableOpacity>
+                  )}
+              />
+          </View>
+            {/* Mensaje de error */}
+            {hasError && <Text style={{ color: error }}>{meta.error}</Text>}
         </View>
     );
 }
@@ -56,28 +107,30 @@ export const MultiSelectNombreID = () => {
 
 
 
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      padding: 20,
-    },
-    item: {
-      padding: 10,
-      marginVertical: 5,
-      borderWidth: 1,
-      borderColor: '#ccc',
-      borderRadius: 5,
-    },
-    selectedItem: {
-      backgroundColor: '#6200EE',
-    },
-    itemText: {
-      color: '#000',
-    },
-    selectedText: {
-      marginTop: 20,
-      fontWeight: 'bold',
-    },
-  });
-
-
+//!PENDIENTE SI NO FUNCIONA USAR ESTE Y PONER EN EL PLACEHOLDER LOS VALORES Y CAMBIAR EL 
+//! COLOR DEL TEXTO DE OPACO A COLOR DEL TEXT.
+{/* <Dropdown
+  data={items}
+  labelField="nombre"
+  valueField="id"
+  value={ { id: '1', nombre: 'Manzana' } }
+  placeholder={label}
+  style={{ paddingHorizontal: 15 }}
+  placeholderStyle={{ color: opaco }}
+  selectedTextStyle={{ color: hasError ? error : text }}
+  itemContainerStyle={{ backgroundColor: background }}
+  itemTextStyle={{ color: text }}
+  activeColor={primary}
+  onFocus={() => setIsActive(true)}
+  onBlur={() => setIsActive(false)}
+  // onChange={ (e:any) => handleSelect(e.id) }
+  onChange={ handleSelect }
+  renderItem={(item) => (
+    <View style={{ flexDirection:'row', justifyContent:'space-between', alignItems:'center', padding:10,
+        backgroundColor: selectedValues.find((value:any) => value === item.id) ? primary : background,
+    }}>
+      <Text style={{ color: text }}>{item.nombre}</Text>
+      {selectedValues.find((value:any) => value === item.id) && <Text style={{ color: text }}>✔</Text>}
+    </View>
+  )}
+/> */}

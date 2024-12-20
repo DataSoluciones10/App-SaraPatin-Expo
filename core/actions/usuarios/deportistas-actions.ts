@@ -35,6 +35,7 @@ export const deportistaPorID = async(id:string):Promise<any> => {
             talla: valor.talla.toString(),
             peso: valor.peso.toString(),
             eps: valor.eps,
+            profesor: valor.profesor,
             fechaNacimiento: valor.fechaNacimiento,
         }
         return datos || null;

@@ -12,7 +12,6 @@ import { ClubesResp } from "@/core/interfaces";
 
 
 
-
 export const clubPorDirector = async():Promise<ClubesResp> => {
     try {
         const { data } = await clubesApi.get<ClubesResp>(`/miclub`);
