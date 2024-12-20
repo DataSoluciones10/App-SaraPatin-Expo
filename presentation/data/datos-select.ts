@@ -6,7 +6,7 @@ export const tipoEntidad = ['CLUBES', 'ESCUELAS', 'ENTIDADES'];
 // Datos de deportistas
 export const tipoPatin = ['SEMIPROFESIONAL', 'NOVATOS', 'LIGADOS'];
 export const ramaData = ['DAMA', 'VARON'];
-export const invitados = [ {name:'OFICIAL', valor:false}, {name:'INVITADO', valor:true} ];
+export const invitados = [ {name:'OFICIAL', id:false}, {name:'INVITADO', id:true} ];
 // Tipos de Documneto para usuarios y Deportistas
 export const tipoDocumento = ['REGISTRO-CIVIL', 'TARJETA-IDENTIDAD', 'CEDULA', 'CEDULA-EXTRANJERIA'];
 export const documentoMayor = ['TARJETA-IDENTIDAD', 'CEDULA', 'CEDULA-EXTRANJERIA'];

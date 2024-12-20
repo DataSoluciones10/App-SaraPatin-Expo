@@ -21,6 +21,7 @@ module.exports = {
           opaco: Colors.light.opaco,
           error: Colors.light.error,
           success: Colors.light.success,
+          disabledColor: Colors.light.disabledColor,
         },
         dark: {
           primary: Colors.dark.primary,
@@ -30,6 +31,7 @@ module.exports = {
           opaco: Colors.dark.opaco,
           error: Colors.dark.error,
           success: Colors.dark.success,
+          disabledColor: Colors.dark.disabledColor,
         }
       }
     },

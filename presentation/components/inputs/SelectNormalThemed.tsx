@@ -29,37 +29,6 @@ export const SelectNormalThemed = ({ name, options, label, value, titulo, setFie
 
     return (
 
-        // <View style={{marginBottom:16}}>
-
-        //     {titulo && 
-        //         <ThemedText style={{fontSize:13, fontWeight:'bold', marginBottom:1, color: hasError ? error : text}}>
-        //             { titulo }
-        //         </ThemedText> 
-        //     }
-
-        //     <View className={`border rounded-md `} 
-        //         style={{ borderColor: hasError ? error : isActive ? primary : opaco, height:45, justifyContent:'center' }}>
-
-        //         <Picker
-        //             mode="dropdown"
-        //             style={{ color:( field.value === '' || !field.value) ? 'gray' : hasError ? error : text }}
-        //             itemStyle={{ backgroundColor:background }}
-        //             selectedValue={value}
-        //             onValueChange={(value) => { setFieldValue(name, value) }}
-        //             onFocus={() => setIsActive(true)}
-        //             onBlur={() => setIsActive(false)}
-        //             {...rest}
-        //         >
-        //             <Picker.Item label={label} value="" style={{color: 'gray'}}/>
-        //             {options.map((option) => (
-        //                 <Picker.Item key={option} label={option} value={option} />
-        //             ))}
-        //         </Picker>
-        //     </View>
-
-        //     {hasError && <Text style={{ color: error }}>{meta.error}</Text>}
-        // </View>
-
 
         <View style={{ marginBottom: 16 }}>
             {titulo && (

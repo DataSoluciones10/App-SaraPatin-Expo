@@ -112,7 +112,7 @@ const RegisterScreen = () => {
 
 
                     <View className="flex-row justify-center items-center mt-7">
-                        <ThemedText>Ya tienes cuenta?</ThemedText>
+                        <ThemedText>¿Ya tienes cuenta?</ThemedText>
                         <ThemedLink href="/tabs/login" style={{color:primary, marginLeft:7, fontWeight:'bold'}}>Ingresar</ThemedLink>
                     </View>
                 </ScrollView>

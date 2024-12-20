@@ -22,10 +22,9 @@ const Inscripciones = () => {
 
 
 
-    const handleGenerarInscripcion = () => {
-        console.log('Holis');
+    const handleGenerarInscripcion = (values:any, reset:any) => {
+        console.log('Holis', {...values, deportistas: items});
     }
-
 
 
 
@@ -35,7 +34,9 @@ const Inscripciones = () => {
             <ScrollView style={{ backgroundColor:background }}>
 
                 <View className='mt-3 mb-7'>
-                    <FormInscripciones items={items} setItems={setItems} />
+                    <FormInscripciones items={items} setItems={setItems} 
+                        handleFunction={handleGenerarInscripcion}
+                    />
                 </View>
 
                 <View className='my-3'>

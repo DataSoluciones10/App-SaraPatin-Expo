@@ -4,7 +4,7 @@ import { KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native';
 
 import * as Yup from 'yup';
 import { Formik } from 'formik';
-import { InputFormText, MultiSelectNombreID, SelectIdNombre, SelectNormalThemed, ThemedView } from '../../../presentation/components';
+import { InputFormText, MultiSelectNombreID, SelectIdName, SelectNormalThemed, ThemedView } from '../../../presentation/components';
 import { ThemedButton } from '../../../presentation/components/components/ThemedButton';
 import { epsData, ramaData, tipoDocumento, tipoPatin } from '@/presentation/data';
 import { AvatarScreen } from '@/presentation/components/components/AvatarScreen';
@@ -18,9 +18,10 @@ import { useCiudadesStore, useClubStore, useProfesoresStore } from '@/presentati
 
 
 
-export const FormDeportistas = ({ deportista, handleFuncion, id }:any) => {
+export const FormDeportistas = ({ deportista, handleFuncion, id, isLoading }:any) => {
 
 
+    
     const { clubes } = useClubStore();
     const { profesores } = useProfesoresStore();
     const { regiones, ciudades, startListadoCiudades } = useCiudadesStore();
@@ -156,7 +157,7 @@ export const FormDeportistas = ({ deportista, handleFuncion, id }:any) => {
                     />
 
                     {regiones &&
-                    <SelectIdNombre
+                    <SelectIdName
                         name='departamento'
                         label='Departamento'
                         options={ regiones }
@@ -170,7 +171,7 @@ export const FormDeportistas = ({ deportista, handleFuncion, id }:any) => {
                     />}
 
                     {ciudades && 
-                    <SelectIdNombre
+                    <SelectIdName
                         name='ciudad'
                         label='Ciudad'
                         options={ ciudades }
@@ -251,11 +252,12 @@ export const FormDeportistas = ({ deportista, handleFuncion, id }:any) => {
 
 
                     <View style={{marginBottom:50, marginTop:10}}>
-                        <ThemedButton icon='save-outline' onPress={ () => handleSubmit() }>
+                        <ThemedButton icon='save-outline' onPress={ () => handleSubmit() } disabled={isLoading.isPending}>
                             { `${id === 'new' ? 'Guardar' : 'Editar'} Deportista`}
                         </ThemedButton>
                     </View>
 
+                    {/* disabled={mutation.isPending} */}
 
                     </ScrollView>
                 </KeyboardAvoidingView>

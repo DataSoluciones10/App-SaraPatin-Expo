@@ -1,6 +1,7 @@
 
+import { useEffect, useState } from 'react';
 import { useField } from 'formik';
-import { useState } from 'react';
+
 import { View, Text, TouchableOpacity } from 'react-native'
 import { MultiSelect } from 'react-native-element-dropdown';
 import useThemeColors from '@/presentation/hooks/global/useThemeColors';
@@ -25,18 +26,16 @@ export const MultiSelectNombreID = ({ name, options, label, value, titulo, setFi
 
 
 
-  const { primary, opaco, text, error, background } = useThemeColors();
+  const { primary, opaco, disabledColor, text, error, background } = useThemeColors();
   const [isActive, setIsActive] = useState(false);
   const [selectedValues, setSelectedValues] = useState<string[]>(value || []);
   const [_, meta] = useField<any>(name);
   const hasError = meta.error && meta.touched; 
 
 
-   // useEffect(() => {
-  //   if (value) {
-  //     setSelectedValues(value);
-  //   }
-  // }, [value]);
+  useEffect(() => {
+    setSelectedValues(value);
+  }, [value]);
 
 
 
@@ -46,12 +45,6 @@ export const MultiSelectNombreID = ({ name, options, label, value, titulo, setFi
   };
 
 
-  
-    const items = [
-      { id: '1', nombre: 'Manzana' },
-      { id: '2', nombre: 'Banana' },
-      { id: '3', nombre: 'Cereza' },
-    ];
 
 
     return (
@@ -69,7 +62,7 @@ export const MultiSelectNombreID = ({ name, options, label, value, titulo, setFi
             >
 
               <MultiSelect
-                  placeholderStyle={{ color: opaco }}
+                  placeholderStyle={{ color: disabledColor }}
                   selectedTextStyle={{ color: hasError ? error : text }}
                   itemContainerStyle={{ backgroundColor: background }}
                   itemTextStyle={{ color: text }}

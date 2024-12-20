@@ -1,6 +1,6 @@
 
 import { Alert } from 'react-native';
-import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { deportistaPorID, listadoMisDeportistas, updateCreateDeportistas } from '@/core/actions';
 
 
@@ -29,6 +29,8 @@ export const useDeportistas = () => {
 
 export const useDeportistaId = (uid:string) => {
 
+    const queryClient = useQueryClient();
+
     
     const deportistaQueryId = useQuery({
         queryKey: ['deportistaId', uid],
@@ -40,7 +42,11 @@ export const useDeportistaId = (uid:string) => {
 
     const deportistaMutation = useMutation({
         mutationFn: async( data:any ) => updateCreateDeportistas(data),
+
         onSuccess( data:any ) {
+            queryClient.invalidateQueries({ queryKey: ['mis-deportistas', 'infinite'] });
+            queryClient.invalidateQueries({ queryKey: ['deportistaId', data.id] });
+
             Alert.alert('Deportista Guardado', 'El deportista se guardo con exito.')
         }
     });

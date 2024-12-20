@@ -1,7 +1,6 @@
 
 export * from  './components/TarjetaDeUsuario';
 export * from './components/AlertComponent';
-export * from './components/ButtonIsPosting';
 export * from './components/CargandoScreen';
 export * from './components/CarruselHorizontal';
 export * from './components/CarruselPrincipal';
@@ -15,7 +14,7 @@ export * from './poster/ImagenPoster';
 export * from './inputs/TextInputPassword';
 export * from './inputs/TextInputThemed';
 export * from './inputs/SelectNormalThemed';
-export * from './inputs/SelectNameNormal'
+export * from './inputs/SelectIdName'
 export * from './inputs/InputFormText';
 export * from './inputs/SelectIdNombre';
 export * from './inputs/MultiSelectNombreID';

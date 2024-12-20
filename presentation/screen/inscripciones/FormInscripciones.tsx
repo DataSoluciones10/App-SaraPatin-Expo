@@ -4,15 +4,32 @@ import { KeyboardAvoidingView, View } from 'react-native';
 
 import * as Yup from 'yup';
 import { Formik } from "formik";
-import { SelectNormalThemed, ThemedButton, SelectNameNormal } from '@/presentation/components';
+import { SelectNormalThemed, ThemedButton, SelectIdName, SelectIdNombre } from '@/presentation/components';
 import { invitados, tipoPatin } from '@/presentation/data';
+import { useClubStore, useCompetenciaStore } from '@/presentation/stores';
+import { useEffect } from 'react';
 
 
 
 
 
-export const FormInscripciones = ({ items }:any) => {
+export const FormInscripciones = ({ items, handleFunction }:any) => {
 
+
+    const { startClubPorDirector, clubes } = useClubStore();
+    const { competencias, startListadoCompetenciasActivas } = useCompetenciaStore();
+
+
+
+    useEffect(() => {
+        startListadoCompetenciasActivas();
+    }, []);
+
+
+    useEffect(() => {
+        startClubPorDirector();
+    }, []);
+    
 
 
     return (
@@ -27,7 +44,7 @@ export const FormInscripciones = ({ items }:any) => {
                     deportistas: '',
                 }}
                 onSubmit={ ( values:any, { resetForm } ) => {
-                    console.log({values})
+                    handleFunction(values, resetForm)
                 }}
                 validationSchema={
                     Yup.object({
@@ -42,33 +59,41 @@ export const FormInscripciones = ({ items }:any) => {
                     })
                 }
             >
-            {({ handleChange, values, errors, handleBlur, handleSubmit }) => (
+            {({ values, errors, handleSubmit, setFieldValue }) => (
                 <View style={{ paddingHorizontal:15 }}>
                     <View style={{marginTop:20}}>
 
-                        <SelectNormalThemed
-                            name='competencia'
-                            label='Seleccione Competencia'
-                            options={ [] }
-                        />
+                    <SelectIdNombre
+                        name='competencia'
+                        label='Seleccione Competencia'
+                        options={ competencias || [] }
+                        setFieldValue={ setFieldValue }
+                        value={values.competencia}
+                    />
 
-                        <SelectNormalThemed
-                            name='patin'
-                            label='Tipo Patin'
-                            options={ tipoPatin }
-                        />
+                    <SelectNormalThemed
+                        name='patin'
+                        label='Tipo de Patin'
+                        options={tipoPatin}
+                        setFieldValue={ setFieldValue }
+                        value={values.patin}
+                    />
 
-                        <SelectNormalThemed
-                            name='club'
-                            label='Seleccione Club'
-                            options={ [] }
-                        />
+                    <SelectIdNombre
+                        name='club'
+                        label='Seleccione Club'
+                        options={ clubes || [] }
+                        setFieldValue={ setFieldValue }
+                        value={values.club}
+                    />
 
-                        <SelectNameNormal
-                            name='invitado'
-                            label='Club Invitado'
-                            options={ invitados }
-                        />
+                    <SelectIdName
+                        name='invitado'
+                        label='Club Invitado'
+                        options={ invitados }
+                        setFieldValue={ setFieldValue }
+                        value={values.invitado}
+                    />
 
                     </View>
 

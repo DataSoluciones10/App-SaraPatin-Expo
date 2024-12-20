@@ -30,11 +30,9 @@ const DeportistaScreen = () => {
     }, []);
 
 
-
     useEffect(() => {
         startClubPorDirector();
     }, [])
-
 
 
     useEffect(() => {
@@ -62,18 +60,15 @@ const DeportistaScreen = () => {
     const deportista = deportistaQueryId.data!;
 
 
-
-    const handleLogin = async(values:any, resetForm:(nextState?: Partial<FormikState<any>> | undefined) => void) => {
-        // setIsPosting(true);
-        // deportistaMutation.mutate(values);
-        // setIsPosting(false);
-
-        // if( resp ) {
-            // router.replace('/');
-            // resetForm();
-            // return;
-        // }
-        console.log('todo bien', values)
+    // (nextState?: Partial<FormikState<any>> | undefined) => void
+    const handleLogin = async(values:any, resetForm:any) => {
+        const rol = (id !== 'new') ? values.rol : 'DEPORTISTA_ROL';
+        try {
+            await deportistaMutation.mutateAsync({ ...values, rol });
+            if (id === 'new') resetForm();
+        } catch (error) {
+            console.error('Error al guardar el deportista:', error);
+        }
     }
 
 
@@ -81,7 +76,11 @@ const DeportistaScreen = () => {
     return (
         <DisenioPagina title={`${id === 'new' ? 'Crear' : 'Editar'} Deportista`}>
 
-            <FormDeportistas deportista={deportista} handleFuncion={handleLogin} id={id} />
+            <FormDeportistas 
+                deportista={deportista} 
+                handleFuncion={handleLogin} id={id} 
+                isLoading={ deportistaMutation }
+            />
 
         </DisenioPagina>
     )

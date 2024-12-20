@@ -6,7 +6,7 @@ import { router } from 'expo-router';
 import * as Yup from 'yup';
 import { Formik } from "formik";
 
-import { TextInputThemed, TextInputPassword, ThemedText, ThemedButton, ThemedLink, ButtonIsPosting } from '@/presentation/components';
+import { TextInputThemed, TextInputPassword, ThemedText, ThemedButton, ThemedLink } from '@/presentation/components';
 import { useAuthStore } from '@/presentation/stores';
 import useThemeColors from '@/presentation/hooks/global/useThemeColors';
 
@@ -97,12 +97,9 @@ const LoginSreen = () => {
 
                     <View className='mt-2' />
 
-                    {(isPosting)
-                    ?   <ButtonIsPosting />
-                    :   <ThemedButton icon="log-in-outline" onPress={ () => handleSubmit() } disabled={isPosting}>
-                            Ingresar
-                        </ThemedButton>
-                    }
+                    <ThemedButton icon="log-in-outline" onPress={ () => handleSubmit() } disabled={isPosting}>
+                        Ingresar
+                    </ThemedButton>
 
                     <View className="flex-row justify-center items-center mt-7">
                         <ThemedText>¿No tienes cuenta?</ThemedText>

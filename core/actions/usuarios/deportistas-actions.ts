@@ -10,7 +10,6 @@ const emptyDeportista = {
     cedula: '',
     correo: '',
     movil: '',
-    club: '',
     departamento: '',
     ciudad: '',
     rama: '',
@@ -20,6 +19,8 @@ const emptyDeportista = {
     talla: '',
     eps: '',
     informacion: '',
+    club: [],
+    profesor: [],
 };
 
 
@@ -79,16 +80,15 @@ export const updateCreateDeportistas = async({ img, club, profesor, ...deportist
         });
 
         if( deportista.id && deportista.id !== 'new' ) {
-            // console.log('actualizar', deportista.id, {formData})
             const { data } = await deportistasApi.put<DeportistaResp>(`/${deportista.id}`, formData, 
                 { headers: { 'Content-Type': 'multipart/form-data' }
             });
-
             return data.data;
         }
 
-        console.log('crear')
-        const { data } = await deportistasApi.post<DeportistaResp>('/', formData);
+        const { data } = await deportistasApi.post<DeportistaResp>('/', formData,  
+            { headers: { 'Content-Type': 'multipart/form-data' }
+        });
         return data.data;
 
     } catch (error: any) {

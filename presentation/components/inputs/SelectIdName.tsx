@@ -2,8 +2,9 @@
 import { useState } from 'react';
 import { View, Text } from 'react-native';
 import { useField } from 'formik';
-import useThemeColors from '@/presentation/hooks/global/useThemeColors';
 import { Dropdown } from 'react-native-element-dropdown';
+import useThemeColors from '@/presentation/hooks/global/useThemeColors';
+
 
 
 
@@ -18,7 +19,7 @@ interface Props {
 
 
 
-export const SelectIdNombre = ({ name, options, label, value, titulo, setFieldValue, ...rest }: Props) => {
+export const SelectIdName = ({ name, options, label, value, titulo, setFieldValue, ...rest }: Props) => {
 
 
     const { primary, opaco, text, error, background } = useThemeColors();
@@ -44,7 +45,7 @@ export const SelectIdNombre = ({ name, options, label, value, titulo, setFieldVa
                 <Dropdown
                     data={options}
                     value={value}
-                    labelField="nombre" 
+                    labelField="name" 
                     valueField="id" 
                     placeholder={label}
                     style={{paddingHorizontal:15}}
@@ -62,6 +63,7 @@ export const SelectIdNombre = ({ name, options, label, value, titulo, setFieldVa
             {/* Mensaje de error */}
             {hasError && <Text style={{ color: error }}>{meta.error}</Text>}
         </View>
+
     );
 };
 
