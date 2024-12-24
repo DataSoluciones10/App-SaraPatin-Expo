@@ -58,6 +58,9 @@ const RootLayout = () => {
                 <Stack.Screen name='deportistas/index' options={{ title: 'Deportistas' }} />
                 <Stack.Screen name='profesores/index' options={{ title: 'Profesores' }} />
 
+                <Stack.Screen name='inscripciones/realizarinscripcion' options={{title: 'RealizarInscripcion'}} />
+
+
             </Stack>
         </QueryClientProvider>
 

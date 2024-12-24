@@ -1,65 +1,75 @@
 
-import { useState } from 'react';;
-import { View } from 'react-native';
-import { ScrollView } from 'react-native';
+import { router } from 'expo-router';
 
+import { CargandoScreen, FAB, TarjetaDeUsuario } from '@/presentation/components';
 import { DisenioPagina } from '@/presentation/layouts';
-import { FormInscripciones } from '@/presentation/screen/inscripciones';
-import { ThemedText, CarruselUserHorizontal } from '@/presentation/components';
-import { deportesData } from '@/presentation/data';
-import useThemeColors from '@/presentation/hooks/global/useThemeColors';
+import { View, Text, FlatList } from 'react-native';
+import { useMisInscripciones } from '@/presentation/hooks';
 
 
 
 
 
-const Inscripciones = () => {
+const MisInscripciones= () => {
+
+
+    const { misInscripcionesQuery } = useMisInscripciones();
 
 
 
-    const { background } = useThemeColors();
-    const [items, setItems] = useState<string[]>([]);
-
-
-
-    const handleGenerarInscripcion = (values:any, reset:any) => {
-        console.log('Holis', {...values, deportistas: items});
+    if(misInscripcionesQuery.isLoading) {
+        return (
+            <DisenioPagina title='Mis Inscripciones'>
+                <CargandoScreen titulo="Cargando mis inscripciones..." />
+            </DisenioPagina>
+        )
     }
+    
 
+    // console.log('holis', misInscripcionesQuery.data?.pages.flatMap((page) => page))
 
 
     return (
 
-        <DisenioPagina title='Inscripciones'>
-            <ScrollView style={{ backgroundColor:background }}>
+        <DisenioPagina title='Mis Inscripciones'>
 
-                <View className='mt-3 mb-7'>
-                    <FormInscripciones items={items} setItems={setItems} 
-                        handleFunction={handleGenerarInscripcion}
+            <FlatList
+                data={misInscripcionesQuery.data?.pages.flatMap((page) => page) || []}
+                keyExtractor={(item) => item.id}
+                renderItem={({ item }) => (
+                    <TarjetaDeUsuario
+                        key={item.id} 
+                        nombre={item.categoria_temporada?.competencia?.nombre} 
+                        datos={`${item.entidad.nombre} - ${item.patin}`} 
+                        fecha={ item.createdAt }
+                        img={ undefined }
+                        uid={ item.id }
+                        carpeta="deportistas"
                     />
-                </View>
+                )}
+                contentContainerStyle={{ padding:10 }}
+                onEndReachedThreshold={ 0.8 }
+                showsVerticalScrollIndicator={ false }
+                // onEndReached={ () => loadNextPage() }
+                // refreshControl={ <RefreshControl refreshing={isRefreshing} onRefresh={ onPullRefresh } /> }
+            />
 
-                <View className='my-3'>
-                    <ThemedText type='h3' bold className='pl-4 pb-1'>Semiprofesional</ThemedText>
-                    <CarruselUserHorizontal datos={deportesData ?? []} items={items} setItems={setItems} />
-                </View>
-
-                <View className='my-3'>
-                    <ThemedText type='h3' bold className='pl-4 pb-1'>Novatos</ThemedText>
-                    <CarruselUserHorizontal datos={deportesData ?? []} items={items} setItems={setItems} />
-                </View>
+            <FAB iconName='add-outline' onPress={ () => router.push('/inscripciones/realizarinscripcion') }/>
 
 
-                <View className='my-3'>
-                    <ThemedText type='h3' bold className='pl-4 pb-1'>Ligados</ThemedText>
-                    <CarruselUserHorizontal datos={deportesData ?? []} items={items} setItems={setItems} />
-                </View>
-
-
-                <View style={{height:20}} />
-            </ScrollView>
+            <View style={{height:20}} />
         </DisenioPagina>
+
+
+
     )
+
+
 }
 
-export default Inscripciones
+
+
+
+
+
+export default MisInscripciones

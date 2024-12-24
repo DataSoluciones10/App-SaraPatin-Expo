@@ -10,6 +10,8 @@ export * from './components/TarjetasSencillas';
 export * from './components/ThemedButton';
 export * from './components/BotonCamaraUser';
 export * from './poster/ImagenPoster';
+export * from './components/InformacionItem';
+export * from './components/SettingsItems';
 
 
 export * from './inputs/TextInputPassword';

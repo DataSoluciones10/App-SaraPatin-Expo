@@ -1,10 +1,9 @@
 
 import { ScrollView, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import useThemeColors from '@/presentation/hooks/global/useThemeColors';
-import { useAuthStore } from '@/presentation/stores';
-import { CarruselHorizontal, CarruselPrincipal, ThemedButton, ThemedText } from '@/presentation/components';
 import { deportesData } from '@/presentation/data';
+import { CarruselHorizontal, CarruselPrincipal, ThemedText } from '@/presentation/components';
+import useThemeColors from '@/presentation/hooks/global/useThemeColors';
 
 
 
@@ -15,14 +14,6 @@ const DashboardScreen = () => {
 
 
     const { background } = useThemeColors();
-    const { startLogout } = useAuthStore();
-
-
-
-
-    const handleLogout = () => {
-        startLogout()
-    }
 
 
     
@@ -45,13 +36,7 @@ const DashboardScreen = () => {
                 </View>
 
 
-                <ThemedButton icon="log-in-outline" onPress={ () => handleLogout() }>
-                    Salir
-                </ThemedButton>
-
-
                 <View style={{ height:20 }} />
-
             </ScrollView>
         </SafeAreaView>
     )

@@ -8,3 +8,4 @@ export * from './ui/modal.store';
 export * from './usuarios/club.store';
 export * from './usuarios/deportista.store';
 export * from './usuarios/profesores.store';
+export * from './competencia/inscripcion_club.store';
