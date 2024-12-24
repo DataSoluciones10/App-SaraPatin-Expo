@@ -4,12 +4,12 @@ import { KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native';
 
 import * as Yup from 'yup';
 import { Formik } from 'formik';
-import { InputFormText, MultiSelectNombreID, SelectIdName, SelectNormalThemed, ThemedView } from '../../../presentation/components';
+import { InputFormDecimales, InputFormText, MultiSelectNombreID, SelectIdName, SelectNormalThemed, ThemedView } from '../../../presentation/components';
 import { ThemedButton } from '../../../presentation/components/components/ThemedButton';
 import { epsData, ramaData, tipoDocumento, tipoPatin } from '@/presentation/data';
 import { AvatarScreen } from '@/presentation/components/components/AvatarScreen';
 import { DateFormInput } from '@/presentation/components/inputs/DateFormInput';
-import { useCiudadesStore, useClubStore, useProfesoresStore } from '@/presentation/stores';
+import { useCiudadesStore, useClubStore, useImagenStore, useProfesoresStore } from '@/presentation/stores';
 
 
 
@@ -20,9 +20,9 @@ import { useCiudadesStore, useClubStore, useProfesoresStore } from '@/presentati
 
 export const FormDeportistas = ({ deportista, handleFuncion, id, isLoading }:any) => {
 
-
     
     const { clubes } = useClubStore();
+    const { valorImagen } = useImagenStore();
     const { profesores } = useProfesoresStore();
     const { regiones, ciudades, startListadoCiudades } = useCiudadesStore();
 
@@ -30,8 +30,10 @@ export const FormDeportistas = ({ deportista, handleFuncion, id, isLoading }:any
     useEffect(() => {
         if (deportista?.departamento) {
             startListadoCiudades(deportista?.departamento);
+            valorImagen(deportista.img);
         }
     }, [deportista?.departamento]);
+
 
 
 
@@ -90,8 +92,9 @@ export const FormDeportistas = ({ deportista, handleFuncion, id, isLoading }:any
                 <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
                     <ScrollView style={{marginHorizontal:15}} showsVerticalScrollIndicator={false}>
 
-                    <AvatarScreen size={170} imageUrl={deportista.img} />
-
+                    {/* imageUrl={deportista.img} */}
+                    <AvatarScreen size={170} titulo="deportistas" />
+                    
                     <InputFormText
                         titulo='Nombre Completo'
                         placeholder='Nombre Completo'
@@ -211,7 +214,7 @@ export const FormDeportistas = ({ deportista, handleFuncion, id, isLoading }:any
                     <ThemedView style={{ marginHorizontal:10, marginVertical:5, flexDirection:'row', gap:10 }}>
                         <InputFormText
                             titulo='Peso'
-                            placeholder='Peso'
+                            placeholder='17.7'
                             keyboardType="numeric"
                             value={values.peso}
                             onChangeText={handleChange('peso')}
@@ -221,7 +224,7 @@ export const FormDeportistas = ({ deportista, handleFuncion, id, isLoading }:any
 
                         <InputFormText
                             titulo='Talla'
-                            placeholder='Talla'
+                            placeholder='150.5'
                             keyboardType="numeric"
                             value={values.talla}
                             onChangeText={handleChange('talla')}
@@ -238,6 +241,28 @@ export const FormDeportistas = ({ deportista, handleFuncion, id, isLoading }:any
                         setFieldValue={ setFieldValue }
                         value={values.eps}
                     />
+
+                    <ThemedView style={{ marginHorizontal:10, marginVertical:5, flexDirection:'row', gap:10 }}>
+                        <InputFormDecimales
+                            titulo='Mensualidad'
+                            placeholder='Mensualidad'
+                            keyboardType="numeric"
+                            value={values.mensualidad}
+                            onChangeText={handleChange('mensualidad')}
+                            name='mensualidad'
+                            style={{flex:1}}
+                        />
+
+                        <InputFormText
+                            titulo='Dias Pagos'
+                            placeholder='Dias Pagos'
+                            keyboardType="numeric"
+                            value={values.dias_pagos}
+                            onChangeText={handleChange('dias_pagos')}
+                            name="dias_pagos"
+                            style={{flex:1}}
+                        />
+                    </ThemedView>
 
                     <InputFormText
                         titulo='Información'

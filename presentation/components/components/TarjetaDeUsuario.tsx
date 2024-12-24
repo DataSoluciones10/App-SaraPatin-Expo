@@ -5,6 +5,7 @@ import { View, TouchableOpacity, Image } from 'react-native';
 import useThemeColors from '@/presentation/hooks/global/useThemeColors';
 import { ThemedText } from '../textos/ThemedText';
 import { categoriaDeportista } from '@/presentation/helpers';
+const url = process.env.EXPO_PUBLIC_API_URL_ANDROID;
 
 
 
@@ -13,13 +14,14 @@ interface Props {
     datos: string;
     fecha: Date;
     uid: any;
+    carpeta: string;
     img?: string;
 }
 
 
 
 
-export const TarjetaDeUsuario = ({ nombre, img, datos, fecha, uid }: Props) => {
+export const TarjetaDeUsuario = ({ nombre, img, datos, fecha, uid, carpeta }: Props) => {
     
 
     const { opaco, background } = useThemeColors();
@@ -33,7 +35,7 @@ export const TarjetaDeUsuario = ({ nombre, img, datos, fecha, uid }: Props) => {
                 onPress={() => router.push({ pathname: '/deportistas/[id]', params:{id: uid} })}
             >
                 <Image 
-                    source={img ? { uri: img } : require('../../../assets/images/user/no-img.webp')}
+                    source={img ? { uri: `${url}/uploads/${carpeta}/${img}` } : require('../../../assets/images/user/no-img.webp')}
                     className="w-16 h-16 rounded-full mr-3"
                     resizeMode="cover"
                 />

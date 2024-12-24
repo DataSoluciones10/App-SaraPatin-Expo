@@ -21,7 +21,10 @@ const emptyDeportista = {
     informacion: '',
     club: [],
     profesor: [],
+    mensualidad: '',
+    dias_pagos: '',
 };
+
 
 
 export const deportistaPorID = async(id:string):Promise<any> => {
@@ -33,11 +36,13 @@ export const deportistaPorID = async(id:string):Promise<any> => {
             ...user,
             rama: valor.rama,
             patin: valor.patin,
-            talla: valor.talla.toString(),
-            peso: valor.peso.toString(),
+            talla: valor.talla?.toString() ?? '',
+            peso: valor.peso?.toString() ?? '', 
             eps: valor.eps,
             profesor: valor.profesor,
             fechaNacimiento: valor.fechaNacimiento,
+            mensualidad: user.mensualidad?.toString() ?? '',
+            dias_pagos: user.dias_pagos?.toString() ?? '',
         }
         return datos || null;
     } catch (error: any) {
@@ -45,8 +50,6 @@ export const deportistaPorID = async(id:string):Promise<any> => {
         throw new Error(errores);
     }
 }
-
-
 
 
 
@@ -67,11 +70,10 @@ export const listadoMisDeportistas = async({ page=0, termino='' }):Promise<any> 
 
 
 
-
 export const updateCreateDeportistas = async({ img, club, profesor, ...deportista}: FormDeportista):Promise<Deportista> => {
     try {
-        const formData = new FormData();
-        formData.append('images', img);  
+        const formData = new FormData() as any;
+        if( img && img.includes('file') ){ formData.append('images', { uri:img, type:'image/jpeg', name: img.split('/').pop() }); }
         formData.append('club', JSON.stringify(club));
         formData.append('profesor', JSON.stringify(profesor));
 

@@ -7,7 +7,8 @@ import { DisenioPagina } from '@/presentation/layouts'
 import { CargandoScreen } from '../../../presentation/components';
 import { useDeportistaId } from '@/presentation/hooks';
 import { FormDeportistas } from '@/presentation/screen/usuarios';
-import { useCiudadesStore, useClubStore, useProfesoresStore } from '@/presentation/stores';
+import { useCiudadesStore, useClubStore, useImagenStore, useProfesoresStore } from '@/presentation/stores';
+import { removerComas } from '@/presentation/helpers';
 
 
 
@@ -18,6 +19,8 @@ const DeportistaScreen = () => {
 
 
     const { id } = useLocalSearchParams();
+    const { imagen, valorImagen } = useImagenStore();
+
     const { deportistaQueryId, deportistaMutation } = useDeportistaId(`${id}`);
     const { startListadoRegiones } = useCiudadesStore();
     const { startClubPorDirector } = useClubStore();
@@ -26,7 +29,7 @@ const DeportistaScreen = () => {
 
     useEffect(() => {
         startListadoRegiones();
-        // return () => funcionImagen(undefined);
+        return () => valorImagen(undefined);
     }, []);
 
 
@@ -56,16 +59,19 @@ const DeportistaScreen = () => {
     }   
 
 
-
     const deportista = deportistaQueryId.data!;
 
 
-    // (nextState?: Partial<FormikState<any>> | undefined) => void
-    const handleLogin = async(values:any, resetForm:any) => {
+    const handleGuardarInfo = async(values:any, resetForm:(nextState?: Partial<FormikState<any>> | undefined) => void) => {
         const rol = (id !== 'new') ? values.rol : 'DEPORTISTA_ROL';
         try {
-            await deportistaMutation.mutateAsync({ ...values, rol });
-            if (id === 'new') resetForm();
+            await deportistaMutation.mutateAsync({ ...values, rol, 
+                mensualidad:removerComas(values.mensualidad), img: imagen
+            });
+            if (id === 'new') {
+                resetForm();
+                valorImagen(undefined);
+            }
         } catch (error) {
             console.error('Error al guardar el deportista:', error);
         }
@@ -73,12 +79,13 @@ const DeportistaScreen = () => {
 
 
 
+
     return (
         <DisenioPagina title={`${id === 'new' ? 'Crear' : 'Editar'} Deportista`}>
 
             <FormDeportistas 
-                deportista={deportista} 
-                handleFuncion={handleLogin} id={id} 
+                deportista={deportista} id={id}
+                handleFuncion={ handleGuardarInfo }  
                 isLoading={ deportistaMutation }
             />
 

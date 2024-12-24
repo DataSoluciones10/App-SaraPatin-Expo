@@ -28,10 +28,8 @@ export const FAB = ({ style, iconName, onPress }: Props) => {
                 position: 'absolute',
                 bottom: 30,
                 right: 20,
-
                 width: 60,
                 height: 60,
-
                 shadowColor: primary,
                 backgroundColor: primary,
                 shadowOffset: {

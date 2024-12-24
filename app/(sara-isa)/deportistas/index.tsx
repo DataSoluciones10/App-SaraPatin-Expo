@@ -9,6 +9,7 @@ import { CargandoScreen } from '../../../presentation/components/components/Carg
 import { useQueryClient } from '@tanstack/react-query';
 import { router } from 'expo-router';
 
+// const imagenPredeterminada = 'https://www.fifpro.org/media/5chb3dva/lionel-messi_imago1019567000h.jpg?rxy=0.32986930611281567,0.18704579979466449&rnd=133378758718600000';
 
 
 
@@ -38,8 +39,6 @@ const Deportistas = () => {
         )
     }
 
-    const imagenPredeterminada = 'https://www.fifpro.org/media/5chb3dva/lionel-messi_imago1019567000h.jpg?rxy=0.32986930611281567,0.18704579979466449&rnd=133378758718600000';
-
 
     return (
         <DisenioPagina title='Mis Deportistas'>
@@ -53,8 +52,9 @@ const Deportistas = () => {
                         nombre={item.nombre} 
                         datos={`${item.rama} - ${item.patin}`} 
                         fecha={ item.fechaNacimiento }
-                        img={ imagenPredeterminada }
+                        img={ item.img }
                         uid={ item.id }
+                        carpeta="deportistas"
                     />
                 )}
                 contentContainerStyle={{ padding:10 }}

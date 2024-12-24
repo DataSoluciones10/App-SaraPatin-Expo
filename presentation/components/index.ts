@@ -8,6 +8,7 @@ export * from './components/CarruselUserHorizontal';
 export * from './components/FAB';
 export * from './components/TarjetasSencillas';
 export * from './components/ThemedButton';
+export * from './components/BotonCamaraUser';
 export * from './poster/ImagenPoster';
 
 
@@ -18,6 +19,7 @@ export * from './inputs/SelectIdName'
 export * from './inputs/InputFormText';
 export * from './inputs/SelectIdNombre';
 export * from './inputs/MultiSelectNombreID';
+export * from './inputs/InputFormDecimales';
 
 
 export * from './textos/ThemedLink';
