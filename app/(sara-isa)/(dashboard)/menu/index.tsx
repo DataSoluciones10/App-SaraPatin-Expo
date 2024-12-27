@@ -1,8 +1,9 @@
 
-import { TarjetasSencillas } from '@/presentation/components';
+import { router  } from 'expo-router';
+import { FlatList } from 'react-native';
+
+import { TarjetaIconoTexto } from '@/presentation/components';
 import { DisenioPagina } from '@/presentation/layouts/DisenioPagina';
-import { useNavigation, router  } from 'expo-router';
-import { FlatList } from 'react-native-gesture-handler';
 
 
 
@@ -10,7 +11,8 @@ import { FlatList } from 'react-native-gesture-handler';
 
 
 
-const Menu = () => {
+
+const MenuScreen = () => {
 
 
     const navigateTo = (url:any) => {
@@ -18,15 +20,13 @@ const Menu = () => {
     };
 
 
-
     const opciones = [
-        { key: '1', icono:"compass", titulo:'Entidades', url: '/', function: () => alert('Mi Perfil') },
-        { key: '2', icono:"people-circle", titulo:'Deportistas', url: '/deportistas', function: () => navigateTo('/deportistas') },
-        { key: '3', icono:"people", titulo:'Profesores', url: '/settings', function: () => navigateTo('/profesores') },
-        { key: '4', icono:"logo-bitcoin", titulo:'Pagos', url: '/profile', function: () => alert('Pagos') },
-        { key: '5', icono:"documents", titulo:'Asistencias', url: '/', function: () => alert('Asistencias') },
+        { key: '1', icono:"business", titulo:'Mis Entidades', function: () => alert('Mi Perfil') },
+        { key: '2', icono:"people-circle", titulo:'Mis Deportistas', function: () => navigateTo('/deportistas') },
+        { key: '3', icono:"people", titulo:'Mis Profesores', function: () => navigateTo('/profesores') },
+        { key: '4', icono:"wallet", titulo:'Pagos', function: () => alert('Pagos') },
+        { key: '5', icono:"documents", titulo:'Asistencias', function: () => alert('Asistencias') },
     ];
-
 
 
 
@@ -39,15 +39,15 @@ const Menu = () => {
                 keyExtractor={(item) => item.key}
                 numColumns={2}
                 renderItem={({ item }) => (
-                    <TarjetasSencillas
-                        onClickHandler={item.function}
-                        url={item.url}
+                    <TarjetaIconoTexto
+                        onPress={item.function}
                         icon={item.icono}
                         titulo={item.titulo}
                     />
                     
                 )}
-                contentContainerStyle={{ padding: 25 }}
+                columnWrapperStyle={{justifyContent:'space-between'}}
+                contentContainerStyle={{padding:15}}
             />
 
         </DisenioPagina>
@@ -56,4 +56,4 @@ const Menu = () => {
 
 }
 
-export default Menu
+export default MenuScreen

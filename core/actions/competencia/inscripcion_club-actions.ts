@@ -1,11 +1,20 @@
 
-
 // import { useInscripcionClubStore } from '../../store';
 import { inscripcionClubApi } from "@/core/apis";
 
 
 
 
+
+export const incripcionesXClubXId = async(id:string):Promise<any> => {
+    try {
+        const { data } = await inscripcionClubApi.get<any>(`/xid/${id}`);
+        return data.data;
+    } catch (error: any) {
+        const errores = error.response.data['msg'] || error.response.data.errors[0]['msg'];
+        throw new Error(errores);
+    }
+}
 
 
 
@@ -23,16 +32,6 @@ export const misIncripciones = async():Promise<any> => {
 
 
 
-    
-    // static incripcionesXClubXId = async(id:string):Promise<any> => {
-    //     try {
-    //         const { data } = await inscripcionClubApi.get<any>(`/xid/${id}`);
-    //         return data.data;
-    //     } catch (error: any) {
-    //         const errores = error.response.data['msg'] || error.response.data.errors[0]['msg'];
-    //         throw new Error(errores);
-    //     }
-    // }
 
 
 

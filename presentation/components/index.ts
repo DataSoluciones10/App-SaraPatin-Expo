@@ -6,13 +6,14 @@ export * from './components/CarruselHorizontal';
 export * from './components/CarruselPrincipal';
 export * from './components/CarruselUserHorizontal';
 export * from './components/FAB';
-export * from './components/TarjetasSencillas';
 export * from './components/ThemedButton';
 export * from './components/BotonCamaraUser';
 export * from './poster/ImagenPoster';
 export * from './components/InformacionItem';
 export * from './components/SettingsItems';
-
+export * from './components/TarjetaInscripcionClub';
+export * from './components/TarjetaIconoTexto';
+export * from './components/TarjetaSencilla';
 
 export * from './inputs/TextInputPassword';
 export * from './inputs/TextInputThemed';

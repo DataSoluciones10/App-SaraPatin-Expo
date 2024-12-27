@@ -1,7 +1,7 @@
 
 import { Alert } from 'react-native';
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { misIncripciones } from '@/core/actions';
+import { incripcionesXClubXId, misIncripciones } from '@/core/actions';
 
 
 
@@ -22,6 +22,38 @@ export const useMisInscripciones = () => {
     }
 }
 
+
+
+export const useInscripcionEntidadXId = (id:string) => {
+
+    // const queryClient = useQueryClient();
+
+    const inscripcionClubQueryId = useQuery({
+        queryKey: ['inscripcion-club-id', id],
+        queryFn: () => incripcionesXClubXId(id),
+        staleTime: 1000 * 60 * 60,
+    });
+
+
+
+    // const deportistaMutation = useMutation({
+    //     mutationFn: async( data:any ) => updateCreateDeportistas(data),
+
+    //     onSuccess( data:any ) {
+    //         queryClient.invalidateQueries({ queryKey: ['mis-deportistas', 'infinite'] });
+    //         queryClient.invalidateQueries({ queryKey: ['deportistaId', data.id] });
+
+    //         Alert.alert('Deportista Guardado', 'El deportista se guardo con exito.')
+    //     }
+    // });
+
+
+
+
+    return {
+        inscripcionClubQueryId,
+    }
+}
 
 
 

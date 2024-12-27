@@ -5,6 +5,7 @@ import { View, TouchableOpacity, Image } from 'react-native';
 import useThemeColors from '@/presentation/hooks/global/useThemeColors';
 import { ThemedText } from '../textos/ThemedText';
 import { categoriaDeportista } from '@/presentation/helpers';
+
 const url = process.env.EXPO_PUBLIC_API_URL_ANDROID;
 
 
@@ -28,6 +29,7 @@ export const TarjetaDeUsuario = ({ nombre, img, datos, fecha, uid, carpeta }: Pr
 
 
     return (
+
         <View style={{ backgroundColor:background, borderRadius:14, overflow:'hidden', 
             borderBottomWidth:1, borderBottomColor:opaco, marginBottom:2 }}
         >
@@ -50,6 +52,4 @@ export const TarjetaDeUsuario = ({ nombre, img, datos, fecha, uid, carpeta }: Pr
             </TouchableOpacity>
         </View>
     )
-
-
 }

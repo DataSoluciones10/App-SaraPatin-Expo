@@ -55,7 +55,9 @@ export const DisenioPagina = ({ title, subtitle, rightAction, rightActionIcon, c
 
                 {/* Title & Subtitle */}
                 <View className="flex-1 items-center">
-                    <ThemedText type='h2' bold>{title}</ThemedText>
+                    <ThemedText type='h2' bold style={{textAlign:'center'}}>
+                        {title}
+                    </ThemedText>
                     {(subtitle) &&( <ThemedText style={{marginTop:-3}} type='normal'>{subtitle}</ThemedText>) }
                 </View>
 

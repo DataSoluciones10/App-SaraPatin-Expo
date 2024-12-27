@@ -1,9 +1,9 @@
 
 import { router } from 'expo-router';
+import { FlatList } from 'react-native';
 
-import { CargandoScreen, FAB, TarjetaDeUsuario } from '@/presentation/components';
+import { CargandoScreen, FAB, TarjetaInscripcionClub } from '@/presentation/components';
 import { DisenioPagina } from '@/presentation/layouts';
-import { View, Text, FlatList } from 'react-native';
 import { useMisInscripciones } from '@/presentation/hooks';
 
 
@@ -37,39 +37,24 @@ const MisInscripciones= () => {
                 data={misInscripcionesQuery.data?.pages.flatMap((page) => page) || []}
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) => (
-                    <TarjetaDeUsuario
+                    <TarjetaInscripcionClub
                         key={item.id} 
-                        nombre={item.categoria_temporada?.competencia?.nombre} 
-                        datos={`${item.entidad.nombre} - ${item.patin}`} 
-                        fecha={ item.createdAt }
-                        img={ undefined }
-                        uid={ item.id }
+                        datos={item}
                         carpeta="deportistas"
                     />
                 )}
-                contentContainerStyle={{ padding:10 }}
+                contentContainerStyle={{ paddingTop:5, paddingBottom:30 }}
                 onEndReachedThreshold={ 0.8 }
                 showsVerticalScrollIndicator={ false }
                 // onEndReached={ () => loadNextPage() }
                 // refreshControl={ <RefreshControl refreshing={isRefreshing} onRefresh={ onPullRefresh } /> }
             />
 
-            <FAB iconName='add-outline' onPress={ () => router.push('/inscripciones/realizarinscripcion') }/>
-
-
-            <View style={{height:20}} />
+            <FAB iconName='add-outline' onPress={ () => router.push('/inscripcionesclub/realizarinscripcion') }/>
         </DisenioPagina>
 
-
-
     )
-
-
 }
-
-
-
-
 
 
 export default MisInscripciones
