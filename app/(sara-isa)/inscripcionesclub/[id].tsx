@@ -5,6 +5,9 @@ import { FlatList } from 'react-native';
 import { DisenioPagina } from '@/presentation/layouts'
 import { CargandoScreen, TarjetaIconoTexto } from '../../../presentation/components';
 import { useInscripcionEntidadXId } from '@/presentation/hooks';
+import { useState } from 'react';
+import { descargarFacturaCompetencia } from '@/core/actions';
+import { descargarPDF } from '@/presentation/helpers';
 
 
 
@@ -16,6 +19,7 @@ const OpcionesIncripcionClub = () => {
 
     const { id, entidad } = useLocalSearchParams();
     const { inscripcionClubQueryId } = useInscripcionEntidadXId(`${entidad}`);
+    const [cargando, setCargando] = useState(false)
 
 
     if(inscripcionClubQueryId.isLoading) {
@@ -43,6 +47,25 @@ const OpcionesIncripcionClub = () => {
     };
 
 
+    const handleGenerarFactura = async() => {
+        if(inscripcionClubQueryId.data) {
+            const inscripcionClub = inscripcionClubQueryId.data;
+            const nombreArchivo = `Factura-${inscripcionClub.entidad.nombre.replaceAll(' ', '')}`
+
+            const datos = { insClub: inscripcionClub.id, categoria: inscripcionClub.categoria_temporada._id, 
+                competencia: inscripcionClub.categoria_temporada.competencia._id, 
+                temporada: inscripcionClub.categoria_temporada.temporada._id, 
+            }
+            setCargando(true);
+            const data = await descargarFacturaCompetencia(datos);
+            setCargando(false);
+
+            console.log(data)
+            // descargarPDF(data, nombreArchivo);
+        }
+    } 
+
+
     // url:'ddd',
     // url:`${entidad}/pago`,
     // url:`${entidad}/misdeportistas`,
@@ -52,7 +75,7 @@ const OpcionesIncripcionClub = () => {
 
 
     const data = [
-        {key:1, titulo:'Descargar Factura De Pago', function: null, icono:'cloud-download-outline'},
+        {key:1, titulo:'Descargar Factura De Pago', function: handleGenerarFactura, icono:'cloud-download-outline'},
         {key:2, titulo:'Subir Pago Competencia', function: null, icono:'cloud-upload-outline'},
         {key:3, titulo:'Mis Deportistas Inscritos', function: () => navigateTo(`/inscripciondeportista/${entidad}`), icono:'people-circle-outline'},
         {key:4, titulo:'Ranking Tiempo Real', function:null, icono:'videocam-outline'},

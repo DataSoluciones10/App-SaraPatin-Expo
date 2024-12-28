@@ -7,3 +7,4 @@ export * from './usuarios/usuariosApi';
 export * from './competencias/competenciaApi';
 export * from './competencias/inscripcionApi';
 export * from './competencias/inscripcionClubApi';
+export * from './utilities/descargasApi';
