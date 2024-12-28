@@ -21,7 +21,7 @@ const DeportistaScreen = () => {
     const { id } = useLocalSearchParams();
     const { imagen, valorImagen } = useImagenStore();
 
-    const { deportistaQueryId, deportistaMutation } = useDeportistaId(`${id}`);
+    const { deportistaQueryId, deportistaMutation, AlertInfo } = useDeportistaId(`${id}`);
     const { startListadoRegiones } = useCiudadesStore();
     const { startClubPorDirector } = useClubStore();
     const { adminAndProfesores } = useProfesoresStore();
@@ -64,16 +64,12 @@ const DeportistaScreen = () => {
 
     const handleGuardarInfo = async(values:any, resetForm:(nextState?: Partial<FormikState<any>> | undefined) => void) => {
         const rol = (id !== 'new') ? values.rol : 'DEPORTISTA_ROL';
-        try {
-            await deportistaMutation.mutateAsync({ ...values, rol, 
-                mensualidad:removerComas(values.mensualidad), img: imagen
-            });
-            if (id === 'new') {
-                resetForm();
-                valorImagen(undefined);
-            }
-        } catch (error) {
-            console.error('Error al guardar el deportista:', error);
+        await deportistaMutation.mutateAsync({ ...values, rol, 
+            mensualidad:removerComas(values.mensualidad), img: imagen
+        });
+        if (id === 'new') {
+            resetForm();
+            valorImagen(undefined);
         }
     }
 
@@ -82,6 +78,7 @@ const DeportistaScreen = () => {
 
     return (
         <DisenioPagina title={`${id === 'new' ? 'Crear' : 'Editar'} Deportista`}>
+            <AlertInfo />
 
             <FormDeportistas 
                 deportista={deportista} id={id}

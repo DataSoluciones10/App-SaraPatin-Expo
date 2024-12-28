@@ -54,12 +54,12 @@ const OpcionesIncripcionClub = () => {
     const data = [
         {key:1, titulo:'Descargar Factura De Pago', function: null, icono:'cloud-download-outline'},
         {key:2, titulo:'Subir Pago Competencia', function: null, icono:'cloud-upload-outline'},
-        {key:3, titulo:'Mis Deportistas Inscritos', function: () => navigateTo(`/inscripcionedeportista/${entidad}`), icono:'people-circle-outline'},
+        {key:3, titulo:'Mis Deportistas Inscritos', function: () => navigateTo(`/inscripciondeportista/${entidad}`), icono:'people-circle-outline'},
         {key:4, titulo:'Ranking Tiempo Real', function:null, icono:'videocam-outline'},
         {key:5, titulo:'Resultados Competencia', function:null, icono:'document-text-outline'},
         ...(isLiga ? [
             {key: 6, titulo:'Escalafon Por Fase', function:null, icono:'stats-chart-outline'},
-        ...(isLigados ? [{key:7, titulo:'Escalafon General', function:null, icono:'merge'}] : [])
+        ...(isLigados ? [{key:7, titulo:'Escalafon General', function:null, icono:'git-merge-outline'}] : [])
         ] : [])
     ];
 

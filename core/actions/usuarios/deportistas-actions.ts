@@ -58,7 +58,6 @@ export const listadoMisDeportistas = async({ page=0, termino='' }):Promise<any> 
         const params = new URLSearchParams();
         params.append('page',  page.toString());
         params.append('termino',  termino);
-
         const { data } = await deportistasApi.get<any>('/xadmin', { params });
         return data.data;
     } catch (error: any) {

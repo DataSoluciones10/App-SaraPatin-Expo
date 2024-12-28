@@ -16,7 +16,6 @@ const MisInscripciones= () => {
     const { misInscripcionesQuery } = useMisInscripciones();
 
 
-
     if(misInscripcionesQuery.isLoading) {
         return (
             <DisenioPagina title='Mis Inscripciones'>

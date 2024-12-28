@@ -13,7 +13,7 @@ export interface AuthState {
     token?: string;
     user?: any;
 
-    startLogin: (email:string, password:string) => Promise<boolean>;
+    startLogin: (email:string, password:string) => Promise<boolean | any>;
     startCheckStatus: () => Promise<boolean>;
     startLogout: () => Promise<boolean>;
 
@@ -47,8 +47,13 @@ export const useAuthStore = create<AuthState>()( (set, get) => ({
 
 
     startLogin: async(correo:string, password:string) => {
-        const { token, usuario } = await authLogin({correo, password});
-        return get().changeStatus(token, usuario);
+        try {
+            const { token, usuario } = await authLogin({correo, password});
+            return get().changeStatus(token, usuario);
+        } catch (error:any) {
+            // const errores = error.response.data['msg'] || error.response.data.errors[0]['msg'];
+            throw new Error(error);
+        }
     },
 
 

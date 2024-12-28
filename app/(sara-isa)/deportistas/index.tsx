@@ -1,34 +1,21 @@
 
-import { useState } from 'react';
-
+import { router } from 'expo-router';
 import { FlatList, RefreshControl, View } from 'react-native';
+
 import { FAB, TarjetaDeUsuario } from '@/presentation/components';
 import { DisenioPagina } from '@/presentation/layouts';
-import { useDeportistas } from '@/presentation/hooks';
+import { useDeportistas, useFuncionesTanStack } from '@/presentation/hooks';
 import { CargandoScreen } from '../../../presentation/components/components/CargandoScreen';
-import { useQueryClient } from '@tanstack/react-query';
-import { router } from 'expo-router';
 
-// const imagenPredeterminada = 'https://www.fifpro.org/media/5chb3dva/lionel-messi_imago1019567000h.jpg?rxy=0.32986930611281567,0.18704579979466449&rnd=133378758718600000';
 
 
 
 
 const Deportistas = () => {
 
-
     const { deportistasQuery, loadNextPage } = useDeportistas();
-    const queryClient = useQueryClient();
-    const [isRefreshing, setisRefreshing] = useState(false)
+    const { isRefreshing, onPullRefresh } = useFuncionesTanStack();
 
-
-
-    const onPullRefresh = async () => {
-        setisRefreshing(true);
-        await new Promise( (resolve) => setTimeout(resolve, 400));
-        queryClient.invalidateQueries({ queryKey: ['mis-deportistas', 'infinite'] })
-        setisRefreshing(false);
-    }
 
 
     if(deportistasQuery.isLoading) {
@@ -61,12 +48,13 @@ const Deportistas = () => {
                 onEndReached={ () => loadNextPage() }
                 onEndReachedThreshold={ 0.8 }
                 showsVerticalScrollIndicator={ false }
-                refreshControl={ <RefreshControl refreshing={isRefreshing} onRefresh={ onPullRefresh } /> }
+                refreshControl={ <RefreshControl refreshing={isRefreshing} 
+                    onRefresh={ () => onPullRefresh('inscripciones-mis-deportistas') } 
+                /> }
             />
 
 
             <FAB iconName='add-outline' onPress={() => router.push({ pathname:'/deportistas/[id]', params:{id:'new'} })}/>
-
             <View style={{height:20}} />
         </DisenioPagina>
     )

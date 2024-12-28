@@ -1,15 +1,16 @@
 
-import { DisenioPagina } from '@/presentation/layouts'
-import { Ionicons } from '@expo/vector-icons';
-import { View, Text, TouchableOpacity, Image, ScrollView, Alert } from 'react-native'
+import { View, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
 import useThemeColors from '@/presentation/hooks/global/useThemeColors';
+import { DisenioPagina } from '@/presentation/layouts';
+import { Ionicons } from '@expo/vector-icons';
 import { CargandoScreen, InformacionItem, SettingsItems, ThemedText } from '@/presentation/components';
 import { useAuthStore } from '@/presentation/stores';
 import { documentos } from '@/presentation/data';
+import { useAlertConConfirm } from '@/presentation/hooks';
+
 
 const url = process.env.EXPO_PUBLIC_API_URL_ANDROID;
                     
-
 
 
 
@@ -18,16 +19,30 @@ const PerfilScreen = () => {
 
     const { primary, background, error } = useThemeColors();
     const { user, startLogout } = useAuthStore();
+    const { showDialog, AlertModal } = useAlertConConfirm();
+
+
+    // const handleLogout = () => {
+    //     Alert.alert( "Cerrar Sesión", "¿Estás seguro que deseas cerrar sesión?",
+    //         [
+    //         { text: "Cancelar", style: "cancel" },
+    //         { text: "Cerrar Sesión", style: "destructive", onPress: () => startLogout() }
+    //         ]
+    //     );
+    // };
 
 
 
-    const handleLogout = () => {
-        Alert.alert( "Cerrar Sesión", "¿Estás seguro que deseas cerrar sesión?",
-            [
-            { text: "Cancelar", style: "cancel" },
-            { text: "Cerrar Sesión", style: "destructive", onPress: () => startLogout() }
-            ]
-        );
+    const handleMostrarAlerta = () => {
+        showDialog({
+            title: "Cerrar Sesión",
+            message: "¿Estás seguro que deseas cerrar sesión?",
+            confirmText: "Sí, cerrar",
+            cancelText: "No, cancelar",
+            type: "primary",  // 'default' | 'success' | 'warning' | 'error'
+            onConfirm: () => { startLogout() },
+            onCancel: () => { console.log("Cancelado"); }
+        });
     };
 
 
@@ -36,6 +51,7 @@ const PerfilScreen = () => {
     return (
 
         <DisenioPagina title='Mi Perfil'>
+            <AlertModal />
 
             { (!user)
             ?   <CargandoScreen titulo="Cargando Información..." />
@@ -71,7 +87,7 @@ const PerfilScreen = () => {
                                 <Text className="text-white font-medium">Editar Perfil</Text>
                             </TouchableOpacity>
 
-                            <TouchableOpacity style={{backgroundColor: error}} onPress={ handleLogout }
+                            <TouchableOpacity style={{backgroundColor: error}} onPress={ handleMostrarAlerta }
                                 className="flex-1 flex-row items-center justify-center space-x-2 py-3 rounded-xl"
                             >
                                 <Ionicons name="log-out-outline" size={20} color="white" />

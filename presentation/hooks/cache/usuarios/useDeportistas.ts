@@ -2,6 +2,7 @@
 import { Alert } from 'react-native';
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { deportistaPorID, listadoMisDeportistas, updateCreateDeportistas } from '@/core/actions';
+import { useAlertInfo } from '../../hooks/useAlertInfo';
 
 
 
@@ -30,7 +31,8 @@ export const useDeportistas = () => {
 export const useDeportistaId = (uid:string) => {
 
     const queryClient = useQueryClient();
-
+    const { show, AlertInfo } = useAlertInfo();
+    
     
     const deportistaQueryId = useQuery({
         queryKey: ['deportistaId', uid],
@@ -43,18 +45,23 @@ export const useDeportistaId = (uid:string) => {
     const deportistaMutation = useMutation({
         mutationFn: async( data:any ) => updateCreateDeportistas(data),
 
-        onSuccess( data:any ) {
+        onSuccess: ( data:any ) => {
             queryClient.invalidateQueries({ queryKey: ['mis-deportistas', 'infinite'] });
             queryClient.invalidateQueries({ queryKey: ['deportistaId', data.id] });
 
-            Alert.alert('Deportista Guardado', 'El deportista se guardo con exito.')
-        }
+            show({ title: 'Exitoso', message: 'El deportista se guardo con exito.', buttonText: 'Cerrar', type: 'success' });
+        },
+        onError: (error:any) => {
+            const mensajeError = error?.response?.data?.msg || error?.message || 'Error desconocido';
+            show({ title: 'Error', message: mensajeError, buttonText: 'Cerrar', type: 'error' });
+        },
     });
 
 
 
 
     return {
+        AlertInfo,
         deportistaQueryId,
         deportistaMutation,
     }

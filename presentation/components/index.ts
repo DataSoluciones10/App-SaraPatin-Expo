@@ -1,6 +1,5 @@
 
 export * from  './components/TarjetaDeUsuario';
-export * from './components/AlertComponent';
 export * from './components/CargandoScreen';
 export * from './components/CarruselHorizontal';
 export * from './components/CarruselPrincipal';
@@ -14,6 +13,7 @@ export * from './components/SettingsItems';
 export * from './components/TarjetaInscripcionClub';
 export * from './components/TarjetaIconoTexto';
 export * from './components/TarjetaSencilla';
+export * from './components/BackdropScreen';
 
 export * from './inputs/TextInputPassword';
 export * from './inputs/TextInputThemed';

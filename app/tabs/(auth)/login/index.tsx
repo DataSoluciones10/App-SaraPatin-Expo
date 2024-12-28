@@ -5,10 +5,11 @@ import { router } from 'expo-router';
 
 import * as Yup from 'yup';
 import { Formik } from "formik";
+import useThemeColors from '@/presentation/hooks/global/useThemeColors';
 
 import { TextInputThemed, TextInputPassword, ThemedText, ThemedButton, ThemedLink } from '@/presentation/components';
 import { useAuthStore } from '@/presentation/stores';
-import useThemeColors from '@/presentation/hooks/global/useThemeColors';
+import { useAlertInfo } from '@/presentation/hooks';
 
 
 
@@ -19,23 +20,33 @@ const LoginSreen = () => {
 
 
     const { height } = useWindowDimensions();
-    const { primary, background } = useThemeColors();
-    const [isPosting, setIsPosting] = useState(false);
     const { startLogin } = useAuthStore();
+    const { show, AlertInfo } = useAlertInfo();
+    const { primary, background } = useThemeColors();
+
+    const [isPosting, setIsPosting] = useState(false);
+
 
 
 
     const handleLogin = async(values:any, resetForm:any) => {
-        setIsPosting(true);
-        const wasSuccessful = await startLogin(values.correo, values.password);
-        setIsPosting(false);
-
-        if(wasSuccessful) {
-            router.replace('/');
-            resetForm();
-            return;
+        try {
+            setIsPosting(true);
+            const wasSuccessful = await startLogin(values.correo, values.password);
+            setIsPosting(false);
+    
+            if(wasSuccessful) {
+                router.replace('/');
+                resetForm();
+                return;
+            }
+        } catch (error:any) {
+            const mensajeError = error?.response?.data?.msg || error?.message || 'Error desconocido';
+            show({ title: 'Error', message: mensajeError, buttonText: 'Cerrar', type: 'error' });
+            setIsPosting(false);
         }
     }
+    
 
 
 
@@ -43,9 +54,12 @@ const LoginSreen = () => {
     return (
 
         <KeyboardAvoidingView style={{flex:1}}>
+            <AlertInfo />
+
+
             <Formik
                 initialValues={{ 
-                    correo: 'melissaquintero2803@gmail.com', 
+                    correo: 'maicolsierra1030@gmail.com', 
                     password: '1234567Sa', 
                     // correo: '', 
                     // password: '', 

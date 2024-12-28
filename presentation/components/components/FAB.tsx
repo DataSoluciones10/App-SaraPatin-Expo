@@ -1,7 +1,7 @@
 
-import useThemeColors from '@/presentation/hooks/global/useThemeColors';
 import { Ionicons } from '@expo/vector-icons';
 import { StyleProp, ViewStyle, TouchableOpacity } from 'react-native';
+import useThemeColors from '@/presentation/hooks/global/useThemeColors';
 
 
 
@@ -49,9 +49,7 @@ export const FAB = ({ style, iconName, onPress }: Props) => {
             onPress={onPress}
         >
 
-
             <Ionicons name={iconName} size={30} color="white" />
-
 
         </TouchableOpacity>
     );

@@ -61,6 +61,14 @@ export const TarjetaInscripcionClub = ({ datos, carpeta='inscripciones' }: Props
                             <ThemedText style={styles.statText}>0</ThemedText>
                         </View>
                         <View style={styles.statItem}>
+                            <Ionicons name="trophy" size={16} color="#A9A9A9" />
+                            <ThemedText style={styles.statText}>0</ThemedText>
+                        </View>
+                        <View style={styles.statItem}>
+                            <Ionicons name="trophy" size={16} color="#CD7F32" />
+                            <ThemedText style={styles.statText}>0</ThemedText>
+                        </View>
+                        <View style={styles.statItem}>
                             <Ionicons name="people-circle-outline" size={18} color={primary} />
                             <ThemedText style={[styles.statText]}>{ datos.deportistas || 0 }</ThemedText>
                         </View>

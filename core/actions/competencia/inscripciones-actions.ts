@@ -1,6 +1,5 @@
 
-// import { inscripcionApi } from '../../apis';
-// import { useInscripcionStore } from '../../store';
+import { inscripcionApi } from "@/core/apis";
 
 
 
@@ -8,31 +7,56 @@
 
 
 
-// export class InscripcionService {
+
+
+export const inscripcionXId = async(id:string):Promise<any> => {
+    try {
+        const { data } = await inscripcionApi.get<any>(`/xid/${id}`);
+        return data.data;
+    } catch (error: any) {
+        const errores = error.response.data['msg'] || error.response.data.errors[0]['msg'];
+        throw new Error(errores);
+    }
+}
 
 
 
-//     static inscripcionXId = async(id:string):Promise<any> => {
-//         try {
-//             const { data } = await inscripcionApi.get<any>(`/xid/${id}`);
-//             return data.data;
-//         } catch (error: any) {
-//             const errores = error.response.data['msg'] || error.response.data.errors[0]['msg'];
-//             throw new Error(errores);
-//         }
-//     }
+export const createInscripcion = async(inscripcion:any):Promise<any> => {
+    try {
+        const { data } = await inscripcionApi.post<any>('/', inscripcion);
+        return data.data;
+    } catch (error: any) {
+        const errores = error.response.data['msg'] || error.response.data.errors[0]['msg'];
+        throw new Error(errores);
+    }
+}
 
 
 
-//     static createInscripcion = async(inscripcion:any):Promise<any> => {
-//         try {
-//             const { data } = await inscripcionApi.post<any>('/', inscripcion);
-//             return data.data;
-//         } catch (error: any) {
-//             const errores = error.response.data['msg'] || error.response.data.errors[0]['msg'];
-//             throw new Error(errores);
-//         }
-//     }
+export const listadoXTemporadaXEntidad = async({ page=0, termino='', id='' }):Promise<any[]> => {
+    try {
+        const params = new URLSearchParams();
+        params.append('page',  page.toString());
+        params.append('termino',  termino);
+        const { data } = await inscripcionApi.get<any>(`/entidad/${id}`, { params });
+        return data.data;
+    } catch (error: any) {
+        const errores = error.response.data['msg'] || error.response.data.errors[0]['msg'];
+        throw new Error(errores);
+    }
+}
+
+
+
+export const eliminarInscripcionXProfesor = async(id:string):Promise<any> => {
+    try {
+        const { data } = await inscripcionApi.delete<any>(`/${id}`);
+        return data.data;
+    } catch (error: any) {
+        const errores = error.response.data['msg'] || error.response.data.errors[0]['msg'];
+        throw new Error(errores);
+    }
+}
 
 
 
@@ -52,21 +76,6 @@
 //     }
 
 
-    
-
-//     static listadoXTemporadaXEntidad = async({ page=0, termino='', id='' }):Promise<any[]> => {
-//         try {
-//             const params = new URLSearchParams();
-//             params.append('page',  page.toString());
-//             params.append('termino',  termino);
-//             const { data } = await inscripcionApi.get<any>(`/entidad/${id}`, { params });
-//             useInscripcionStore.setState({ total: data.total });
-//             return data.data;
-//         } catch (error: any) {
-//             const errores = error.response.data['msg'] || error.response.data.errors[0]['msg'];
-//             throw new Error(errores);
-//         }
-//     }
 
 
 
@@ -111,15 +120,7 @@
 
 
 
-//     static eliminarInscripcionXProfesor = async(id:string):Promise<any> => {
-//         try {
-//             const { data } = await inscripcionApi.delete<any>(`/${id}`);
-//             return data.data;
-//         } catch (error: any) {
-//             const errores = error.response.data['msg'] || error.response.data.errors[0]['msg'];
-//             throw new Error(errores);
-//         }
-//     }
+
 
 
 

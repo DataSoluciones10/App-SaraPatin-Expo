@@ -8,9 +8,9 @@ export const authLogin = async(body:any) => {
     try {
         const { data } = await authApi.post<any>('/login', body);
         return data
-    } catch (error) {
-        console.log(error)
-        return false;
+    } catch (error:any) {
+        const errores = error.response.data['msg'] || error.response.data.errors[0]['msg'];
+        throw new Error(errores);
     }
 }
 

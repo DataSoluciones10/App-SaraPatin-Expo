@@ -19,9 +19,10 @@ module.exports = {
           tertiary: Colors.light.tertiary,
           text: Colors.light.text,
           opaco: Colors.light.opaco,
-          error: Colors.light.error,
-          success: Colors.light.success,
           disabledColor: Colors.light.disabledColor,
+          success: Colors.light.success,
+          error: Colors.light.error,
+          warning: Colors.light.warning,
         },
         dark: {
           primary: Colors.dark.primary,
@@ -29,9 +30,10 @@ module.exports = {
           tertiary: Colors.dark.tertiary,
           text: Colors.dark.text,
           opaco: Colors.dark.opaco,
-          error: Colors.dark.error,
-          success: Colors.dark.success,
           disabledColor: Colors.dark.disabledColor,
+          success: Colors.dark.success,
+          error: Colors.dark.error,
+          warning: Colors.dark.warning,
         }
       }
     },
