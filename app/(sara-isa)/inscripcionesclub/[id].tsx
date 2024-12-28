@@ -41,10 +41,10 @@ const OpcionesIncripcionClub = () => {
 
 
 
-
     const navigateTo = (url:any) => {
         router.push(url);
     };
+
 
 
     const handleGenerarFactura = async() => {
@@ -60,8 +60,8 @@ const OpcionesIncripcionClub = () => {
             const data = await descargarFacturaCompetencia(datos);
             setCargando(false);
 
-            console.log(data)
-            // descargarPDF(data, nombreArchivo);
+            // console.log(data)
+            descargarPDF(data, nombreArchivo);
         }
     } 
 

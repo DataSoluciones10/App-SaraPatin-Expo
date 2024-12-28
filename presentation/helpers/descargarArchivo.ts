@@ -1,5 +1,5 @@
 
-import { Alert } from 'react-native';
+
 
 
 export const descargarPDF = (data:any, nombreArchivo:string='error') => {
@@ -14,33 +14,6 @@ export const descargarPDF = (data:any, nombreArchivo:string='error') => {
     window.URL.revokeObjectURL(url);
     document.body.removeChild(a);
 }
-
-
-// export const descargarPDF = async (data: any, nombreArchivo: string = 'documento.pdf') => {
-//     try {
-//         // Extraer información del archivo
-//         const { blobId, size } = data._data;
-
-//         // Ruta donde se guardará el archivo
-//         const filePath = `${RNFS.DownloadDirectoryPath}/${nombreArchivo}`; // Directorio de Descargas (Android)
-
-//         // Leer el archivo desde el blobId (usualmente requerido para sistemas base React Native)
-//         const fileContent = await RNFS.readFile(blobId, 'base64');
-
-//         // Guardar el archivo en la ruta
-//         await RNFS.writeFile(filePath, fileContent, 'base64');
-
-//         // Notificar al usuario
-//         Alert.alert('Descarga completada', `El archivo se guardó en: ${filePath}`);
-//     } catch (error) {
-//         Alert.alert('Error', 'No se pudo descargar el archivo.');
-//         console.error(error);
-//     }
-// };
-
-
-
-
 
 
 
