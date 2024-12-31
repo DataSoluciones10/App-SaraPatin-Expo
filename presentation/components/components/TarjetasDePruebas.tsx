@@ -4,7 +4,7 @@ import { View, StyleSheet, TouchableOpacity, Image, Text } from 'react-native';
 import useThemeColors from '@/presentation/hooks/global/useThemeColors';
 import { ThemedText } from '../textos/ThemedText';
 
-const url = process.env.EXPO_PUBLIC_API_URL_ANDROID;
+const url = process.env.EXPO_PUBLIC_API_URL_DESARROLLO;
 
 
 

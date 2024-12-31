@@ -2,10 +2,10 @@
 import { useEffect } from 'react';
 import { Redirect, Stack } from 'expo-router';
 
-import { useAuthStore } from '@/presentation/stores';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { useAuthStore, useSocketStore } from '@/presentation/stores';
 import useThemeColors from '@/presentation/hooks/global/useThemeColors';
 import { CargandoScreen } from '@/presentation/components';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 
 
@@ -20,13 +20,29 @@ const queryClient = new QueryClient({
 const RootLayout = () => {
 
 
-    const { status, startCheckStatus } = useAuthStore();
+    const { user, status, startCheckStatus } = useAuthStore();
+    const { conectarSocket, desconectarSocket } = useSocketStore();
     const { background } = useThemeColors();
 
 
     useEffect(() => {
         startCheckStatus();
     }, [])
+
+
+    useEffect(() => {
+        if( user ) {
+            conectarSocket();
+        }
+    }, [user]);
+
+
+
+    useEffect(() => {
+        if( !user ) {
+            desconectarSocket();
+        }
+    }, [user]);
     
 
 
@@ -46,14 +62,9 @@ const RootLayout = () => {
     return (
 
         <QueryClientProvider client={ queryClient }>
-            <Stack
-                screenOptions={{
-                    headerShadowVisible: false,
-                    headerStyle: { backgroundColor:background },
-                    contentStyle: {backgroundColor: background},
-                    headerShown:false
-                }}
-            >
+            <Stack screenOptions={{ headerShadowVisible: false, headerShown:false,
+                headerStyle: { backgroundColor:background }, contentStyle: {backgroundColor: background},
+            }}>
                 <Stack.Screen name='(dashboard)' options={{ title: 'Dashboard' }} />
                 <Stack.Screen name='deportistas/index' options={{ title: 'Mis Deportistas' }} />
                 <Stack.Screen name='profesores/index' options={{ title: 'Profesores' }} />

@@ -18,9 +18,6 @@ interface CategoriasTemporadaState {
     total: number;
     
     
-    // startCategoriasClearActive: () => void,
-    // startActivarCategoriaTem: (data:any) => void,
-    // startCategoriasXID: (id:string) => Promise<boolean>,
     // startCategoriasXArbitro: (datos:any) => Promise<boolean>,
     // startCategoriasXTemporada: (id:string) => Promise<boolean>,
     // startActiveTipoPatin: (categoria: any) => Promise<boolean>,
@@ -28,6 +25,7 @@ interface CategoriasTemporadaState {
     // actualizarCategoriaXNumeracion: (dato:any) => Promise<any>,
     // startActivarPrueba: (prueba: any) => Promise<boolean>,
     // actualizarCategoriaTemporada: (dato:any) => Promise<any>,
+    // startActivarCategoriaTem: (data:any) => void,
     categoriasXPatinXTipoCompetencia: (id:string) => Promise<any[]>,
 }
 
@@ -43,29 +41,9 @@ const storeApi: StateCreator<CategoriasTemporadaState> = (set) => ({
     
     
 
-    // startCategoriasClearActive: () => {
-    //     set({ activeCategoriaTemporada: null });
-    // },
-
-
 
     // startActivarCategoriaTem: (data: any) => {
     //     set({ activeCategoriaTemporada: data });
-    // },
-
-
-
-    // startCategoriasXID: async(id) => {
-    //     set({ isLoadingCategoriaTemporada: true });
-    //     try {
-    //         const data = await CategoriaTemporadaService.categoriaTemporadaXID(id);
-    //         set({ activeCategoriaTemporada: data, isLoadingCategoriaTemporada: false });
-    //         return true;
-    //     } catch (error:any) {
-    //         set({ isLoadingCategoriaTemporada: false });
-    //         Swal.fire('Error', error.message, 'error');
-    //         return false;
-    //     }
     // },
 
 

@@ -44,6 +44,7 @@ export const generalCompetenciaXFiltros = async(body:any):Promise<any> => {
 
 
 
+
     // static deportistasNoRealizaronPrueba = async(pruebas:any):Promise<any> => {
     //     try {
     //         const { data } = await pruebasApi.post<any>('/no/prueba', pruebas);

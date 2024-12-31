@@ -5,7 +5,8 @@ import { router } from 'expo-router';
 import { images } from '@/presentation/helpers';
 import { ThemedView } from '../textos/ThemedView';
 import { useImagenStore } from '@/presentation/stores';
-const url = process.env.EXPO_PUBLIC_API_URL_ANDROID;
+
+const url = process.env.EXPO_PUBLIC_API_URL_DESARROLLO;
 
 
 interface Props {

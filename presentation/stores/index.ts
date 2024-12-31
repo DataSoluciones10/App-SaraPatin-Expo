@@ -11,3 +11,4 @@ export * from './usuarios/profesores.store';
 export * from './competencia/inscripcion_club.store';
 export * from './competencia/categorias_temporada.store';
 export * from './competencia/pruebas_store';
+export * from './sistema/sockets.store';

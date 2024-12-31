@@ -1,6 +1,5 @@
 
-import { Alert } from 'react-native';
-import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { incripcionesXClubXId, misIncripciones } from '@/core/actions';
 
 

@@ -5,7 +5,7 @@ import { KeyboardAvoidingView, View } from 'react-native';
 import * as Yup from 'yup';
 import { Formik } from "formik";
 import { SelectNormalThemed, ThemedButton } from '@/presentation/components';
-import { filtroCategorias, ramaData, tipoPrueba, tipoReportes } from '@/presentation/data';
+import { filtroCategorias, ramaData, tipoReportes } from '@/presentation/data';
 import { useCategoriasTemporadaStore } from '@/presentation/stores';
 
 
@@ -128,13 +128,13 @@ export const FormEscalafon = ({ id, datos=[], funcion }:any) => {
                             </ThemedButton>
                         </View>
 
-                        {/* {(datos.length > 0) &&
+                        {(datos.length > 0) &&
                         <View className="flex-1">
                             <ThemedButton icon="cloud-download-outline" onPress={() => handleSubmit()}>
                                 Descargar
                             </ThemedButton>
                         </View>
-                        } */}
+                        }
                     </View>
 
                 </View>

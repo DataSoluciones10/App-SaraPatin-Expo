@@ -1,12 +1,12 @@
 
 import { useState } from 'react';
-import { View, Text, Image, Dimensions, StyleSheet, FlatList, ScrollView } from 'react-native';
-import { router, useLocalSearchParams } from 'expo-router';
+import { View, FlatList } from 'react-native';
+import { useLocalSearchParams } from 'expo-router';
 
-import { DisenioPagina } from '@/presentation/layouts'
-import { BackdropScreen, MensajeListaVacia, TarjetaInscripcionClub, TarjetasDePruebas } from '@/presentation/components';
+import { DisenioCompetencia } from '@/presentation/layouts'
 import { FormReportes } from '@/presentation/screen/reportes';
 import { usePruebasStore } from '@/presentation/stores';
+import { BackdropScreen, MensajeListaVacia, TarjetaInscripcionClub, TarjetasDePruebas } from '@/presentation/components';
 
 
 
@@ -43,7 +43,7 @@ const ReportesPruebasDeportistas = () => {
 
     return (
 
-        <DisenioPagina title='Reporte de Pruebas'>
+        <DisenioCompetencia title='Reporte de Pruebas'>
             <BackdropScreen titulo="Buscando información, por favor espere..." visible={cargando} />
 
             <View style={{ flex: 1 }}>
@@ -84,8 +84,7 @@ const ReportesPruebasDeportistas = () => {
 
             ) : null}
             </View>
-            
-        </DisenioPagina>
+        </DisenioCompetencia>
     )
 }
 

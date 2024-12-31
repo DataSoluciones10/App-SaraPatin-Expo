@@ -6,7 +6,7 @@ import useThemeColors from '@/presentation/hooks/global/useThemeColors';
 import { ThemedText } from '../textos/ThemedText';
 import { categoriaDeportista } from '@/presentation/helpers';
 
-const url = process.env.EXPO_PUBLIC_API_URL_ANDROID;
+const url = process.env.EXPO_PUBLIC_API_URL_DESARROLLO;
 
 
 

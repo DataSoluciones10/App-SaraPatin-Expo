@@ -2,7 +2,7 @@
 import { FlatList, RefreshControl } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
 
-import { DisenioPagina } from '@/presentation/layouts'
+import { DisenioCompetencia, DisenioPagina } from '@/presentation/layouts'
 import { BackdropScreen, CargandoScreen, MensajeListaVacia, TarjetaSencilla } from '@/presentation/components'
 import { useAlertConConfirm, useFuncionesTanStack, useInscripcionDeportistas, useInscripcionesMisDeportistas } from '@/presentation/hooks';
 
@@ -14,13 +14,12 @@ import { useAlertConConfirm, useFuncionesTanStack, useInscripcionDeportistas, us
 const MisDeportistasInscriptos = () => {
     
 
-    const { id } = useLocalSearchParams();
-    const { inscripcionMisDeportistas, loadNextPage } = useInscripcionesMisDeportistas(`${id}`);
+    const { id, entidad } = useLocalSearchParams();
+    const { inscripcionMisDeportistas, loadNextPage } = useInscripcionesMisDeportistas(`${entidad}`);
     const { isRefreshing, onPullRefreshConParams } = useFuncionesTanStack();
-    const { eliminarInscripcion, AlertInfo } = useInscripcionDeportistas(`${id}`)
+    const { eliminarInscripcion, AlertInfo } = useInscripcionDeportistas(`${entidad}`)
     const { showDialog, AlertModal } = useAlertConConfirm();
     
-
 
 
     if(inscripcionMisDeportistas.isLoading) {
@@ -30,7 +29,6 @@ const MisDeportistasInscriptos = () => {
             </DisenioPagina>
         )
     }
-
 
 
     const handleEliminarInscripcion = async(uid: string) => {
@@ -48,12 +46,10 @@ const MisDeportistasInscriptos = () => {
     };
 
 
-
-
     
     return (
 
-        <DisenioPagina title={`Deportistas Inscriptos`}>
+        <DisenioCompetencia title={`Deportistas Inscriptos`}>
             <AlertModal />
             <AlertInfo />
             <BackdropScreen titulo="Procesando su petición." visible={eliminarInscripcion.isPending} />
@@ -78,7 +74,7 @@ const MisDeportistasInscriptos = () => {
                 ListEmptyComponent={ <MensajeListaVacia titulo="No tienes deportistas inscripciones." />}
             />
 
-        </DisenioPagina>
+        </DisenioCompetencia>
         
     )
 }

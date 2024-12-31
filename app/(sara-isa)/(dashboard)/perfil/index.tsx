@@ -8,7 +8,7 @@ import { documentos } from '@/presentation/data';
 import { useAlertConConfirm } from '@/presentation/hooks';
 
 
-const url = process.env.EXPO_PUBLIC_API_URL_ANDROID;
+const url = process.env.EXPO_PUBLIC_API_URL_DESARROLLO;
                     
 
 

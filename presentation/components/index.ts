@@ -17,6 +17,7 @@ export * from './components/BackdropScreen';
 export * from './components/MensajeListaVacia';
 export * from './components/TarjetasDePruebas';
 export * from './components/TarjetaEscalafon';
+export * from './components/TarjetaEscalafonEntidades';
 
 export * from './inputs/TextInputPassword';
 export * from './inputs/TextInputThemed';

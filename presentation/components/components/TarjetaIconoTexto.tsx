@@ -12,13 +12,14 @@ interface Props {
     titulo: string; 
     icon: any;
     onPress: any; 
+    isLast?: boolean;
 }
 
 
 
 
 
-export const TarjetaIconoTexto = ({ onPress, icon, titulo }: Props) => {
+export const TarjetaIconoTexto = ({ onPress, icon, titulo, isLast=false }: Props) => {
 
 
     const { primary, background, disabledColor } = useThemeColors();
@@ -27,7 +28,7 @@ export const TarjetaIconoTexto = ({ onPress, icon, titulo }: Props) => {
 
     return (
 
-        <View style={{ backgroundColor:background, borderRadius:14, overflow:'hidden', flex:1 / 2,
+        <View style={{ backgroundColor:background, borderRadius:14, overflow:'hidden', flex: 0.5,
             borderWidth:1, borderColor:disabledColor, margin:10 }}
         >
             <TouchableOpacity onPress={ onPress } style={[styles.card, {backgroundColor: background}]} >
@@ -39,7 +40,6 @@ export const TarjetaIconoTexto = ({ onPress, icon, titulo }: Props) => {
                 </View>
             </TouchableOpacity>
         </View>
-
 
     )
 }
