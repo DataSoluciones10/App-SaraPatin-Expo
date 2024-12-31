@@ -55,7 +55,7 @@ const RootLayout = () => {
                 }}
             >
                 <Stack.Screen name='(dashboard)' options={{ title: 'Dashboard' }} />
-                <Stack.Screen name='deportistas/index' options={{ title: 'Deportistas' }} />
+                <Stack.Screen name='deportistas/index' options={{ title: 'Mis Deportistas' }} />
                 <Stack.Screen name='profesores/index' options={{ title: 'Profesores' }} />
 
                 <Stack.Screen name='inscripcionesclub/realizarinscripcion' options={{title: 'RealizarInscripcion'}} />

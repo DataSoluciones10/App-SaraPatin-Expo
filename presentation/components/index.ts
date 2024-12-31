@@ -14,6 +14,9 @@ export * from './components/TarjetaInscripcionClub';
 export * from './components/TarjetaIconoTexto';
 export * from './components/TarjetaSencilla';
 export * from './components/BackdropScreen';
+export * from './components/MensajeListaVacia';
+export * from './components/TarjetasDePruebas';
+export * from './components/TarjetaEscalafon';
 
 export * from './inputs/TextInputPassword';
 export * from './inputs/TextInputThemed';

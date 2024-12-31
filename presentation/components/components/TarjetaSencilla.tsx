@@ -10,14 +10,13 @@ import { ThemedText } from '../textos/ThemedText';
 interface Props {
     dato: any; 
     onPress: any;
-    isPending: boolean;
 }
 
 
 
 
 
-export const TarjetaSencilla = ({ dato, onPress, isPending }: Props) => {
+export const TarjetaSencilla = ({ dato, onPress }: Props) => {
 
 
     const { error, opaco, background, disabledColor } = useThemeColors();
@@ -63,10 +62,6 @@ export const TarjetaSencilla = ({ dato, onPress, isPending }: Props) => {
 
     )
 }
-
-
-                {/* //   onPress={onDelete} */}
-
 
 
 const styles = StyleSheet.create({

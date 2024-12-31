@@ -10,19 +10,21 @@ interface Props extends PressableProps {
     radius?: number;
     icon?: keyof typeof Ionicons.glyphMap;
     disabled?: boolean;
+    color?: any;
 }
 
 
 
 
-export const ThemedButton = ({ children, icon, radius=5, disabled=false, ...rest }: Props) => {
+export const ThemedButton = ({ children, icon, radius=5, disabled=false, color=null, ...rest }: Props) => {
 
     const { primary, disabledColor } = useThemeColors();
+    const buttonColor = color || primary;
 
 
     return (
 
-        <Pressable style={{backgroundColor: (disabled) ? disabledColor : primary, borderRadius:radius }} { ...rest }
+        <Pressable style={{backgroundColor: (disabled) ? disabledColor : buttonColor, borderRadius:radius }} { ...rest }
             className="px-4 py-3 flex-row items-center justify-center bg-primary active:opacity-70 gap-3"
             disabled={disabled}
         >

@@ -46,6 +46,7 @@ export const DisenioPagina = ({ title, subtitle, rightAction, rightActionIcon, c
 
 
     return (
+        
         <SafeAreaView style={{ flex:1, backgroundColor:background }}>
             <View className="flex-row items-center justify-between px-4 py-3" 
                 style={{backgroundColor:background, borderBottomWidth:0.2, borderBottomColor:'gray', paddingBottom:subtitle ? 10 : 15}}
@@ -67,7 +68,7 @@ export const DisenioPagina = ({ title, subtitle, rightAction, rightActionIcon, c
 
 
             {/* Content */}
-            <View className="flex-1" style={{backgroundColor:background}}>
+            <View style={{backgroundColor:background, flex:1}}>
                 {children}
             </View>
 

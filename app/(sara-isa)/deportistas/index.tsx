@@ -2,7 +2,7 @@
 import { router } from 'expo-router';
 import { FlatList, RefreshControl, View } from 'react-native';
 
-import { FAB, TarjetaDeUsuario } from '@/presentation/components';
+import { FAB, MensajeListaVacia, TarjetaDeUsuario } from '@/presentation/components';
 import { DisenioPagina } from '@/presentation/layouts';
 import { useDeportistas, useFuncionesTanStack } from '@/presentation/hooks';
 import { CargandoScreen } from '../../../presentation/components/components/CargandoScreen';
@@ -11,7 +11,7 @@ import { CargandoScreen } from '../../../presentation/components/components/Carg
 
 
 
-const Deportistas = () => {
+const MisDeportistas = () => {
 
     const { deportistasQuery, loadNextPage } = useDeportistas();
     const { isRefreshing, onPullRefresh } = useFuncionesTanStack();
@@ -25,6 +25,7 @@ const Deportistas = () => {
             </DisenioPagina>
         )
     }
+
 
 
     return (
@@ -44,22 +45,23 @@ const Deportistas = () => {
                         carpeta="deportistas"
                     />
                 )}
-                contentContainerStyle={{ padding:10 }}
+                contentContainerStyle={{flexGrow:1, padding:10}}
                 onEndReached={ () => loadNextPage() }
                 onEndReachedThreshold={ 0.8 }
                 showsVerticalScrollIndicator={ false }
                 refreshControl={ <RefreshControl refreshing={isRefreshing} 
                     onRefresh={ () => onPullRefresh('inscripciones-mis-deportistas') } 
                 /> }
+                ListEmptyComponent={ <MensajeListaVacia titulo="No tienes deportistas creados" />}
             />
 
 
             <FAB iconName='add-outline' onPress={() => router.push({ pathname:'/deportistas/[id]', params:{id:'new'} })}/>
-            <View style={{height:20}} />
+            {/* <View style={{height:20}} /> */}
         </DisenioPagina>
     )
 }
 
 
 
-export default Deportistas
+export default MisDeportistas

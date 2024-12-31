@@ -31,7 +31,7 @@ export const TarjetaDeUsuario = ({ nombre, img, datos, fecha, uid, carpeta }: Pr
     return (
 
         <View style={{ backgroundColor:background, borderRadius:14, overflow:'hidden', 
-            borderBottomWidth:1, borderBottomColor:opaco, marginBottom:2 }}
+            borderBottomWidth:1, borderBottomColor:opaco }}
         >
             <TouchableOpacity className="flex-row items-center rounded-lg p-2"
                 onPress={() => router.push({ pathname: '/deportistas/[id]', params:{id: uid} })}

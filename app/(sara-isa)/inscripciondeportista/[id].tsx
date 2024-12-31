@@ -3,7 +3,7 @@ import { FlatList, RefreshControl } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
 
 import { DisenioPagina } from '@/presentation/layouts'
-import { BackdropScreen, CargandoScreen, TarjetaSencilla } from '@/presentation/components'
+import { BackdropScreen, CargandoScreen, MensajeListaVacia, TarjetaSencilla } from '@/presentation/components'
 import { useAlertConConfirm, useFuncionesTanStack, useInscripcionDeportistas, useInscripcionesMisDeportistas } from '@/presentation/hooks';
 
 
@@ -49,6 +49,8 @@ const MisDeportistasInscriptos = () => {
 
 
 
+
+    
     return (
 
         <DisenioPagina title={`Deportistas Inscriptos`}>
@@ -64,16 +66,16 @@ const MisDeportistasInscriptos = () => {
                         key={ item.id }
                         dato={item}
                         onPress={ handleEliminarInscripcion }
-                        isPending={eliminarInscripcion?.isPending}
                     />
                 )}
-                contentContainerStyle={{padding:10}}
+                contentContainerStyle={{padding:10, flexGrow:1}}
                 onEndReached={ () => loadNextPage() }
                 onEndReachedThreshold={ 0.8 }
                 showsVerticalScrollIndicator={ false }
                 refreshControl={ <RefreshControl refreshing={isRefreshing} 
                     onRefresh={ () => onPullRefreshConParams('inscripciones-mis-deportistas', `${id}`) } 
                 /> }
+                ListEmptyComponent={ <MensajeListaVacia titulo="No tienes deportistas inscripciones." />}
             />
 
         </DisenioPagina>

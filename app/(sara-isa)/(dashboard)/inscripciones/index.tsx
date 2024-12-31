@@ -2,7 +2,7 @@
 import { router } from 'expo-router';
 import { FlatList } from 'react-native';
 
-import { CargandoScreen, FAB, TarjetaInscripcionClub } from '@/presentation/components';
+import { CargandoScreen, FAB, MensajeListaVacia, TarjetaInscripcionClub } from '@/presentation/components';
 import { DisenioPagina } from '@/presentation/layouts';
 import { useMisInscripciones } from '@/presentation/hooks';
 
@@ -23,9 +23,16 @@ const MisInscripciones= () => {
             </DisenioPagina>
         )
     }
-    
 
-    // console.log('holis', misInscripcionesQuery.data?.pages.flatMap((page) => page))
+
+    const handlePress = (item:any) => {
+        router.push({
+            pathname: '/inscripcionesclub/[id]',
+            params: { id: item.categoria_temporada?._id, entidad: item.id },
+        });
+    }
+    
+    
 
 
     return (
@@ -36,17 +43,20 @@ const MisInscripciones= () => {
                 data={misInscripcionesQuery.data?.pages.flatMap((page) => page) || []}
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) => (
-                    <TarjetaInscripcionClub
-                        key={item.id} 
-                        datos={item}
-                        carpeta="deportistas"
+                    <TarjetaInscripcionClub carpeta="deportistas" img={item.img}
+                        titulo={item.categoria_temporada?.competencia?.nombre}
+                        subtitulo1={`${item.categoria_temporada?.temporada?.nombre} - ${item.patin}`} 
+                        subtitulo2={`${item.entidad.nombre}`}
+                        deportistas={item.deportistas}
+                        oro={item.oro} plata={item.plata} bronce={item.bronce}
+                        onPress={ () => handlePress(item) }
+                        isClub={ item.id === null }
                     />
                 )}
-                contentContainerStyle={{ paddingTop:5, paddingBottom:30 }}
+                contentContainerStyle={{flexGrow:1, paddingTop:5, paddingBottom:20}}
                 onEndReachedThreshold={ 0.8 }
                 showsVerticalScrollIndicator={ false }
-                // onEndReached={ () => loadNextPage() }
-                // refreshControl={ <RefreshControl refreshing={isRefreshing} onRefresh={ onPullRefresh } /> }
+                ListEmptyComponent={ <MensajeListaVacia titulo="No tienes inscripciones por el momento." />}
             />
 
             <FAB iconName='add-outline' onPress={ () => router.push('/inscripcionesclub/realizarinscripcion') }/>

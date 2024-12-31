@@ -50,3 +50,5 @@ export const epsData = [
 export const tipoReportes = ['DEPORTISTAS', 'CLUBES', 'ESCUELAS', 'ENTIDADES'];
 // Filtro de Categorias
 export const filtroCategorias = ['MENORES', 'TRANSICION', 'MAYORES', 'TODAS'];
+// Tipos de Pruebas Para competencias
+export const tipoPrueba = ['HABILIDAD', 'REMATES', 'REMATES CON DISTANCIA', 'META CONTRA META', 'VELOCIDAD OLIMPICA', 'FONDO', 'FONDO PUNTOS', 'FONDO ELIMINACION'];

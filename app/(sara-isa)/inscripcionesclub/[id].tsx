@@ -1,6 +1,6 @@
 
 import { Redirect, router, useLocalSearchParams } from 'expo-router';
-import { FlatList } from 'react-native';
+import { Alert, FlatList } from 'react-native';
 
 import { DisenioPagina } from '@/presentation/layouts'
 import { CargandoScreen, TarjetaIconoTexto } from '../../../presentation/components';
@@ -61,28 +61,23 @@ const OpcionesIncripcionClub = () => {
             setCargando(false);
 
             // console.log(data)
-            descargarPDF(data, nombreArchivo);
+            // descargarPDF(data, nombreArchivo);
         }
     } 
 
 
-    // url:'ddd',
-    // url:`${entidad}/pago`,
-    // url:`${entidad}/misdeportistas`,
-    // url:`${id}/${entidad}/fulltime`,
-    // url:`${id}/${entidad}/vertodo`,
-    // url:'d',
-
 
     const data = [
         {key:1, titulo:'Descargar Factura De Pago', function: handleGenerarFactura, icono:'cloud-download-outline'},
-        {key:2, titulo:'Subir Pago Competencia', function: null, icono:'cloud-upload-outline'},
+        {key:2, titulo:'Subir Pago Competencia', icono:'cloud-upload-outline', function: () =>
+        Alert.alert('Estamos mejorando para ti', 'Pronto te ofreceremos una experiencia aún mejor. ¡Gracias por tu paciencia!'), },
         {key:3, titulo:'Mis Deportistas Inscritos', function: () => navigateTo(`/inscripciondeportista/${entidad}`), icono:'people-circle-outline'},
-        {key:4, titulo:'Ranking Tiempo Real', function:null, icono:'videocam-outline'},
-        {key:5, titulo:'Resultados Competencia', function:null, icono:'document-text-outline'},
+        {key:4, titulo:'Ranking Tiempo Real', icono:'videocam-outline', function: () => router.push({ pathname: '/tiemporeal/[id]', params: { id:`${id}`, entidad } })},
+        {key:5, titulo:'Resultados Competencia', icono:'document-text-outline', function: () => router.push({ pathname: '/reportespruebas/[id]', params: { id:`${id}`, entidad } })},
         ...(isLiga ? [
-            {key: 6, titulo:'Escalafon Por Fase', function:null, icono:'stats-chart-outline'},
-        ...(isLigados ? [{key:7, titulo:'Escalafon General', function:null, icono:'git-merge-outline'}] : [])
+            {key: 6, titulo:'Escalafon Por Fases', icono:'stats-chart-outline', function: () => router.push({ pathname: '/escalafones/[id]', params: { id:`${id}`, entidad } })},
+        ...(isLigados ? [{key:7, titulo:'Escalafon General', icono:'git-merge-outline', function: () =>
+            Alert.alert('Estamos mejorando para ti', 'Pronto te ofreceremos una experiencia aún mejor. ¡Gracias por tu paciencia!') }] : [])
         ] : [])
     ];
 

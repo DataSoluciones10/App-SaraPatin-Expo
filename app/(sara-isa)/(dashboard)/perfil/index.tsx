@@ -1,9 +1,8 @@
 
-import { View, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
+import { View, Image, ScrollView } from 'react-native';
 import useThemeColors from '@/presentation/hooks/global/useThemeColors';
 import { DisenioPagina } from '@/presentation/layouts';
-import { Ionicons } from '@expo/vector-icons';
-import { CargandoScreen, InformacionItem, SettingsItems, ThemedText } from '@/presentation/components';
+import { CargandoScreen, InformacionItem, SettingsItems, ThemedButton, ThemedText } from '@/presentation/components';
 import { useAuthStore } from '@/presentation/stores';
 import { documentos } from '@/presentation/data';
 import { useAlertConConfirm } from '@/presentation/hooks';
@@ -17,19 +16,9 @@ const url = process.env.EXPO_PUBLIC_API_URL_ANDROID;
 const PerfilScreen = () => {
 
 
-    const { primary, background, error } = useThemeColors();
+    const { background, error } = useThemeColors();
     const { user, startLogout } = useAuthStore();
     const { showDialog, AlertModal } = useAlertConConfirm();
-
-
-    // const handleLogout = () => {
-    //     Alert.alert( "Cerrar Sesión", "¿Estás seguro que deseas cerrar sesión?",
-    //         [
-    //         { text: "Cancelar", style: "cancel" },
-    //         { text: "Cerrar Sesión", style: "destructive", onPress: () => startLogout() }
-    //         ]
-    //     );
-    // };
 
 
 
@@ -79,21 +68,20 @@ const PerfilScreen = () => {
                             </View>
                         </View>
 
-                        <View className="flex-row items-center justify-between gap-4 py-4">
-                            <TouchableOpacity style={{ backgroundColor: primary }}
-                                className="flex-1 flex-row items-center justify-center space-x-2 py-3 rounded-xl"
-                            >
-                                <Ionicons name="create-outline" size={20} color="white" />
-                                <Text className="text-white font-medium">Editar Perfil</Text>
-                            </TouchableOpacity>
-
-                            <TouchableOpacity style={{backgroundColor: error}} onPress={ handleMostrarAlerta }
-                                className="flex-1 flex-row items-center justify-center space-x-2 py-3 rounded-xl"
-                            >
-                                <Ionicons name="log-out-outline" size={20} color="white" />
-                                <Text className="text-white font-medium">Logout</Text>
-                            </TouchableOpacity>
+                        <View className="flex-row w-full gap-4 pt:-2 pb-4">
+                            <View className="flex-1">
+                                <ThemedButton icon="search" onPress={null}>
+                                    Editar
+                                </ThemedButton>
+                            </View>
+                            
+                            <View className="flex-1">
+                                <ThemedButton icon="cloud-download-outline" onPress={ handleMostrarAlerta } color={error} >
+                                    Logout
+                                </ThemedButton>
+                            </View>
                         </View>
+
                     </View>
 
                     {/* Info Sections */}

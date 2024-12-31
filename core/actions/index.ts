@@ -9,3 +9,5 @@ export * from './competencia/competencia-actions';
 export * from './competencia/inscripcion_club-actions';
 export * from './competencia/inscripciones-actions';
 export * from './utilities/descargas-actions';
+export * from './competencia/categoria-temporada.actions';
+export * from './competencia/pruebas.actions';

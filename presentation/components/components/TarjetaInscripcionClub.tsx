@@ -1,6 +1,5 @@
 
-import { router } from 'expo-router';
-import { View, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, Image, StyleSheet, Text } from 'react-native';
 import Animated from 'react-native-reanimated';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -11,71 +10,87 @@ const url = process.env.EXPO_PUBLIC_API_URL_ANDROID;
 
 
 interface Props {
-    datos:any
+    img: string;
+    titulo: string;
+    subtitulo1: string;
+    isClub:boolean;
+    onPress:any;
+    oro?: string;
+    plata?: string;
+    bronce?: string;
+    deportistas?: string;
+    subtitulo2?: string;
     carpeta?: string;
+    index?: number;
 }
 
 
 
 
-export const TarjetaInscripcionClub = ({ datos, carpeta='inscripciones' }: Props) => {
-    
+export const TarjetaInscripcionClub = ({ img, titulo, subtitulo1, subtitulo2, oro, plata, 
+    bronce, deportistas, carpeta='inscripciones', onPress, isClub, index }: Props) => {
 
-    const { primary, opaco, background, disabledColor } = useThemeColors();
 
+    const { primary, secondary, opaco, background, disabledColor } = useThemeColors();
 
 
     return (
 
-        // entering={FadeIn.duration(400)}
-        <Animated.View style={[{backgroundColor:background, borderBottomColor:opaco}, styles.cardContainer]}>
-            <TouchableOpacity style={{ flexDirection:'row', padding:10, alignItems:'center' }}
-                onPress={() => router.push({ pathname: '/inscripcionesclub/[id]', 
-                params: { id:datos.categoria_temporada._id, entidad:datos.id } })}
-            >
+        <Animated.View style={[{backgroundColor:(isClub) ? secondary : background, borderBottomColor:opaco}, styles.cardContainer]}>
+            <TouchableOpacity style={{flexDirection:'row', padding:10, alignItems:'center'}} onPress={ onPress }>
+
                 <View style={{position:'relative'}}>
-                    <Image resizeMode="cover" source={ datos.img 
-                        ? { uri: `${url}/uploads/${carpeta}/${datos.img}` } 
+                    <Image resizeMode="cover" source={ img 
+                        ? { uri: `${url}/uploads/${carpeta}/${img}` } 
                         : require('../../../assets/images/user/no-img.webp')}
                         style={[styles.avatar, {borderColor: opaco}]}
                     />
                 </View>
 
                 <View style={styles.infoContainer}>
-
                     <View style={styles.headerContainer}>
                         <ThemedText style={styles.name} numberOfLines={1}>
-                            {datos.categoria_temporada?.competencia?.nombre}
+                            { titulo }
                         </ThemedText>
-                        <ThemedText style={[styles.details, {color:disabledColor}]} numberOfLines={1}>
-                            {`${datos.categoria_temporada?.temporada?.nombre} - ${datos.patin}`}
+                        <ThemedText style={[styles.details, {color:(isClub) ? opaco : disabledColor}]} numberOfLines={1}>
+                            { subtitulo1 }
                         </ThemedText>
-                        <ThemedText style={[styles.details, {color:disabledColor}]} numberOfLines={1}>
-                            {`${datos.entidad.nombre}`}
+                        <ThemedText style={[styles.details, {color:(isClub) ? opaco : disabledColor}]} numberOfLines={1}>
+                            { subtitulo2 }
                         </ThemedText>
                     </View>
-                    
+
                     <View style={styles.statsContainer}>
                         <View style={styles.statItem}>
                             <Ionicons name="trophy" size={16} color="#FFD700" />
-                            <ThemedText style={styles.statText}>0</ThemedText>
+                            <ThemedText style={styles.statText}>{ oro || 0 }</ThemedText>
                         </View>
                         <View style={styles.statItem}>
-                            <Ionicons name="trophy" size={16} color="#A9A9A9" />
-                            <ThemedText style={styles.statText}>0</ThemedText>
+                            <Ionicons name="trophy" size={16} color='#A9A9A9' />
+                            <ThemedText style={styles.statText}>{ plata || 0 }</ThemedText>
                         </View>
                         <View style={styles.statItem}>
                             <Ionicons name="trophy" size={16} color="#CD7F32" />
-                            <ThemedText style={styles.statText}>0</ThemedText>
+                            <ThemedText style={styles.statText}>{ bronce || 0 }</ThemedText>
                         </View>
                         <View style={styles.statItem}>
                             <Ionicons name="people-circle-outline" size={18} color={primary} />
-                            <ThemedText style={[styles.statText]}>{ datos.deportistas || 0 }</ThemedText>
+                            <ThemedText style={[styles.statText]}>{ deportistas || 0 }</ThemedText>
                         </View>
                     </View>
                 </View>
+
+                {(index) &&
+                <View style={[styles.posicion]}>
+                    <Text style={{color:opaco, fontWeight:'700', fontSize:25}}>
+                        { index }
+                    </Text>
+                </View>
+                }
+
             </TouchableOpacity>
         </Animated.View>
+
     )
 }
 
@@ -106,6 +121,18 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         alignItems: 'center',
         width:'100%',
+    },
+
+    posicion: {
+        width: 40,
+        height: 50,
+        borderRadius: 25,
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'absolute',
+        right: 0,
+        top: '60%',
+        transform: [{ translateY: -25 }]
     },
 
     name: {

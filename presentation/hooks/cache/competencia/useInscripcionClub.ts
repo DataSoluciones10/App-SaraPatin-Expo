@@ -14,7 +14,7 @@ export const useMisInscripciones = () => {
         staleTime: 1000 * 60 * 60, // 1 hora
         initialPageParam: 0,
         getNextPageParam: (_, allPages) => allPages.length
-    })
+    });
 
     return {
         misInscripcionesQuery,

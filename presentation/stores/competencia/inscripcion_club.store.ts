@@ -2,7 +2,7 @@
 import { StateCreator, create } from "zustand";
 import { devtools } from "zustand/middleware";
 
-import { misIncripciones } from "@/core/actions";
+import { incripcionesXClubXId, misIncripciones } from "@/core/actions";
 
 
 
@@ -18,9 +18,7 @@ interface InscripcionClubState {
     totalInsClubes: number;
 
 
-    startInscripcionClubXId: (id:string) => Promise<boolean>,
     clearTodasIncripcionesClub: () => void,
-    clearIncripcioneClub: () => void,
     startMisInscripcionClub: () => Promise<boolean>,
 
 }
@@ -40,27 +38,6 @@ const storeApi: StateCreator<InscripcionClubState> = (set) => ({
     clearTodasIncripcionesClub: async() => {
         set({ inscripcionesClub: [] });
     },
-
-
-
-    clearIncripcioneClub: async() => {
-        set({ activeInscripcionClub: null });
-    },
-
-
-
-    startInscripcionClubXId: async(id) => {
-        // try {
-        //     const data = await InscripcionClubService.incripcionesXClubXId(id);
-        //     set({ activeInscripcionClub: data });
-        //     return true;
-        // } catch (error:any) {
-        //     Swal.fire('Error', error.message, 'error');
-        //     return false;
-        // }
-        return true;
-    },
-
 
 
     

@@ -1,7 +1,6 @@
 
 
-import { View, Modal, StyleSheet, ActivityIndicator } from 'react-native'
-import { ThemedText } from '../textos/ThemedText';
+import { View, Modal, StyleSheet, ActivityIndicator, Text } from 'react-native'
 
 
 
@@ -19,7 +18,7 @@ export const BackdropScreen = ({ titulo, visible }:Props) => {
         <Modal transparent={true} visible={visible} animationType="fade">
             <View style={styles.backdrop}>
                 <ActivityIndicator size={40} color="white" />
-                <ThemedText type='semi-bold' bold style={{fontSize:16}}>{ titulo }</ThemedText>
+                <Text style={{fontSize:16, color:'white', fontWeight:'bold'}}>{ titulo }</Text>
             </View>
         </Modal>
     )

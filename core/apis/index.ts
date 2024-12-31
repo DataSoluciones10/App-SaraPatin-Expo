@@ -8,3 +8,5 @@ export * from './competencias/competenciaApi';
 export * from './competencias/inscripcionApi';
 export * from './competencias/inscripcionClubApi';
 export * from './utilities/descargasApi';
+export * from './competencias/categoriaTemporadaApi';
+export * from './competencias/pruebasApi';
