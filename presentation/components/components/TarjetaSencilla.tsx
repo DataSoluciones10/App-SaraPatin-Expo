@@ -19,15 +19,15 @@ interface Props {
 export const TarjetaSencilla = ({ dato, onPress }: Props) => {
 
 
-    const { error, opaco, background, disabledColor } = useThemeColors();
+    const { primary, error, opaco, background, disabledColor } = useThemeColors();
 
 
     return (
 
-        <Animated.View style={[{backgroundColor:background, borderBottomColor:opaco}, styles.cardContainer]}>
+        <Animated.View style={[{backgroundColor:background, borderColor:opaco}, styles.cardContainer]}>
 
             <View style={{ flexDirection:'row', padding:10, alignItems:'center' }}>
-                <View style={[styles.containerAvatar, {borderColor:opaco}]}>
+                <View style={[styles.containerAvatar, {borderColor:primary}]}>
                     <ThemedText type='semi-bold' 
                         style={[ styles.number, {fontSize: (dato?.numero_competencia) ? 17 : 12},
                         !dato?.numero_competencia && styles.placeholder ]}
@@ -66,16 +66,17 @@ export const TarjetaSencilla = ({ dato, onPress }: Props) => {
 
 const styles = StyleSheet.create({
     cardContainer: {
-        shadowColor: '#000',
+        borderRadius: 12, 
+        borderWidth: 1,
         elevation:5,
-        borderBottomWidth:1, 
-        marginBottom:1,
-        width:'100%'
+        marginBottom: 7,
+        shadowColor: '#000',
+        width:'100%',
     },
 
     containerAvatar: {
-        width: 65,
-        height: 65,
+        width: 60,
+        height: 60,
         borderRadius: 10,
         borderWidth: 2,
         display: 'flex',

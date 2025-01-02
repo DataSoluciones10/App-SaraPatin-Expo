@@ -1,5 +1,5 @@
 
-import { View, TouchableOpacity, Image, StyleSheet, Text } from 'react-native';
+import { View, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import Animated from 'react-native-reanimated';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -37,27 +37,34 @@ export const TarjetaInscripcionClub = ({ img, titulo, subtitulo1, subtitulo2, or
     return (
 
         <Animated.View style={[{backgroundColor:(isClub) ? secondary : background, borderBottomColor:opaco}, styles.cardContainer]}>
-            <TouchableOpacity style={{flexDirection:'row', padding:10, alignItems:'center'}} onPress={ onPress }>
+            <TouchableOpacity style={styles.contenedorTodo} onPress={ onPress }>
 
-                <View style={{position:'relative'}}>
+                <View style={styles.rankAndImageContainer}>
+                    {(index) &&
+                    <View style={[styles.rankBadge, { backgroundColor: primary }]}>
+                        <ThemedText style={styles.rankText}>#{index}</ThemedText>
+                    </View>
+                    }
                     <Image resizeMode="cover" source={ img 
                         ? { uri: `${url}/uploads/${carpeta}/${img}` } 
                         : require('../../../assets/images/user/no-img.webp')}
-                        style={[styles.avatar, {borderColor: opaco}]}
+                        style={[styles.avatar, {borderColor: primary}]}
                     />
                 </View>
 
                 <View style={styles.infoContainer}>
                     <View style={styles.headerContainer}>
-                        <ThemedText style={styles.name} numberOfLines={1}>
+                        <ThemedText style={styles.name} numberOfLines={2}>
                             { titulo }
                         </ThemedText>
                         <ThemedText style={[styles.details, {color:(isClub) ? opaco : disabledColor}]} numberOfLines={1}>
                             { subtitulo1 }
                         </ThemedText>
+                        {(!index) &&
                         <ThemedText style={[styles.details, {color:(isClub) ? opaco : disabledColor}]} numberOfLines={1}>
                             { subtitulo2 }
                         </ThemedText>
+                        }
                     </View>
 
                     <View style={styles.statsContainer}>
@@ -80,15 +87,6 @@ export const TarjetaInscripcionClub = ({ img, titulo, subtitulo1, subtitulo2, or
                     </View>
                     
                 </View>
-
-                {(index) &&
-                <View style={[styles.posicion]}>
-                    <Text style={{color:opaco, fontWeight:'700', fontSize:25}}>
-                        { index }
-                    </Text>
-                </View>
-                }
-
             </TouchableOpacity>
         </Animated.View>
 
@@ -105,6 +103,36 @@ const styles = StyleSheet.create({
         width:'100%'
     },
 
+    contenedorTodo: {
+        flexDirection:'row', 
+        paddingVertical:10, 
+        paddingHorizontal: 17, 
+        alignItems:'center'
+    },
+
+    rankAndImageContainer: {
+        position: 'relative',
+        marginRight: 12,
+    },
+
+    rankBadge: {
+        position: 'absolute',
+        top: -5,
+        left: -5,
+        zIndex: 1,
+        width: 24,
+        height: 24,
+        borderRadius: 12,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+
+    rankText: {
+        color: 'white',
+        fontSize: 12,
+        fontWeight: 'bold',
+    },
+    
     avatar: {
         width: 70,
         height: 70,
@@ -122,18 +150,6 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         alignItems: 'center',
         width:'100%',
-    },
-
-    posicion: {
-        width: 40,
-        height: 50,
-        borderRadius: 25,
-        justifyContent: 'center',
-        alignItems: 'center',
-        position: 'absolute',
-        right: 0,
-        top: '60%',
-        transform: [{ translateY: -25 }]
     },
 
     name: {

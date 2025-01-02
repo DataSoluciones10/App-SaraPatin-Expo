@@ -25,7 +25,6 @@ export const TarjetaIconoTexto = ({ onPress, icon, titulo, isLast=false }: Props
     const { primary, background, disabledColor } = useThemeColors();
 
 
-
     return (
 
         <View style={{ backgroundColor:background, borderRadius:14, overflow:'hidden', flex: 0.5,

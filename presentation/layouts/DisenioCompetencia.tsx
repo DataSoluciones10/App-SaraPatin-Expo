@@ -36,7 +36,6 @@ export const DisenioCompetencia = ({ title, subtitle, children }: Props) => {
 
     
 
-
     const renderBackAction = () => (
         <Pressable onPress={goBack} className="p-1">
             <Ionicons name='chevron-back-outline' size={24} color={text} /> 
@@ -64,6 +63,7 @@ export const DisenioCompetencia = ({ title, subtitle, children }: Props) => {
                         {`${fase} - ${patin}`}
                     </ThemedText>
                 </View>
+
             </View>
 
 

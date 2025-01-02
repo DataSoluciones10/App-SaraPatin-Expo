@@ -58,11 +58,7 @@ const MisDeportistasInscriptos = () => {
                 data={inscripcionMisDeportistas.data?.pages.flatMap((page) => page) || []}
                 keyExtractor={(item:any) => item.id}
                 renderItem={({ item }) => (
-                    <TarjetaSencilla 
-                        key={ item.id }
-                        dato={item}
-                        onPress={ handleEliminarInscripcion }
-                    />
+                    <TarjetaSencilla dato={item} onPress={ handleEliminarInscripcion } />
                 )}
                 contentContainerStyle={{padding:10, flexGrow:1}}
                 onEndReached={ () => loadNextPage() }

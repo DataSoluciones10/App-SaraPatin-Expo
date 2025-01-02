@@ -14,7 +14,7 @@ interface Props {
 }
 
 export const TarjetaEscalafonEntidades = ({ datos, isClub=false, index }: Props) => {
-    const { primary, secondary, text, opaco, background, disabledColor } = useThemeColors();
+    const { primary, secondary, opaco, background, disabledColor } = useThemeColors();
     const [expanded, setExpanded] = useState(false);
     const animatedHeight = useState(new Animated.Value(0))[0];
 

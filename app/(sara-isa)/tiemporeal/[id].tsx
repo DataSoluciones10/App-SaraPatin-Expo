@@ -1,8 +1,7 @@
 
 
-import { View, Text } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
-import { DisenioCompetencia } from '@/presentation/layouts'
+import { BannerDeCompetencia } from '@/presentation/layouts'
 
 
 
@@ -19,13 +18,16 @@ const TiempoReal = () => {
 
     return (
 
-        <DisenioCompetencia title='Tiempo Real'>
+        <BannerDeCompetencia>
 
-            <Text style={{color:'red'}}>TiempoReal</Text>
+
+            {/* <BannerDeCompetencia /> */}
             
-        </DisenioCompetencia>
+            
+        </BannerDeCompetencia>
     )
 }
+
 
 
 

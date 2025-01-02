@@ -1,5 +1,5 @@
 
-import { ExternalPathString, Redirect, RelativePathString, router, useLocalSearchParams } from 'expo-router';
+import { Redirect, router, useLocalSearchParams } from 'expo-router';
 import { Alert, FlatList } from 'react-native';
 
 import { DisenioCompetencia, DisenioPagina } from '@/presentation/layouts'
@@ -72,10 +72,6 @@ const OpcionesIncripcionClub = () => {
         }
     } 
 
-    // {key:3, titulo:'Mis Deportistas Inscritos',  function: () => router.push({ pathname: '/inscripciondeportista/[id]', params: { id:`${id}`, entidad } }), icono:'people-circle-outline'},
-    // {key:4, titulo:'Ranking Tiempo Real', icono:'videocam-outline', function: () => router.push({ pathname: '/tiemporeal/[id]', params: { id:`${id}`, entidad } })},
-    // {key:5, titulo:'Resultados Competencia', icono:'document-text-outline', function: () => router.push({ pathname: '/reportespruebas/[id]', params: { id:`${id}`, entidad } })},
-    // function: () => router.push({ pathname: '/escalafones/[id]', params: { id:`${id}`, entidad } })
 
     const data = [
         {key:1, titulo:'Descargar Factura De Pago', function: handleGenerarFactura, icono:'cloud-download-outline'},
@@ -111,7 +107,6 @@ const OpcionesIncripcionClub = () => {
 
         </DisenioCompetencia>
     )
-
 }
 
 export default OpcionesIncripcionClub
