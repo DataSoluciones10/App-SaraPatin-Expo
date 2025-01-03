@@ -8,7 +8,6 @@ import { useInscripcionStore } from "@/presentation/stores";
 
 
 
-
 export const confirmarTemporada = async(temporada:any):Promise<any> => {
     try {
         const [data, data2] = await Promise.all([

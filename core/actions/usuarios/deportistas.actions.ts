@@ -101,37 +101,15 @@ export const updateCreateDeportistas = async({ img, club, profesor, ...deportist
 
 
 
-
-// export const updateCreateDeportistas = async({ img, club, profesor, ...deportista}: FormDeportista):Promise<Deportista> => {
-//     try {
-//         const formData = new FormData();
-//         if ( img ){ formData.append('images', img) } 
-//         formData.append('club', JSON.stringify(club));
-//         formData.append('profesor', JSON.stringify(profesor));
-
-//         // Object.entries(deportista).forEach(([key, value]:any) => {
-//         //     formData.append(key, value.toString());
-//         // });
-
-//         Object.entries(deportista).forEach(([key, value]) => {
-//             if (value !== undefined && value !== null) {
-//                 formData.append(key, value.toString());
-//             }
-//         });
-
-//         if( deportista.id && deportista.id !== 'new' ) {
-//             const { data } = await deportistasApi.put<DeportistaResp>(`/${deportista.id}`, formData);
-//             return data.data;
-//         }
-
-//         console.log('crear')
-//         const { data } = await deportistasApi.post<DeportistaResp>('/', formData);
-//         return data.data;
-
-//     } catch (error: any) {
-//         const errores = error.response.data['msg'] || error.response.data.errors[0]['msg'];
-//         throw new Error(errores);
-//     }
-// }
-
-
+export const listadoMisDeportistasInscripcion = async({ page=0, patin='' }):Promise<any> => {
+    try {
+        const params = new URLSearchParams();
+        params.append('page',  page.toString());
+        params.append('patin',  patin);
+        const { data } = await deportistasApi.get<any>('/xadmin/app', { params });
+        return data.data;
+    } catch (error: any) {
+        const errores = error.response.data['msg'] || error.response.data.errors[0]['msg'];
+        throw new Error(errores);
+    }
+}

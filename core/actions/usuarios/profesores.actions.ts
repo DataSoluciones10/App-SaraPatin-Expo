@@ -1,7 +1,7 @@
 
 
 import { usuariosApi } from "@/core/apis";
-import { Usuario, UsuarioResp, UsuariosResp } from "../../interfaces";
+import { UsuariosResp } from "@/core/interfaces";
 
 
 

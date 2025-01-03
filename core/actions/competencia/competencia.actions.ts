@@ -1,7 +1,7 @@
 
 
-import { competenciaApi } from '../../apis';
-import { Competencia, CompetenciaResp, CompetenciasResp } from '../../interfaces';
+import { competenciaApi } from '@/core/apis';
+import { Competencia, CompetenciasResp } from '@/core/interfaces';
 
 
 
