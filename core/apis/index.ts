@@ -10,3 +10,4 @@ export * from './competencias/inscripcionClubApi';
 export * from './utilities/descargasApi';
 export * from './competencias/categoriaTemporadaApi';
 export * from './competencias/pruebasApi';
+export * from './competencias/temporadaApi';
