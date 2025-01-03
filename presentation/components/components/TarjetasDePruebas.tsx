@@ -1,8 +1,9 @@
 
 import { View, StyleSheet, TouchableOpacity, Image, Text } from 'react-native';
-
+import { Ionicons } from '@expo/vector-icons';
 import useThemeColors from '@/presentation/hooks/global/useThemeColors';
 import { ThemedText } from '../textos/ThemedText';
+
 
 const url = process.env.EXPO_PUBLIC_API_URL_DESARROLLO;
 
@@ -11,52 +12,57 @@ const url = process.env.EXPO_PUBLIC_API_URL_DESARROLLO;
 export const TarjetasDePruebas = ({ dato, isDeportista }:any) => {
 
 
-    const { opaco, secondary, background, disabledColor } = useThemeColors();
-
+    const { primary, opaco, secondary, background, disabledColor } = useThemeColors();
 
 
     return (
         <TouchableOpacity style={[styles.cardContainer,
             {backgroundColor:(isDeportista) ? secondary : background, borderBottomColor:opaco}
         ]}>
-            <View style={{ flexDirection:'row', padding:10, alignItems:'center' }}>
+            <View style={{ flexDirection:'row', paddingVertical:10, paddingHorizontal:15, alignItems:'center' }}>
 
-                <View style={[styles.containerAvatar, {borderColor:opaco}]}>
+                <View style={[styles.containerAvatar, {borderColor:primary}]}>
                     {(dato.faltas.length > 0) &&
                     <View style={styles.badge}>
                         <Text style={styles.badgeText}>{ dato.faltas.length }</Text>
                     </View>
                     }
                     
-                    <Image
-                        source={dato.img ? { uri: `${url}/uploads/usuarios/${dato.img}` } : require('../../../assets/images/user/no-img.webp')}
-                        style={styles.avatarImage}
+                    <Image style={styles.avatarImage}
+                        source={dato.img 
+                        ? { uri: `${url}/uploads/usuarios/${dato.img}` } 
+                        : require('../../../assets/images/user/no-img.webp')}
                     /> 
                 </View>
 
                 <View style={[styles.infoContainer]}>
                     <View style={styles.headerContainer}>
                         <ThemedText style={styles.name} numberOfLines={1}>
-                            { dato?.deportista.nombre }
+                            { dato?.deportista.nombre } 
                         </ThemedText>
-                        <ThemedText style={[styles.details, {color:(isDeportista) ? opaco : disabledColor}]} numberOfLines={1}>
-                            { dato.club_inscrito?.entidad?.nombre }
+                        <ThemedText style={[styles.details, {color:(isDeportista) ? opaco : disabledColor}]} numberOfLines={2}>
+                            { dato.club_inscrito?.entidad?.nombre } 
                         </ThemedText>
-                        <ThemedText style={[styles.details, {color:(isDeportista) ? opaco : disabledColor}]} numberOfLines={1}>
-                            Numero Competencia: { dato.numero_competencia.numero_competencia }
-                        </ThemedText>
+
+                        <View style={styles.statsContainer}>
+                            <View style={[styles.statItem]}>
+                                <Ionicons name="stopwatch" size={16} color={ primary } />
+                                <ThemedText style={[styles.statText]}>{ dato.tiempo }</ThemedText>
+                            </View>
+                            <View style={[styles.statItem]}>
+                                <Ionicons name="clipboard" size={16} color={ primary } />
+                                <ThemedText style={[styles.statText]}>{dato.numero_competencia.numero_competencia}</ThemedText>
+                            </View>
+                            <View style={[styles.statItem]}>
+                                <Ionicons name="flag" size={16} color={ primary } />
+                                {(dato?.posicion)
+                                ?   <ThemedText style={[styles.statText]}>{ dato.posicion }</ThemedText>
+                                :   <Ionicons name="ban" size={16} color='red' />
+                                }
+                            </View>
+                        </View>
 
                     </View>
-                </View>
-                
-                <View style={{flex:1, alignItems:'flex-end'}}>
-                    <ThemedText style={[styles.details, {color:(isDeportista) ? opaco : disabledColor}]} numberOfLines={1}>
-                        { dato.tiempo }
-                    </ThemedText>
-
-                    <ThemedText style={[styles.details, {color:(isDeportista) ? opaco : disabledColor}]} numberOfLines={1}>
-                        Posición {dato.posicion}
-                    </ThemedText>
                 </View>
 
             </View>
@@ -77,12 +83,12 @@ const styles = StyleSheet.create({
 
     containerAvatar: {
         borderRadius: 30,
-        borderWidth: 2,
+        borderWidth: 1,
         display: 'flex',
-        height: 60,
         justifyContent: 'center',
         position:'relative',
-        width: 60,
+        height: 65,
+        width: 65,
     },
 
     avatarImage: {
@@ -90,6 +96,7 @@ const styles = StyleSheet.create({
         height: '100%',
         resizeMode: 'cover',
         borderRadius: 30,
+        borderWidth: 1,
     },
 
     badge: {
@@ -126,7 +133,7 @@ const styles = StyleSheet.create({
 
     name: {
         flex:1,
-        fontSize: 15,
+        fontSize: 16,
         fontWeight: '900',
         textAlign: 'center',
         alignSelf: 'stretch',
@@ -136,13 +143,27 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         alignSelf: 'stretch',
         textAlign: 'center',
-        fontSize: 12.5
+        fontSize: 13
     },
 
-    deleteButton: {
-        padding: 8,
-        justifyContent: 'center',
+    statsContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        gap: 5,
+    },
+
+    statItem: {
+        flexDirection: 'row',
         alignItems: 'center',
+        paddingHorizontal: 6,
+        borderRadius: 6,
+        gap: 3,
+    },
+
+    statText: {
+        fontSize: 15,
+        fontWeight: '600',
     },
 
 });
+

@@ -1,24 +1,23 @@
 
-
+import { useEffect } from 'react';
 import { KeyboardAvoidingView, View } from 'react-native';
 
 import * as Yup from 'yup';
 import { Formik } from "formik";
 import { SelectNormalThemed, ThemedButton, SelectIdName, SelectIdNombre } from '@/presentation/components';
 import { invitados, tipoPatin } from '@/presentation/data';
-import { useClubStore, useCompetenciaStore } from '@/presentation/stores';
-import { useEffect } from 'react';
+import { useClubStore, useCompetenciaStore, useTemporadaStore } from '@/presentation/stores';
 
 
 
 
 
-export const FormInscripciones = ({ items, handleFunction }:any) => {
+export const FormInscripciones = ({ items, compe, setCompe, patin, setPatin, handleFunction }:any) => {
 
 
     const { startClubPorDirector, clubes } = useClubStore();
     const { competencias, startListadoCompetenciasActivas } = useCompetenciaStore();
-
+    const { inscripcionActiva, startConfirmarTemporada } = useTemporadaStore();
 
 
     useEffect(() => {
@@ -29,6 +28,22 @@ export const FormInscripciones = ({ items, handleFunction }:any) => {
     useEffect(() => {
         startClubPorDirector();
     }, []);
+
+
+    const buscarCompetencia = (valor:any) => {
+        setCompe(valor);
+        if(patin && valor){
+            startConfirmarTemporada({ competencia:valor, patin });
+        }
+    }
+
+
+    const buscarTipoPatin = (valor:string) => {
+        setPatin(valor);
+        if(compe && valor){
+            startConfirmarTemporada({ competencia:compe, patin: valor });
+        }
+    }
     
 
 
@@ -59,7 +74,7 @@ export const FormInscripciones = ({ items, handleFunction }:any) => {
                     })
                 }
             >
-            {({ values, errors, handleSubmit, setFieldValue }) => (
+            {({ values, handleSubmit, setFieldValue }) => (
                 <View style={{ paddingHorizontal:15 }}>
                     <View style={{marginTop:20}}>
 
@@ -67,33 +82,46 @@ export const FormInscripciones = ({ items, handleFunction }:any) => {
                         name='competencia'
                         label='Seleccione Competencia'
                         options={ competencias || [] }
-                        setFieldValue={ setFieldValue }
+                        // setFieldValue={ setFieldValue }
                         value={values.competencia}
+                        setFieldValue={(field:any, value:any) => {
+                            setFieldValue(field, value);
+                            if (value) { buscarCompetencia(value) }
+                        }}
                     />
 
                     <SelectNormalThemed
                         name='patin'
                         label='Tipo de Patin'
                         options={tipoPatin}
-                        setFieldValue={ setFieldValue }
+                        // setFieldValue={ setFieldValue }
                         value={values.patin}
+                        setFieldValue={(field:any, value:any) => {
+                            setFieldValue(field, value);
+                            if (value) { buscarTipoPatin(value) }
+                        }}
                     />
 
-                    <SelectIdNombre
-                        name='club'
-                        label='Seleccione Club'
-                        options={ clubes || [] }
-                        setFieldValue={ setFieldValue }
-                        value={values.club}
-                    />
 
-                    <SelectIdName
-                        name='invitado'
-                        label='Club Invitado'
-                        options={ invitados }
-                        setFieldValue={ setFieldValue }
-                        value={values.invitado}
-                    />
+                    {(inscripcionActiva) && 
+                    <View>
+                        <SelectIdNombre
+                            name='club'
+                            label='Seleccione Club'
+                            options={ clubes || [] }
+                            setFieldValue={ setFieldValue }
+                            value={values.club}
+                        />
+
+                        <SelectIdName
+                            name='invitado'
+                            label='Club Invitado'
+                            options={ invitados }
+                            setFieldValue={ setFieldValue }
+                            value={values.invitado}
+                        />
+                    </View>
+                    }
 
                     </View>
 

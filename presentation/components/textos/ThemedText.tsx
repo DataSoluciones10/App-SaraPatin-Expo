@@ -5,11 +5,11 @@ import { useThemeColor } from '@/presentation/themes/hooks/useThemeColor';
 
 
 export type ThemedTextProps = TextProps & {
-  lightColor?: string;
-  darkColor?: string;
-  type?: 'normal' | 'h1' | 'h2' | 'h3' | 'semi-bold';
-  className?: string;
-  bold?: boolean;
+    lightColor?: string;
+    darkColor?: string;
+    type?: 'normal' | 'h1' | 'h2' | 'h3' | 'semi-bold';
+    className?: string;
+    bold?: boolean;
 };
 
 
@@ -27,7 +27,6 @@ export const ThemedText = ({ style, lightColor, darkColor, type='normal', classN
       <Text
         style={[{ color }, style]}
         className={[
-          // 'text-light-text dark:text-dark-text',
           type === 'normal' ? 'font-normal' : undefined,
           type === 'h1' ? 'text-4xl' : undefined,
           type === 'h2' ? 'text-2xl' : undefined,

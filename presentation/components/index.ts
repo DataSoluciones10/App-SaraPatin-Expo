@@ -18,6 +18,7 @@ export * from './components/TarjetasDePruebas';
 export * from './components/TarjetaSencilla';
 export * from './components/ThemedButton';
 export * from './poster/ImagenPoster';
+export * from './components/TituloObjetoVacio';
 
 export * from './inputs/TextInputPassword';
 export * from './inputs/TextInputThemed';

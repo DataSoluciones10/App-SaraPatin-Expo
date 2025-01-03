@@ -1,7 +1,7 @@
 
 import { Alert } from 'react-native';
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { deportistaPorID, listadoMisDeportistas, updateCreateDeportistas } from '@/core/actions';
+import { deportistaPorID, listadoMisDeportistas, listadoMisDeportistasInscripcion, updateCreateDeportistas } from '@/core/actions';
 import { useAlertInfo } from '../../hooks/useAlertInfo';
 
 
@@ -41,7 +41,6 @@ export const useDeportistaId = (uid:string) => {
     });
 
 
-
     const deportistaMutation = useMutation({
         mutationFn: async( data:any ) => updateCreateDeportistas(data),
 
@@ -58,8 +57,6 @@ export const useDeportistaId = (uid:string) => {
     });
 
 
-
-
     return {
         AlertInfo,
         deportistaQueryId,
@@ -68,4 +65,44 @@ export const useDeportistaId = (uid:string) => {
 }
 
 
+
+
+
+
+export const useDeportistasInscripcion = () => {
+
+    const inscripcionesSemiQuery = useInfiniteQuery({
+        queryKey: ['inscripciones-me', 'semiprofesional'],
+        queryFn: ({pageParam = 0}) => listadoMisDeportistasInscripcion({page: pageParam, patin: 'SEMIPROFESIONAL'}),
+        staleTime: 1000 * 60 * 60, // 1 hora
+        initialPageParam: 0,
+        getNextPageParam: (_, allPages) => allPages.length
+    });
+
+
+    const inscripcionesNovatosQuery = useInfiniteQuery({
+        queryKey: ['inscripciones-me', 'novatos'],
+        queryFn: ({pageParam = 0}) => listadoMisDeportistasInscripcion({page: pageParam, patin: 'NOVATOS'}),
+        staleTime: 1000 * 60 * 60, // 1 hora
+        initialPageParam: 0,
+        getNextPageParam: (_, allPages) => allPages.length
+    });
+
+
+    const InscripcionesLigadosQuery = useInfiniteQuery({
+        queryKey: ['inscripciones-me', 'ligados'],
+        queryFn: ({pageParam = 0}) => listadoMisDeportistasInscripcion({page: pageParam, patin: 'LIGADOS'}),
+        staleTime: 1000 * 60 * 60, // 1 hora
+        initialPageParam: 0,
+        getNextPageParam: (_, allPages) => allPages.length
+    });
+
+
+    return {
+        inscripcionesSemiQuery,
+        inscripcionesNovatosQuery,
+        InscripcionesLigadosQuery,
+        // loadNextPage: InscripcionesNovatos.fetchNextPage,
+    }
+}
 

@@ -1,6 +1,5 @@
 
-import { Ionicons } from "@expo/vector-icons";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
 import { ThemedView } from "../textos/ThemedView";
 import { ThemedText } from "../textos/ThemedText";
 import useThemeColors from "@/presentation/hooks/global/useThemeColors";
@@ -9,7 +8,6 @@ import useThemeColors from "@/presentation/hooks/global/useThemeColors";
 
 interface Props {
     titulo: string;
-    icon?: any;
     style?: any;
 }
 
@@ -17,7 +15,7 @@ interface Props {
 
 
 
-export const MensajeListaVacia = ({ titulo, icon='file-tray-full-outline', style }:Props) => {
+export const TituloObjetoVacio = ({ titulo, style }:Props) => {
 
 
     const { opaco } = useThemeColors();
@@ -26,10 +24,6 @@ export const MensajeListaVacia = ({ titulo, icon='file-tray-full-outline', style
     return (
 
         <ThemedView style={[styles.container, style]}>
-            <View>
-                <Ionicons name={ icon } size={50} color={opaco} />
-            </View>
-            
             <ThemedText type="h3" style={{color:opaco, fontWeight:'bold', textAlign:'center'}}>{ titulo }</ThemedText>
         </ThemedView>
 

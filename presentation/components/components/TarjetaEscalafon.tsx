@@ -80,7 +80,7 @@ export const TarjetaEscalafon = ({ datos, isDeportista=false, index }: Props) =>
                     maxHeight: animatedHeight.interpolate({inputRange: [0, 1],outputRange: [0, 500]})
                 }}>
 
-                    {datos.pruebas?.map((prueba: any, index: number) => (
+                    {datos.pruebas?.map((prueba:any) => (
                         <View key={prueba.nombre} style={[styles.pruebaContainer, {borderColor:secondary}]}>
 
                             <View style={styles.pruebaHeader}>

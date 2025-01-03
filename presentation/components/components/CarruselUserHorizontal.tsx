@@ -7,15 +7,25 @@ import { Ionicons } from '@expo/vector-icons';
 import { ThemedText } from '../textos/ThemedText';
 import useThemeColors from '@/presentation/hooks/global/useThemeColors';
 import { GradientePoster } from '../gradientes/GradientePoster';
+import { TituloObjetoVacio } from './TituloObjetoVacio';
+
+
+const url = process.env.EXPO_PUBLIC_API_URL_DESARROLLO;
 
 
 
-const imagenPredeterminada = 'https://www.fifpro.org/media/5chb3dva/lionel-messi_imago1019567000h.jpg?rxy=0.32986930611281567,0.18704579979466449&rnd=133378758718600000';
+interface Props {
+    titulo: string;
+    datos: any;
+    items: string[];
+    setItems: any;
+    loadNextPage?: any;
+}
 
 
 
 
-export const CarruselUserHorizontal = ({ datos, items, setItems }:any) => {
+export const CarruselUserHorizontal = ({ titulo, datos, items, setItems, loadNextPage }:Props) => {
 
     
     const { success } = useThemeColors();
@@ -31,27 +41,31 @@ export const CarruselUserHorizontal = ({ datos, items, setItems }:any) => {
 
     return (
 
-        <View>
+        <View className='my-3'>
+            <ThemedText type='h3' bold className='pl-5 pb-1'>{ titulo }</ThemedText>
+
+            {datos && datos.length > 0 ? (
             <FlatList 
                 horizontal
                 data={ datos }
                 showsHorizontalScrollIndicator={ false }
+                keyExtractor={(item) => item.id}
                 renderItem={ ({ item }) => 
                     <Pressable className={`active:opacity-90 px-1`} onPress={() => handleToggleSelect(item.id)}>
                         <View style={{ position:'relative', width: 80, height:120, overflow:'hidden', borderRadius:12 }}>
                             <Image resizeMode="cover" style={{ width:'100%', height:'100%' }}
-                                source={{ uri: item.imagen || imagenPredeterminada }}
-                                // source={item.imagen ? { uri: item.imagen } : images.noImg}
+                                source={item.img 
+                                ? { uri: `${url}/uploads/deportistas/${item.img}` } 
+                                : require('../../../assets/images/user/no-avatar.webp')
+                                }
                             />
 
-                             {/* Gradiente de Imagen */}
                             <GradientePoster />
-                    
                             <View className="absolute bottom-1 left-1 right-1 px-1 py-1 rounded-md zIndex-3">
                                 <ThemedText className="text-center overflow-hidden mt-1" type='semi-bold' 
                                     numberOfLines={2} ellipsizeMode="tail" style={{color:'white', fontSize:10}}
                                 >
-                                    Julian David Cortes Rincon
+                                    { item.nombre }
                                 </ThemedText>
                             </View>
 
@@ -65,8 +79,17 @@ export const CarruselUserHorizontal = ({ datos, items, setItems }:any) => {
                         </View>
                     </Pressable>
                 }
+                // onEndReached={ () => loadNextPage()! }
+                // onEndReachedThreshold={ 0.8 }
             />
+            ) : (
+                <View className="flex-row h-20 mx-2">
+                    <TituloObjetoVacio titulo="No tienes deportistas en este tipo patin." />  
+                </View>
+                )}
         </View>
+
+
     )
 
 }
