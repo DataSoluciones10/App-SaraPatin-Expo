@@ -14,7 +14,7 @@ import { useAlertConConfirm, useFuncionesTanStack, useInscripcionDeportistas, us
 const MisDeportistasInscriptos = () => {
     
 
-    const { id, entidad } = useLocalSearchParams();
+    const { entidad } = useLocalSearchParams();
     const { inscripcionMisDeportistas, loadNextPage } = useInscripcionesMisDeportistas(`${entidad}`);
     const { isRefreshing, onPullRefreshConParams } = useFuncionesTanStack();
     const { eliminarInscripcion, AlertInfo } = useInscripcionDeportistas(`${entidad}`)
@@ -65,13 +65,12 @@ const MisDeportistasInscriptos = () => {
                 onEndReachedThreshold={ 0.8 }
                 showsVerticalScrollIndicator={ false }
                 refreshControl={ <RefreshControl refreshing={isRefreshing} 
-                    onRefresh={ () => onPullRefreshConParams('inscripciones-mis-deportistas', `${id}`) } 
+                    onRefresh={ () => onPullRefreshConParams('inscripciones-mis-deportistas', `${entidad}`) } 
                 /> }
-                ListEmptyComponent={ <MensajeListaVacia titulo="No tienes deportistas inscripciones." />}
+                ListEmptyComponent={ <MensajeListaVacia titulo="No tienes deportistas inscritos." />}
             />
 
         </DisenioCompetencia>
-        
     )
 }
 

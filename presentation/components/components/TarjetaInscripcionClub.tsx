@@ -15,6 +15,7 @@ interface Props {
     subtitulo1: string;
     isClub:boolean;
     onPress:any;
+    iconos: boolean;
     oro?: string;
     plata?: string;
     bronce?: string;
@@ -27,7 +28,7 @@ interface Props {
 
 
 
-export const TarjetaInscripcionClub = ({ img, titulo, subtitulo1, subtitulo2, oro, plata, 
+export const TarjetaInscripcionClub = ({ img, titulo, subtitulo1, subtitulo2, oro, plata, iconos=true, 
     bronce, deportistas, carpeta='inscripciones', onPress, isClub, index }: Props) => {
 
 
@@ -66,7 +67,8 @@ export const TarjetaInscripcionClub = ({ img, titulo, subtitulo1, subtitulo2, or
                         </ThemedText>
                         }
                     </View>
-
+                    
+                    {(iconos) &&
                     <View style={styles.statsContainer}>
                         <View style={styles.statItem}>
                             <Ionicons name="trophy" size={16} color="#FFD700" />
@@ -85,6 +87,7 @@ export const TarjetaInscripcionClub = ({ img, titulo, subtitulo1, subtitulo2, or
                             <ThemedText style={[styles.statText]}>{ deportistas || 0 }</ThemedText>
                         </View>
                     </View>
+                    }
                     
                 </View>
             </TouchableOpacity>

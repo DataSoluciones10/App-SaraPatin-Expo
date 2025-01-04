@@ -21,7 +21,7 @@ const MenuScreen = () => {
 
 
     const opciones = [
-        { key: '1', icono:"business", titulo:'Mis Entidades', function: () => alert('Mi Perfil') },
+        { key: '1', icono:"business", titulo:'Mis Entidades', function: () => navigateTo('/clubes') },
         { key: '2', icono:"people-circle", titulo:'Mis Deportistas', function: () => navigateTo('/deportistas') },
         { key: '3', icono:"people", titulo:'Mis Profesores', function: () => navigateTo('/profesores') },
         { key: '4', icono:"wallet", titulo:'Pagos', function: () => alert('Pagos') },

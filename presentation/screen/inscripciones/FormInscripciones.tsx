@@ -17,11 +17,12 @@ export const FormInscripciones = ({ items, compe, setCompe, patin, setPatin, han
 
     const { startClubPorDirector, clubes } = useClubStore();
     const { competencias, startListadoCompetenciasActivas } = useCompetenciaStore();
-    const { inscripcionActiva, startConfirmarTemporada } = useTemporadaStore();
+    const { inscripcionActiva, startConfirmarTemporada, startLimpiarTemporadaActiva } = useTemporadaStore();
 
 
     useEffect(() => {
         startListadoCompetenciasActivas();
+        return () => { startLimpiarTemporadaActiva() }
     }, []);
 
 
@@ -137,6 +138,4 @@ export const FormInscripciones = ({ items, compe, setCompe, patin, setPatin, han
         </KeyboardAvoidingView>
         
     )
-
-
 }

@@ -1,21 +1,58 @@
 
 import { clubesApi } from "@/core/apis";
-import { ClubesResp } from "@/core/interfaces";
+import { Club, ClubResp } from "@/core/interfaces";
+
+
+
+const emptyEntidad = {
+    nombre: '',
+    delegado: '',
+    nit: '',
+    entidad: '',
+    correo: '',
+    movil: '',
+    departamento: '',
+    ciudad: '',
+    descripcion: '',
+};
 
 
 
 
-
-
-
-
-
-
-
-export const clubPorDirector = async():Promise<ClubesResp> => {
+export const clubPorID = async(id:string):Promise<Club> => {
+    if(id === 'new') return emptyEntidad;
     try {
-        const { data } = await clubesApi.get<ClubesResp>(`/miclub`);
-        return data;
+        const { data } = await clubesApi.get<ClubResp>(`/id/${id}`);
+        const  dato  = data.data;
+        const datos = {
+            nombre: '',
+            delegado: '',
+            nit: '',
+            entidad: '',
+            correo: '',
+            movil: '',
+            departamento: '',
+            ciudad: '',
+            descripcion: '',
+        }
+        return datos || null;
+    } catch (error: any) {
+        const errores = error.response.data['msg'] || error.response.data.errors[0]['msg'];
+        throw new Error(errores);
+    }
+}
+
+
+
+
+
+
+
+
+export const clubPorDirector = async():Promise<any> => {
+    try {
+        const { data } = await clubesApi.get<any>(`/miclub`);
+        return data.data;
     } catch (error: any) {
         const errores = error.response.data['msg'] || error.response.data.errors[0]['msg'];
         throw new Error(errores);
@@ -30,15 +67,7 @@ export const clubPorDirector = async():Promise<ClubesResp> => {
 
 
 
-// export const clubPorID = async(id:string):Promise<Club> => {
-//     try {
-//         const { data } = await clubesApi.get<ClubResp>(`/id/${id}`);
-//         return data.data;
-//     } catch (error: any) {
-//         const errores = error.response.data['msg'] || error.response.data.errors[0]['msg'];
-//         throw new Error(errores);
-//     }
-// }
+
 
 
 

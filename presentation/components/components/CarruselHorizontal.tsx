@@ -1,6 +1,5 @@
 
-import { View } from 'react-native'
-import { FlatList } from 'react-native-gesture-handler';
+import { View, FlatList } from 'react-native'
 import { ImagenPoster } from '../poster/ImagenPoster';
 
 

@@ -7,17 +7,15 @@ import { inscripcionApi } from "@/core/apis";
 
 
 
-
-
-export const inscripcionXId = async(id:string):Promise<any> => {
-    try {
-        const { data } = await inscripcionApi.get<any>(`/xid/${id}`);
-        return data.data;
-    } catch (error: any) {
-        const errores = error.response.data['msg'] || error.response.data.errors[0]['msg'];
-        throw new Error(errores);
-    }
-}
+// export const inscripcionXId = async(id:string):Promise<any> => {
+//     try {
+//         const { data } = await inscripcionApi.get<any>(`/xid/${id}`);
+//         return data.data;
+//     } catch (error: any) {
+//         const errores = error.response.data['msg'] || error.response.data.errors[0]['msg'];
+//         throw new Error(errores);
+//     }
+// }
 
 
 

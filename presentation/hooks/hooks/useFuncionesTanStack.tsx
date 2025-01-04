@@ -5,29 +5,28 @@ import { useQueryClient } from "@tanstack/react-query";
 
 
 
+// await new Promise( (resolve) => setTimeout(resolve, 400));
 
 export const useFuncionesTanStack = () => {
 
 
     const queryClient = useQueryClient();
-    const [isRefreshing, setisRefreshing] = useState(false);
+    const [isRefreshing, setIsRefreshing] = useState(false);
 
 
     const onPullRefreshConParams = async (params:string, id:string) => {
-        setisRefreshing(true);
-        queryClient.invalidateQueries({ queryKey: [params,'inscripciones-mis-deportistas', 'infinite', id] })
-        setisRefreshing(false);
+        setIsRefreshing(true);
+        await queryClient.invalidateQueries({ queryKey: [params, 'infinite', id] });
+        setIsRefreshing(false);
     }
 
 
 
     const onPullRefresh = async (params:string) => {
-        setisRefreshing(true);
-        await new Promise( (resolve) => setTimeout(resolve, 400));
-        queryClient.invalidateQueries({ queryKey: [params, 'infinite'] })
-        setisRefreshing(false);
+        setIsRefreshing(true);
+        await queryClient.invalidateQueries({ queryKey: [params] })
+        setIsRefreshing(false);
     }
-
 
 
 

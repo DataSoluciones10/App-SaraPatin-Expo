@@ -4,13 +4,12 @@ import { View, ScrollView } from 'react-native';
 
 import { DisenioPagina } from '@/presentation/layouts';
 import { FormInscripciones } from '@/presentation/screen/inscripciones';
-import { CarruselUserHorizontal, MensajeListaVacia } from '@/presentation/components';
+import { BackdropScreen, MensajeListaVacia } from '@/presentation/components';
 import useThemeColors from '@/presentation/hooks/global/useThemeColors';
 import { useTemporadaStore } from '@/presentation/stores';
-import { useDeportistasInscripcion } from '@/presentation/hooks';
+import { useAlertConConfirm, useAlertInfo, useDeportistasInscripcion, useInscripcionCrear } from '@/presentation/hooks';
+import { CarruselUserHorizontal } from '@/presentation/screen/inscripciones';
 
-
-// import { deportesData } from '@/presentation/data';
 
 
 
@@ -18,8 +17,12 @@ const RealizarInscripcion = () => {
 
 
     const { background } = useThemeColors();
-    const { inscripcionActiva } = useTemporadaStore();
+    const { inscripcionActiva, startLimpiarTemporadaActiva } = useTemporadaStore();
+    const { showDialog, AlertModal } = useAlertConConfirm();
+    const { show, AlertInfo } = useAlertInfo();
+
     const { inscripcionesSemiQuery, inscripcionesNovatosQuery, InscripcionesLigadosQuery } = useDeportistasInscripcion();
+    const { AlertMsg, crearInscripcion } = useInscripcionCrear();
     
     const [items, setItems] = useState<string[]>([]);
     const [compe, setCompe] = useState(null);
@@ -28,14 +31,41 @@ const RealizarInscripcion = () => {
 
 
     const handleGenerarInscripcion = (values:any, reset:any) => {
-        console.log('Holis', {...values, deportistas: items});
+        if(items.length < 1) {
+            return show({ title: 'Error', message: 'Debes seleccionar al menos un deportista', buttonText: 'Cerrar', type: 'error'});
+        }
+
+        showDialog({
+            title: "Realizar Inscripción",
+            message: "¿Deseas realizar está inscripción?",
+            confirmText: "Sí",
+            cancelText: "No",
+            type: "primary",
+            onConfirm: async () => {
+                crearInscripcion.mutate(
+                    { ...values, deportistas: items },
+                    { onSuccess: () => {
+                        reset(); setItems([]);
+                        setCompe(null); setPatin(null); 
+                        startLimpiarTemporadaActiva();
+                    }}
+            )},
+            onCancel: () => { console.log("Cancelado"); }
+        });
     }
+    
 
 
 
     return (
 
         <DisenioPagina title='Realizar Inscripción'>
+            <AlertModal />
+            <AlertInfo />
+            <AlertMsg />
+            <BackdropScreen titulo="Procesando su petición." visible={crearInscripcion.isPending} />
+
+
             <ScrollView style={{ backgroundColor:background }}>
                 <View style={{paddingBottom: 30}}>
 
@@ -78,7 +108,6 @@ const RealizarInscripcion = () => {
                         />
                     </View>
                     }
-
 
                 </View>
             </ScrollView>

@@ -14,22 +14,28 @@ interface Props {
 }
 
 export const TarjetaEscalafonEntidades = ({ datos, isClub=false, index }: Props) => {
+
+
     const { primary, secondary, opaco, background, disabledColor } = useThemeColors();
     const [expanded, setExpanded] = useState(false);
     const animatedHeight = useState(new Animated.Value(0))[0];
 
+
     const toggleExpand = () => {
-      setExpanded(!expanded);
-      Animated.timing(animatedHeight, {
-        toValue: expanded ? 0 : 1,
-        duration: 300,
-        useNativeDriver: false,
-      }).start();
+        setExpanded(!expanded);
+        Animated.timing(animatedHeight, {
+            toValue: expanded ? 0 : 1,
+            duration: 300,
+            useNativeDriver: false,
+        }).start();
     };
+
+
+
 
     return (
         <Animated.View style={[styles.card, {backgroundColor:isClub ? secondary : background, borderColor:opaco}]}>
-            <TouchableOpacity  style={{flex:1}} onPress={toggleExpand}>
+            <TouchableOpacity style={{flex:1}} onPress={toggleExpand}>
                 <View style={styles.mainContent}>
                     <View style={styles.rankAndImageContainer}>
                         <View style={[styles.rankBadge, { backgroundColor: primary }]}>
@@ -120,7 +126,7 @@ const styles = StyleSheet.create({
         elevation: 5,
         overflow: 'hidden',
     },
-  
+
     mainContent: {
         flexDirection: 'row',
         padding: 10,

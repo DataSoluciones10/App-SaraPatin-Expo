@@ -1,5 +1,4 @@
 
-import { Alert } from 'react-native';
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { deportistaPorID, listadoMisDeportistas, listadoMisDeportistasInscripcion, updateCreateDeportistas } from '@/core/actions';
 import { useAlertInfo } from '../../hooks/useAlertInfo';

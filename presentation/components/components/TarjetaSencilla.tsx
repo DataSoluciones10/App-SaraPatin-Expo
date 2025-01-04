@@ -28,26 +28,24 @@ export const TarjetaSencilla = ({ dato, onPress }: Props) => {
 
             <View style={{ flexDirection:'row', padding:10, alignItems:'center' }}>
                 <View style={[styles.containerAvatar, {borderColor:primary}]}>
-                    <ThemedText type='semi-bold' 
-                        style={[ styles.number, {fontSize: (dato?.numero_competencia) ? 17 : 12},
-                        !dato?.numero_competencia && styles.placeholder ]}
-                    >
-                        {dato?.numero_competencia.numero_competencia || 'Número no generado'}
-                    </ThemedText>
+                    {(dato?.numero_competencia)
+                    ?   <ThemedText type='semi-bold' style={styles.number}>
+                            { dato?.numero_competencia.numero_competencia }
+                        </ThemedText>
+                    :   <ThemedText type='semi-bold' style={styles.placeholder}>
+                            Número no generado
+                        </ThemedText>
+                    }
                 </View>
 
                 <View style={styles.infoContainer}>
                     <View style={styles.headerContainer}>
-                        <ThemedText style={styles.name} numberOfLines={1}>
+                        <ThemedText style={styles.name} numberOfLines={2}>
                             { dato?.deportista.nombre }
                         </ThemedText>
-                        <ThemedText style={[styles.details, {color:disabledColor}]} numberOfLines={1}>
-                            { dato?.categoria_temporada?.competencia.nombre }
-                        </ThemedText>
-                        <ThemedText style={[styles.details, {color:disabledColor}]} numberOfLines={1}>
+                        {/* <ThemedText style={[styles.details, {color:disabledColor}]} numberOfLines={1}>
                             {`${dato?.categoria_temporada?.temporada.nombre} - ${dato?.patin}`}
-                        </ThemedText>
-
+                        </ThemedText> */}
                         <ThemedText style={[styles.details, {color:disabledColor}]} numberOfLines={1}>
                             {`${dato?.rama} - CATEGORIA ${isNaN(Number(dato.categoria)) ? dato.categoria.toUpperCase() : dato.categoria}`}
                         </ThemedText>
@@ -72,11 +70,12 @@ const styles = StyleSheet.create({
         marginBottom: 7,
         shadowColor: '#000',
         width:'100%',
+        paddingHorizontal: 10
     },
 
     containerAvatar: {
-        width: 60,
-        height: 60,
+        width: 55,
+        height: 55,
         borderRadius: 10,
         borderWidth: 2,
         display: 'flex',
@@ -90,7 +89,7 @@ const styles = StyleSheet.create({
     },
 
     placeholder: {
-        fontSize: 11,
+        fontSize: 10,
         color: 'red',
         textAlign: 'center',
     },

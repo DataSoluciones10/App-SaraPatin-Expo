@@ -1,7 +1,8 @@
 
-import { categoriaTemporadaXID } from "@/core/actions";
 import { StateCreator, create } from "zustand";
 import { devtools } from "zustand/middleware";
+
+import { categoriaTemporadaXID } from "@/core/actions";
 // import { useSocketStore } from "../sistema/sockets.store";
 
 

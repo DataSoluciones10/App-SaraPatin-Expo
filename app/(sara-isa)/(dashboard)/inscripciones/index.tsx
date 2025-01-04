@@ -25,7 +25,7 @@ const MisInscripciones= () => {
     }
 
 
-    const handlePress = (item:any) => {
+    const handleOnPress = (item:any) => {
         router.push({
             pathname: '/inscripcionesclub/[id]',
             params: { id: item.categoria_temporada?._id, entidad: item.id },
@@ -49,7 +49,7 @@ const MisInscripciones= () => {
                         subtitulo2={`${item.entidad.nombre}`}
                         deportistas={item.deportistas}
                         oro={item.oro} plata={item.plata} bronce={item.bronce}
-                        onPress={ () => handlePress(item) }
+                        onPress={ () => handleOnPress(item) }
                         isClub={ item.id === null }
                     />
                 )}

@@ -1,6 +1,6 @@
 
 import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { eliminarInscripcionXProfesor, listadoXTemporadaXEntidad } from '@/core/actions';
+import { createInscripcion, eliminarInscripcionXProfesor, listadoXTemporadaXEntidad } from '@/core/actions';
 import { useAlertInfo } from '../../hooks/useAlertInfo';
 
 
@@ -18,7 +18,6 @@ export const useInscripcionesMisDeportistas = (id:string) => {
     });
 
 
-
     return {
         inscripcionMisDeportistas,
         loadNextPage: inscripcionMisDeportistas.fetchNextPage,
@@ -30,12 +29,10 @@ export const useInscripcionesMisDeportistas = (id:string) => {
 
 
 
-
 export const useInscripcionDeportistas = (id:string) => {
 
     const queryClient = useQueryClient();
     const { show, AlertInfo } = useAlertInfo();
-
 
     const eliminarInscripcion = useMutation({
         mutationFn: async (uid: string) => eliminarInscripcionXProfesor(uid),
@@ -55,11 +52,41 @@ export const useInscripcionDeportistas = (id:string) => {
 
     return {
         AlertInfo,
-
         eliminarInscripcion,
     }
 }
 
+
+
+
+
+export const useInscripcionCrear = () => {
+
+    const queryClient = useQueryClient();
+    const { show, AlertInfo:AlertMsg } = useAlertInfo();
+
+
+    const crearInscripcion = useMutation({
+        mutationFn: async (inscripcion: string) => createInscripcion(inscripcion),
+        onSuccess: () => {
+            // queryClient.invalidateQueries({queryKey: ['inscripciones-mis-deportistas'], exact: true});
+            queryClient.removeQueries({queryKey: ['inscripciones-mis-deportistas'], exact: false});
+            queryClient.invalidateQueries({ queryKey: ['mis-inscripciones'] });
+            show({ title: 'Exitoso', message: 'Inscripción creada', buttonText: 'Cerrar', type: 'success' });
+        },
+        onError: (error:any) => {
+            const mensajeError = error?.response?.data?.msg || error?.message || 'Error desconocido';
+            show({ title: 'Error', message: mensajeError, buttonText: 'Cerrar', type: 'error' });
+        },
+    });
+
+
+
+    return {
+        AlertMsg,
+        crearInscripcion,
+    }
+}
 
 
 

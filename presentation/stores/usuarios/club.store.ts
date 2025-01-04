@@ -51,12 +51,10 @@ const storeApi: StateCreator<ClubState> = (set) => ({
 
     startClubPorDirector: async() => {
         try {
-            set({ isLoadingClub: true });
             const data = await clubPorDirector();
-            set({ clubes: data.data, isLoadingClub: false });
+            set({ clubes: data });
             return true;
         } catch (error:any) {
-            set({ isLoadingClub: false });
             return false;
         }
     },
