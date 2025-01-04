@@ -15,13 +15,6 @@ const MisEntidades = () => {
     const { entidadesQuery } = useMisEntidades();
 
 
-
-    const handleOnPress = (item:any) => {
-        console.log(item);
-    }
-
-
-
     return (
 
         <DisenioPagina title='Mis Entidades'>
@@ -31,12 +24,12 @@ const MisEntidades = () => {
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) => (
                     <TarjetaInscripcionClub
-                        carpeta="entidades" img={item.img}
+                        carpeta="clubes" img={item.img}
                         titulo={ item.nombre }
                         subtitulo1={ item.correo } 
                         subtitulo2={`Tipo: ${item.entidad}`}
                         iconos={ false }
-                        onPress={ () =>  handleOnPress(item) }
+                        onPress={ () => router.push({ pathname: '/clubes/[id]', params:{id: item.id} }) }
                         isClub={ false }
                     />
                 )}

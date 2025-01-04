@@ -165,7 +165,6 @@ export const FormDeportistas = ({ deportista, handleFuncion, id, isLoading }:any
                         label='Departamento'
                         options={ regiones }
                         titulo='Departamento'
-                        // setFieldValue={ setFieldValue }
                         value={values.departamento}
                         setFieldValue={(field:any, value:any) => {
                             setFieldValue(field, value);

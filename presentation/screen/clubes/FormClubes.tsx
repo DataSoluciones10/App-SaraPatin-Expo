@@ -1,10 +1,10 @@
 
 import { useEffect } from 'react';
 import { KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native';
-
 import * as Yup from 'yup';
 import { Formik } from 'formik';
-import { InputFormText, MultiSelectNombreID, SelectIdName, SelectNormalThemed, ThemedView } from '../../../presentation/components';
+
+import { InputFormText, SelectIdName, SelectIdNombre, SelectNormalThemed } from '../../../presentation/components';
 import { ThemedButton } from '../../../presentation/components/components/ThemedButton';
 import { entidades } from '@/presentation/data';
 import { AvatarScreen } from '@/presentation/components/components/AvatarScreen';
@@ -73,7 +73,7 @@ export const FormClubes = ({ club, handleFuncion, id, isLoading }:any) => {
                     <ScrollView style={{marginHorizontal:15}} showsVerticalScrollIndicator={false}>
 
                     {/* imageUrl={deportista.img} */}
-                    <AvatarScreen size={170} titulo="deportistas" />
+                    <AvatarScreen size={170} titulo="clubes" />
                     
                     <InputFormText
                         titulo='Nombre Entidad'
@@ -103,7 +103,7 @@ export const FormClubes = ({ club, handleFuncion, id, isLoading }:any) => {
                         name='correo'
                     />
 
-                    <MultiSelectNombreID 
+                    <SelectIdNombre 
                         label="Delegado" 
                         name="delegado"
                         options={ profesores || [] }

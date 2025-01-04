@@ -1,6 +1,6 @@
 
 import { router } from 'expo-router';
-import { FlatList, RefreshControl, View } from 'react-native';
+import { FlatList, RefreshControl } from 'react-native';
 
 import { FAB, MensajeListaVacia, TarjetaDeUsuario } from '@/presentation/components';
 import { DisenioPagina } from '@/presentation/layouts';
@@ -55,9 +55,7 @@ const MisDeportistas = () => {
                 ListEmptyComponent={ <MensajeListaVacia titulo="No tienes deportistas creados" />}
             />
 
-
             <FAB iconName='add-outline' onPress={() => router.push({ pathname:'/deportistas/[id]', params:{id:'new'} })}/>
-            {/* <View style={{height:20}} /> */}
         </DisenioPagina>
     )
 }

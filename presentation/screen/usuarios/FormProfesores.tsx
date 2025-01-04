@@ -1,15 +1,14 @@
 
 import { useEffect } from 'react';
 import { KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native';
-
 import * as Yup from 'yup';
 import { Formik } from 'formik';
-import { InputFormDecimales, InputFormText, MultiSelectNombreID, SelectIdName, SelectNormalThemed, ThemedView } from '../../../presentation/components';
+
+import { InputFormText, MultiSelectNombreID, SelectIdName, SelectNormalThemed } from '../../../presentation/components';
 import { ThemedButton } from '../../../presentation/components/components/ThemedButton';
-import { epsData, ramaData, tipoDocumento, tipoPatin } from '@/presentation/data';
+import { documentoMayor } from '@/presentation/data';
 import { AvatarScreen } from '@/presentation/components/components/AvatarScreen';
-import { DateFormInput } from '@/presentation/components/inputs/DateFormInput';
-import { useCiudadesStore, useClubStore, useImagenStore, useProfesoresStore } from '@/presentation/stores';
+import { useCiudadesStore, useClubStore, useImagenStore } from '@/presentation/stores';
 
 
 
@@ -76,7 +75,7 @@ export const FormProfesores = ({ profesor, handleFuncion, id, isLoading }:any) =
                     <ScrollView style={{marginHorizontal:15}} showsVerticalScrollIndicator={false}>
 
                     {/* imageUrl={deportista.img} */}
-                    <AvatarScreen size={170} titulo="deportistas" />
+                    <AvatarScreen size={170} titulo="usuarios" />
                     
                     <InputFormText
                         titulo='Nombre Completo'
@@ -101,7 +100,7 @@ export const FormProfesores = ({ profesor, handleFuncion, id, isLoading }:any) =
                         titulo='Tipo de Documento'
                         name='tipo_documento'
                         label='Tipo de Documento'
-                        options={tipoDocumento}
+                        options={documentoMayor}
                         value={values.tipo_documento}
                         setFieldValue={ setFieldValue }
                     />
@@ -167,10 +166,20 @@ export const FormProfesores = ({ profesor, handleFuncion, id, isLoading }:any) =
                         style={{flex:1}}
                     />
 
+                    {(id !== 'new') &&
+                    <SelectIdName
+                        name='estado'
+                        label='Estado'
+                        titulo='Estado'
+                        options={[{name:'Activo', id:true}, {name:'Inactivo', id:false}]}
+                        value={values.estado}
+                        setFieldValue={ setFieldValue }
+                    />
+                    }
 
                     <View style={{marginBottom:50, marginTop:10}}>
                         <ThemedButton icon='save-outline' onPress={ () => handleSubmit() } disabled={isLoading.isPending}>
-                            { `${id === 'new' ? 'Guardar' : 'Editar'} Profesor`}
+                            {`${id === 'new' ? 'Guardar' : 'Editar'} Profesor`}
                         </ThemedButton>
                     </View>
 

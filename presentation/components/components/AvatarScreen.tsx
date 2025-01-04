@@ -21,7 +21,6 @@ export const AvatarScreen = ({ titulo, size=100 }: Props) => {
 
     const { imagen } = useImagenStore();
 
-    // console.log({imagen})
 
     const imageSource = 
     typeof imagen === 'string'

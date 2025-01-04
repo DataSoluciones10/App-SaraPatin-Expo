@@ -19,11 +19,12 @@ const ProfesorScreen = () => {
 
     const { id } = useLocalSearchParams();
     const { imagen, valorImagen } = useImagenStore();
+    const { profesorQueryId, profesorMutation, AlertInfo } = useProfesorId(`${id}`);
 
-    const { profesorQueryId } = useProfesorId(`${id}`);
     const { startListadoRegiones } = useCiudadesStore();
     const { startClubPorDirector } = useClubStore();
     const { adminAndProfesores } = useProfesoresStore();
+
 
 
     useEffect(() => {
@@ -61,14 +62,11 @@ const ProfesorScreen = () => {
 
 
     const handleGuardarInfo = async(values:any, resetForm:(nextState?: Partial<FormikState<any>> | undefined) => void) => {
-        // const rol = (id !== 'new') ? values.rol : 'DEPORTISTA_ROL';
-        // await deportistaMutation.mutateAsync({ ...values, rol, 
-        //     mensualidad:removerComas(values.mensualidad), img: imagen
-        // });
-        // if (id === 'new') {
-        //     resetForm();
-        //     valorImagen(undefined);
-        // }
+        await profesorMutation.mutateAsync({ ...values, img: imagen, rol:'PROFESOR_ROL' });
+        if (id === 'new') {
+            resetForm();
+            valorImagen(undefined);
+        }
     }
 
 
@@ -76,15 +74,14 @@ const ProfesorScreen = () => {
 
     return (
         <DisenioPagina title={`${id === 'new' ? 'Crear' : 'Editar'} Profesor`}>
-            {/* <AlertInfo /> */}
+            <AlertInfo />
 
             <FormProfesores 
-                profesor={profesor} id={id}
+                id={id}
+                profesor={profesor} 
                 handleFuncion={ handleGuardarInfo }  
-                isLoading={ false }
-                // deportistaMutation
+                isLoading={ profesorMutation }
             />
-
         </DisenioPagina>
     )
 

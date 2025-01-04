@@ -1,6 +1,7 @@
 
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
-import { listadoMisProfesores, profesorPorID } from '@/core/actions';
+import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { listadoMisProfesores, profesorPorID, updateCreateProfesores } from '@/core/actions';
+import { useAlertInfo } from '../../hooks/useAlertInfo';
 
 
 
@@ -10,13 +11,12 @@ import { listadoMisProfesores, profesorPorID } from '@/core/actions';
 export const useMisProfesores = () => {
 
     const profesoresQuery = useInfiniteQuery({
-        queryKey: ['mis-entidades', 'infinite'],
+        queryKey: ['mis-profesores', 'infinite'],
         queryFn: ({pageParam = 0}) => listadoMisProfesores(),
         staleTime: 1000 * 60 * 60, // 1 hora
         initialPageParam: 0,
         getNextPageParam: (_, allPages) => allPages.length
     })
-
 
     return {
         profesoresQuery,
@@ -30,8 +30,8 @@ export const useMisProfesores = () => {
 
 export const useProfesorId = (uid:string) => {
 
-    // const queryClient = useQueryClient();
-    // const { show, AlertInfo } = useAlertInfo();
+    const queryClient = useQueryClient();
+    const { show, AlertInfo } = useAlertInfo();
     
     
     const profesorQueryId = useQuery({
@@ -41,24 +41,27 @@ export const useProfesorId = (uid:string) => {
     });
 
 
-    // const deportistaMutation = useMutation({
-    //     mutationFn: async( data:any ) => updateCreateDeportistas(data),
+    const profesorMutation = useMutation({
+        mutationFn: async( data:any ) => updateCreateProfesores(data),
 
-    //     onSuccess: ( data:any ) => {
-    //         queryClient.invalidateQueries({ queryKey: ['mis-deportistas', 'infinite'] });
-    //         queryClient.invalidateQueries({ queryKey: ['deportistaId', data.id] });
+        onSuccess: ( data:any ) => {
+            queryClient.invalidateQueries({ queryKey: ['mis-profesores', 'infinite'] });
+            queryClient.invalidateQueries({ queryKey: ['profesorId', data.id] });
 
-    //         show({ title: 'Exitoso', message: 'El deportista se guardo con exito.', buttonText: 'Cerrar', type: 'success' });
-    //     },
-    //     onError: (error:any) => {
-    //         const mensajeError = error?.response?.data?.msg || error?.message || 'Error desconocido';
-    //         show({ title: 'Error', message: mensajeError, buttonText: 'Cerrar', type: 'error' });
-    //     },
-    // });
+            show({ title: 'Exitoso', message: 'El profesor se guardo con exito.', buttonText: 'Cerrar', type: 'success' });
+        },
+        onError: (error:any) => {
+            const mensajeError = error?.response?.data?.msg || error?.message || 'Error desconocido';
+            show({ title: 'Error', message: mensajeError, buttonText: 'Cerrar', type: 'error' });
+        },
+    });
 
 
     return {
+        AlertInfo,
+
         profesorQueryId,
+        profesorMutation,
     }
     
 }

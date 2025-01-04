@@ -16,27 +16,22 @@ const MisProfesores = () => {
     const { profesoresQuery } = useMisProfesores();
     
 
-    const handleOnPress = (item:any) => { 
-        console.log('Holis Holis')
-    }
-
-
 
     return (
         <DisenioPagina title='Mis Profesores'>
 
-                    
             <FlatList
                 data={profesoresQuery.data?.pages.flatMap((page:any) => page) || []}
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) => (
                     <TarjetaInscripcionClub
-                        carpeta="profesores" img={item.img}
+                        carpeta="usuarios"
+                        img={item.img}
                         titulo={ item.nombre }
                         subtitulo1={ item.correo } 
                         subtitulo2={ item.movil }
                         iconos={ false }
-                        onPress={ () =>  handleOnPress(item) }
+                        onPress={  () => router.push({ pathname: '/profesores/opciones/[id]', params:{id: item.id} }) }
                         isClub={ false }
                     />
                 )}

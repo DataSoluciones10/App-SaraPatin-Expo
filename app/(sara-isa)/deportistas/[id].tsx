@@ -81,7 +81,8 @@ const DeportistaScreen = () => {
             <AlertInfo />
 
             <FormDeportistas 
-                deportista={deportista} id={id}
+                id={id}
+                deportista={deportista} 
                 handleFuncion={ handleGuardarInfo }  
                 isLoading={ deportistaMutation }
             />

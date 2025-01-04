@@ -5,9 +5,8 @@ import { FormikState } from 'formik';
 
 import { DisenioPagina } from '@/presentation/layouts'
 import { CargandoScreen } from '../../../presentation/components';
-import { useDeportistaId, useEntidadId } from '@/presentation/hooks';
+import { useEntidadId } from '@/presentation/hooks';
 import { useCiudadesStore, useClubStore, useImagenStore, useProfesoresStore } from '@/presentation/stores';
-import { removerComas } from '@/presentation/helpers';
 import { FormClubes } from '@/presentation/screen/clubes';
 
 
@@ -17,16 +16,16 @@ import { FormClubes } from '@/presentation/screen/clubes';
 
 const EntidadScreen = () => {
 
-
     const { id } = useLocalSearchParams();
     const { imagen, valorImagen } = useImagenStore();
 
-    const { clubQueryId } = useEntidadId(`${id}`);
+    const { AlertInfo, clubQueryId, entidadMutation } = useEntidadId(`${id}`);
     const { startListadoRegiones } = useCiudadesStore();
     const { startClubPorDirector } = useClubStore();
     const { adminAndProfesores } = useProfesoresStore();
 
-
+    
+    
     useEffect(() => {
         startListadoRegiones();
         return () => valorImagen(undefined);
@@ -62,28 +61,24 @@ const EntidadScreen = () => {
 
 
     const handleGuardarInfo = async(values:any, resetForm:(nextState?: Partial<FormikState<any>> | undefined) => void) => {
-        // const rol = (id !== 'new') ? values.rol : 'DEPORTISTA_ROL';
-        // await deportistaMutation.mutateAsync({ ...values, rol, 
-        //     mensualidad:removerComas(values.mensualidad), img: imagen
-        // });
-        // if (id === 'new') {
-        //     resetForm();
-        //     valorImagen(undefined);
-        // }
+        await entidadMutation.mutateAsync({ ...values, img: imagen });
+        if (id === 'new') {
+            resetForm();
+            valorImagen(undefined);
+        }
     }
-
 
 
 
     return (
         <DisenioPagina title={`${id === 'new' ? 'Crear' : 'Editar'} Entidad`}>
-            {/* <AlertInfo /> */}
+            <AlertInfo />
 
             <FormClubes 
-                club={club} id={id}
+                id={id}
+                club={club} 
                 handleFuncion={ handleGuardarInfo }  
-                isLoading={ false }
-                // deportistaMutation
+                isLoading={ entidadMutation }
             />
 
         </DisenioPagina>

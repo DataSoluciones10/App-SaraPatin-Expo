@@ -83,7 +83,6 @@ export const FormInscripciones = ({ items, compe, setCompe, patin, setPatin, han
                         name='competencia'
                         label='Seleccione Competencia'
                         options={ competencias || [] }
-                        // setFieldValue={ setFieldValue }
                         value={values.competencia}
                         setFieldValue={(field:any, value:any) => {
                             setFieldValue(field, value);
