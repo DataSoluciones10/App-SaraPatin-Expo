@@ -14,4 +14,4 @@ export * from './utilities/descargas.actions';
 export * from './competencia/temporadas.actions';
 
 
-
+export * from './deportistas/factura_deportista.actions';

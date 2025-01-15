@@ -6,7 +6,6 @@ import { GradientePoster } from '../gradientes/GradientePoster';
 
 
 interface Props {
-    id: string;
     poster: ImageSourcePropType;
     titulo: string;
     smallPoster?: boolean;
