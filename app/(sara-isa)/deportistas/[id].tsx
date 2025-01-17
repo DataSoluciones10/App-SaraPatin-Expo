@@ -67,7 +67,7 @@ const DeportistaScreen = () => {
         await deportistaMutation.mutateAsync({ ...values, rol, 
             mensualidad:removerComas(values.mensualidad), img: imagen
         });
-        if (id === 'new') {
+        if(id === 'new') {
             resetForm();
             valorImagen(undefined);
         }

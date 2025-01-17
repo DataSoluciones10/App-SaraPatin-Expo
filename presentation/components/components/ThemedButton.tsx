@@ -25,8 +25,7 @@ export const ThemedButton = ({ children, icon, radius=5, disabled=false, color=n
     return (
 
         <Pressable style={{backgroundColor: (disabled) ? disabledColor : buttonColor, borderRadius:radius }} { ...rest }
-            className="px-4 py-3 flex-row items-center justify-center bg-primary active:opacity-70 gap-3"
-            disabled={disabled}
+            className="px-4 py-3 flex-row items-center justify-center active:opacity-70 gap-3" disabled={disabled}
         >
             {disabled ? (
                 <ActivityIndicator size="small" color="white" />

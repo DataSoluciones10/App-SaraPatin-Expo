@@ -1,9 +1,9 @@
 
 import { useState } from 'react';
-import { Text, View, TextInput, Pressable, StyleSheet } from 'react-native';
-import DateTimePicker from '@react-native-community/datetimepicker';
-import { useField } from 'formik';
+import { Text, View, TextInput, Pressable } from 'react-native';
 
+import { useField } from 'formik';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import useThemeColors from '@/presentation/hooks/global/useThemeColors';
 import { ThemedText } from '../textos/ThemedText';
 import { formatearFecha } from '@/presentation/helpers';

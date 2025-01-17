@@ -7,7 +7,9 @@ import { useLocalSearchParams } from "expo-router";
 import { Ionicons } from '@expo/vector-icons';
 import useThemeColors from "../hooks/global/useThemeColors";
 import { ThemedText } from "../components";
-import { useCategoriaTemporadaXId } from "../hooks";
+import { useFacturaDeportistaXId } from "../hooks";
+import dayjs from "dayjs";
+import { separadorMillares } from "../helpers";
 
 
 
@@ -23,16 +25,17 @@ interface Props {
 
 
 
-export const DisenioCompetencia = ({ title, subtitle, children }: Props) => {
+export const DisenioPagosDeportista = ({ title, subtitle, children }: Props) => {
 
 
     const { id } = useLocalSearchParams();
     const { goBack, canGoBack } = useNavigation();
     const { text, disabledColor, background } = useThemeColors();
-    const { categoriaTemporadaQueryId } = useCategoriaTemporadaXId(`${id}`);
-    const competencia = categoriaTemporadaQueryId?.data?.competencia.nombre; 
-    const fase = categoriaTemporadaQueryId?.data?.temporada.nombre; 
-    const patin = categoriaTemporadaQueryId?.data?.titulo; 
+    const { facturaDeportistaQueryId } = useFacturaDeportistaXId(`${id}`);
+
+    const deportista = facturaDeportistaQueryId?.data?.deportista.nombre; 
+    const fecha = dayjs(facturaDeportistaQueryId?.data?.mes_pago).format('MMMM-YYYY').toUpperCase(); 
+    const valor = `$${separadorMillares(facturaDeportistaQueryId?.data?.valor)}`; 
 
     
 
@@ -41,6 +44,7 @@ export const DisenioCompetencia = ({ title, subtitle, children }: Props) => {
             <Ionicons name='chevron-back-outline' size={24} color={text} /> 
         </Pressable>
     );
+
 
 
 
@@ -58,9 +62,9 @@ export const DisenioCompetencia = ({ title, subtitle, children }: Props) => {
                     <ThemedText type='h2' bold style={{textAlign:'center'}}>
                         {title}
                     </ThemedText>
-                    <ThemedText style={{marginTop:-3, fontSize:13, color:disabledColor}} type='normal'>{competencia}</ThemedText>
+                    <ThemedText style={{marginTop:-3, fontSize:13, color:disabledColor}} type='normal'>{ deportista }</ThemedText>
                     <ThemedText style={{marginTop:-3, fontSize:13, color:disabledColor}} type='normal'>
-                        {`${fase} - ${patin}`}
+                        {`${fecha} - ${valor}`}
                     </ThemedText>
                 </View>
 
@@ -72,7 +76,6 @@ export const DisenioCompetencia = ({ title, subtitle, children }: Props) => {
             <View style={{backgroundColor:background, flex:1}}>
                 {children}
             </View>
-
 
             <View className="w-8" />
         </SafeAreaView>

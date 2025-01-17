@@ -12,3 +12,4 @@ export * from './competencias/categoriaTemporadaApi';
 export * from './competencias/pruebasApi';
 export * from './competencias/temporadaApi';
 export * from './deportistas/facturaDeportistaApi';
+export * from './deportistas/abonoFacturaApi';

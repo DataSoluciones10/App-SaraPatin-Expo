@@ -1,12 +1,13 @@
 
 import { useState } from 'react';
-import { Text, FlatList, RefreshControl } from 'react-native';
+import { FlatList, RefreshControl } from 'react-native';
 import { useQueryClient } from '@tanstack/react-query';
 
 import { DisenioPagina } from '@/presentation/layouts';
 import { useAlertConConfirm, useFacturasDeportista, useFuncionesTanStack } from '@/presentation/hooks';
-import { BackdropScreen, CargandoScreen, FAB, MensajeListaVacia } from '@/presentation/components';
+import { BackdropScreen, CargandoScreen, FAB, MensajeListaVacia, ModalScreen, TarjetaPagos } from '@/presentation/components';
 import { generarFacturasDeportista } from '@/core/actions';
+import { FormAbonosFacDeportista } from '@/presentation/screen/pagos';
 
 
 
@@ -15,10 +16,10 @@ import { generarFacturasDeportista } from '@/core/actions';
 
 
 const PagosPendientes = () => {
-// estado:['DEUDA', 'SALDO'
+
 
     const queryClient = useQueryClient();
-    const { pagosDeportistaQuery, loadNextPage, termino, chageTermino, } = useFacturasDeportista({estado: 'DEUDA'});
+    const { pagosDeportistaQuery, loadNextPage, termino, chageTermino, } = useFacturasDeportista({estado: "['DEUDA', 'SALDO']"});
     const { isRefreshing, onPullRefresh } = useFuncionesTanStack();
     const { showDialog, AlertModal } = useAlertConConfirm();
     const [cargando, setCargando] = useState(false)
@@ -57,22 +58,14 @@ const PagosPendientes = () => {
     return (
         <DisenioPagina title='Pagos Pendientes'>
             <AlertModal />
+
             <BackdropScreen titulo="Procesando su petición..." visible={cargando} />
 
             <FlatList
                 data={pagosDeportistaQuery.data?.pages.flatMap((page) => page) || []}
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) => (
-                    // <TarjetaDeUsuario 
-                    //     key={item.id} 
-                    //     nombre={item.nombre} 
-                    //     datos={`${item.rama} - ${item.patin}`} 
-                    //     fecha={ item.fechaNacimiento }
-                    //     img={ item.img }
-                    //     uid={ item.id }
-                    //     carpeta="deportistas"
-                    // />
-                    <Text>Hola dAvid</Text>
+                    <TarjetaPagos item={item} />
                 )}
                 contentContainerStyle={{flexGrow:1, padding:10}}
                 onEndReached={ () => loadNextPage() }
@@ -84,8 +77,14 @@ const PagosPendientes = () => {
                 ListEmptyComponent={ <MensajeListaVacia titulo="No tienes pagos en el momento..." />}
             />
 
-{/* router.push({ pathname:'/deportistas/[id]', params:{id:'new'} }) */}
             <FAB iconName='refresh' onPress={() => handleGenerarFacturas() }/>
+
+
+
+            <ModalScreen titulo="Agregar Abono">
+                <FormAbonosFacDeportista />
+            </ModalScreen>
+            
         </DisenioPagina>
     )
 

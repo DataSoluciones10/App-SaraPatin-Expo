@@ -43,11 +43,11 @@ export const TarjetaSencilla = ({ dato, onPress }: Props) => {
                         <ThemedText style={styles.name} numberOfLines={2}>
                             { dato?.deportista.nombre }
                         </ThemedText>
-                        {/* <ThemedText style={[styles.details, {color:disabledColor}]} numberOfLines={1}>
-                            {`${dato?.categoria_temporada?.temporada.nombre} - ${dato?.patin}`}
-                        </ThemedText> */}
                         <ThemedText style={[styles.details, {color:disabledColor}]} numberOfLines={1}>
                             {`${dato?.rama} - CATEGORIA ${isNaN(Number(dato.categoria)) ? dato.categoria.toUpperCase() : dato.categoria}`}
+                        </ThemedText>
+                        <ThemedText style={[styles.details, {color:disabledColor}]} numberOfLines={1}>
+                            {`PAGO ${(dato?.extraordinaria) ? 'EXTRA-ORDINARIO' : 'ORDINARIO'}`}
                         </ThemedText>
                     </View>
                 </View>

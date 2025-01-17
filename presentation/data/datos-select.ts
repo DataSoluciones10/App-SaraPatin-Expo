@@ -52,3 +52,8 @@ export const tipoReportes = ['DEPORTISTAS', 'CLUBES', 'ESCUELAS', 'ENTIDADES'];
 export const filtroCategorias = ['MENORES', 'TRANSICION', 'MAYORES', 'TODAS'];
 // Tipos de Pruebas Para competencias
 export const tipoPrueba = ['HABILIDAD', 'REMATES', 'REMATES CON DISTANCIA', 'META CONTRA META', 'VELOCIDAD OLIMPICA', 'FONDO', 'FONDO PUNTOS', 'FONDO ELIMINACION'];
+
+// Tipos de Bancos para Abonos
+export const bancos = ['EFECTIVO', 'BANCOLOMBIA', 'BANCO DE BOGOTA', 'DAVIVIENDA', 'NEQUI', 'DAVIPLATA'];
+// Tipos de Pago
+export const tiposPago = ['PAGO', 'SALDO', 'DEUDA'];

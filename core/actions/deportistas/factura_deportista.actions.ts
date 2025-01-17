@@ -1,34 +1,21 @@
 
-
-
-
-
-
-
-    
-    // static listFacturasXDeportista = async(id:string):Promise<any> => {
-    //     try {
-    //         const { data } = await facturaDeportistaApi.get<any>(`/xdeportista/${id}`);
-    //         return data.data;
-    //     } catch (error: any) {
-    //         const errores = error.response.data['msg'] || error.response.data.errors[0]['msg'];
-    //         throw new Error(errores);
-    //     }
-    // }
-
 import { facturaDeportistaApi } from "@/core/apis";
 
 
 
-    // static facturasDeportistaPorID = async(id:string):Promise<any> => {
-    //     try {
-    //         const { data } = await facturaDeportistaApi.get(`/xid/${id}`);
-    //         return data.data;
-    //     } catch (error: any) {
-    //         const errores = error.response.data['msg'] || error.response.data.errors[0]['msg'];
-    //         throw new Error(errores);
-    //     }
-    // }
+
+
+
+
+export const facturasDeportistaPorID = async(id:string):Promise<any> => {
+    try {
+        const { data } = await facturaDeportistaApi.get(`/xid/${id}`);
+        return data.data;
+    } catch (error: any) {
+        const errores = error.response.data['msg'] || error.response.data.errors[0]['msg'];
+        throw new Error(errores);
+    }
+}
 
 
 
@@ -48,7 +35,6 @@ export const generarFacturasDeportista = async():Promise<any> => {
 
 
 
-
 export const listFacturasXClubes = async({ estado, termino, page }:any):Promise<any> => {
     try {
         const params = new URLSearchParams();
@@ -56,14 +42,26 @@ export const listFacturasXClubes = async({ estado, termino, page }:any):Promise<
         params.append('termino',  termino);
         params.append('page',  page);
         const { data } = await facturaDeportistaApi.get<any>(`/xclub`, { params });
-        // useFacturaDeportistaStore.getState().startTotalFacturas(data.total);
-
         return data.data
     } catch (error: any) {
         const errores = error.response.data['msg'] || error.response.data.errors[0]['msg'];
         throw new Error(errores);
     }
 }
+
+
+
+
+ 
+    // static listFacturasXDeportista = async(id:string):Promise<any> => {
+    //     try {
+    //         const { data } = await facturaDeportistaApi.get<any>(`/xdeportista/${id}`);
+    //         return data.data;
+    //     } catch (error: any) {
+    //         const errores = error.response.data['msg'] || error.response.data.errors[0]['msg'];
+    //         throw new Error(errores);
+    //     }
+    // }
 
 
 

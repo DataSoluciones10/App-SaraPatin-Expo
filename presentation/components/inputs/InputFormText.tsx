@@ -13,12 +13,13 @@ interface Props extends TextInputProps {
     name: string;
     titulo?:string;
     style?: any;
+    disabled?: boolean;
 }
 
 
 
 
-export const InputFormText = ({ titulo, name, style, ...rest }: Props) => {
+export const InputFormText = ({ titulo, name, style, disabled=false, ...rest }: Props) => {
 
 
     const inputRef = useRef<TextInput>(null);
@@ -44,13 +45,13 @@ export const InputFormText = ({ titulo, name, style, ...rest }: Props) => {
             >
                 <TextInput
                     ref={inputRef}
-                    // autoFocus={false}
                     {...rest}
                     placeholderTextColor="gray"
                     onFocus={() => setIsActive(true)}
                     onBlur={() => setIsActive(false)}
                     style={{color: hasError ? error : text}}
                     className="flex-1 mr-2"
+                    editable={!disabled}
                 />
             </View>
             {hasError && (<Text style={{color:error}}>{ meta.error }</Text>)}

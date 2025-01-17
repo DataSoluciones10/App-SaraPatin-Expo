@@ -4,11 +4,10 @@ import { KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native';
 
 import * as Yup from 'yup';
 import { Formik } from 'formik';
-import { InputFormDecimales, InputFormText, MultiSelectNombreID, SelectIdName, SelectNormalThemed, ThemedView } from '../../../presentation/components';
+import { InputFormDecimales, InputFormText, MultiSelectNombreID, SelectIdName, SelectNormalThemed, ThemedView, DateFormInput } from '../../../presentation/components';
 import { ThemedButton } from '../../../presentation/components/components/ThemedButton';
 import { epsData, ramaData, tipoDocumento, tipoPatin } from '@/presentation/data';
 import { AvatarScreen } from '@/presentation/components/components/AvatarScreen';
-import { DateFormInput } from '@/presentation/components/inputs/DateFormInput';
 import { useCiudadesStore, useClubStore, useImagenStore, useProfesoresStore } from '@/presentation/stores';
 
 
@@ -281,7 +280,6 @@ export const FormDeportistas = ({ deportista, handleFuncion, id, isLoading }:any
                         </ThemedButton>
                     </View>
 
-                    {/* disabled={mutation.isPending} */}
 
                     </ScrollView>
                 </KeyboardAvoidingView>

@@ -14,3 +14,4 @@ export * from './ui/modal.store';
 export * from './usuarios/club.store';
 export * from './usuarios/deportista.store';
 export * from './usuarios/profesores.store';
+export * from './deportistas/factura_deportista.store';
