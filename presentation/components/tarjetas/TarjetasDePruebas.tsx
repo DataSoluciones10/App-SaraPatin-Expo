@@ -54,7 +54,7 @@ export const TarjetasDePruebas = ({ dato, isDeportista }:any) => {
                                 <ThemedText style={[styles.statText]}>{dato.numero_competencia.numero_competencia}</ThemedText>
                             </View>
                             <View style={[styles.statItem]}>
-                                <Ionicons name="flag" size={16} color={ primary } />
+                                <Ionicons name="medal" size={16} color={ primary } />
                                 {(dato?.posicion)
                                 ?   <ThemedText style={[styles.statText]}>{ dato.posicion }</ThemedText>
                                 :   <Ionicons name="ban" size={16} color='red' />
