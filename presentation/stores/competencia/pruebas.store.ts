@@ -19,9 +19,9 @@ interface PruebasState {
 
 
 
-    // clearActivePrueba: () => void,
     // startPruebaID: (id:string) => Promise<boolean>,
     clearActiveListPruebas: (tipo:string) => void,
+    listadoPruebasDeportista: (datos:any[]) => void,
     startListadoPruebasXFiltros: (pruebas:any) => Promise<boolean>,
     // startCrearPrueba: (prueba: any) => Promise<any>,
     // startListadoPruebasXArbitro: () => Promise<boolean>,
@@ -46,18 +46,17 @@ const storeApi: StateCreator<PruebasState> = (set) => ({
 
 
 
-    // clearActivePrueba: async() => {
-    //     set({ activePrueba: null });
-    // },
-
 
     
     clearActiveListPruebas: async(tipo:string) => {
-        if(tipo === 'DEPORTISTAS') { 
-            set({ pruebasEntidad: [] });
-        } else {
-            set({ pruebasDeportista: [], pruebasEntidad: [] });
-        }
+        const key = tipo === 'DEPORTISTAS' ? 'pruebasDeportista' : 'pruebasEntidad';
+        set({ [key]: [] });
+    },
+
+
+
+    listadoPruebasDeportista: async(datos:any[]) => {
+        set({ pruebasDeportista: datos });
     },
 
 

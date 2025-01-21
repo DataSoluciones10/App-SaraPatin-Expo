@@ -1,10 +1,13 @@
 
-import { Text, View } from 'react-native';
+import { useEffect } from 'react';
+import { View } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
 
 import { BannerDeCompetencia } from '@/presentation/layouts'
-import { useCategoriaTemporadaXId } from '@/presentation/hooks';
 import { ContenedorVerPruebas } from '@/presentation/screen/realtime';
+import { useCategoriasTemporadaStore, useSocketStore } from '@/presentation/stores';
+import { useSocketCategoriaTemporada } from '@/presentation/hooks';
+import { CargandoScreen } from '@/presentation/components';
 
 
 
@@ -14,8 +17,18 @@ import { ContenedorVerPruebas } from '@/presentation/screen/realtime';
 const TiempoReal = () => {
 
 
-    const { id, entidad } = useLocalSearchParams();
-    const { categoriaTemporadaQueryId } = useCategoriaTemporadaXId(`${id}`);
+    const { id } = useLocalSearchParams();
+    const { activeCategoriaTemporada, categoriTemporadaXId } = useCategoriasTemporadaStore();
+
+
+    useEffect(() => {
+        if(id) { categoriTemporadaXId(`${id}`) }
+        return () => {}
+    }, [id])
+
+
+    // Sockets de Actualizar Pruebas y categoria
+    useSocketCategoriaTemporada(`${id}`);
     
 
     return (
@@ -23,16 +36,15 @@ const TiempoReal = () => {
         <BannerDeCompetencia>
             <View style={{ flex: 1 }}>
 
-                {(!categoriaTemporadaQueryId.data)
-                ?   <Text>HOla Mundo </Text>
-                :   <ContenedorVerPruebas datos={categoriaTemporadaQueryId.data} />
+                {(!activeCategoriaTemporada)
+                ?   <CargandoScreen titulo="Cargando información..." />
+                :   <ContenedorVerPruebas datos={activeCategoriaTemporada} />
                 }
 
             </View>
         </BannerDeCompetencia>
     )
 }
-
 
 
 

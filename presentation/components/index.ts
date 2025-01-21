@@ -37,6 +37,7 @@ export * from './tarjetas/TarjetasDeFondoPuntos';
 export * from './tarjetas/TarjetasDePruebas';
 export * from './tarjetas/TarjetaSencilla';
 export * from './tarjetas/TarjetaDeUsuario';
+export * from './tarjetas/TarjetaPruebasGrupos';
 
 export * from './textos/ThemedLink';
 export * from './textos/ThemedText';

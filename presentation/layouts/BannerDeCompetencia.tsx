@@ -1,14 +1,14 @@
 
-import { useLocalSearchParams, useNavigation } from "expo-router";
-import { Pressable, StyleSheet, View } from "react-native";
+import { useNavigation } from "expo-router";
+import { Pressable, StyleSheet, useColorScheme, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
 import { BlurView } from 'expo-blur';
 
 import useThemeColors from "@/presentation/hooks/global/useThemeColors";
-import { useCategoriaTemporadaXId } from "@/presentation/hooks";
 import { ThemedText } from "../components";
+import { useCategoriasTemporadaStore } from "../stores";
 
 
 const BANNER_HEIGHT = 150;
@@ -19,17 +19,19 @@ const BANNER_HEIGHT = 150;
 export const BannerDeCompetencia = ({ children }:any) => {
 
 
-    const { id } = useLocalSearchParams();
     const { goBack, canGoBack } = useNavigation();
+    const colorScheme  = useColorScheme();
     const { text, opaco, background, primary, disabledColor } = useThemeColors();
-    const { categoriaTemporadaQueryId } = useCategoriaTemporadaXId(`${id}`);
-    const isDarkMode = background !== '#FFFFFF';
+    const { activeCategoriaTemporada } = useCategoriasTemporadaStore();
+    
 
-
-    const categoria = categoriaTemporadaQueryId?.data;
+    
+    const isDarkMode = colorScheme === 'dark';
+    const categoria = activeCategoriaTemporada;
     const competencia = (categoria) ? `${categoria.competencia?.nombre}` : 'No hay datos de competencia';
     const rama = (categoria && categoria.rama_activa === 'VARON') ? 'VARONES' :
-                (categoria && categoria.rama_activa === 'DAMA') ? 'DAMAS' : null;
+                (categoria && categoria.rama_activa === 'DAMA') ? 'DAMAS' : '';
+
     
     const categorias = (categoria && categoria.categoria_activa)
     ? (isNaN(categoria.categoria_activa)
@@ -40,7 +42,6 @@ export const BannerDeCompetencia = ({ children }:any) => {
     const pruebas = (categoria && categoria.prueba_activa) ? `${categoria.prueba_activa}` : 'PRUEBA NO ASIGNADA';
 
 
-    // {backgroundColor: isDarkMode ? 'rgba(255, 255, 255, 0.1)' : opaco }
 
     const renderHeader = () => (
         <View style={styles.headerContainer}>
@@ -182,7 +183,7 @@ const styles = StyleSheet.create({
     },
 
     title: {
-        fontSize: 25,
+        fontSize: 23,
         textAlign: 'center',
         marginBottom: 10,
         letterSpacing: 0.7,

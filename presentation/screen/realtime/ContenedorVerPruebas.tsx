@@ -8,12 +8,9 @@ import { VerPruebasXTiempo } from './VerPruebasXTiempo';
 
 
 
-
-
 interface Props {
     datos: any;
 }
-
 
 
 
@@ -32,7 +29,7 @@ export const ContenedorVerPruebas = ({ datos }:Props) => {
         }
 
         if(datos.prueba_activa === 'VELOCIDAD OLIMPICA') {
-          return <VerPruebasXGrupos />
+            return <VerPruebasXGrupos />
         }
 
         if(datos.prueba_activa === 'FONDO PUNTOS') {

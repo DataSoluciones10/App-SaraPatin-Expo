@@ -3,21 +3,22 @@ import { View, StyleSheet, TouchableOpacity, Image, Text } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import useThemeColors from '@/presentation/hooks/global/useThemeColors';
 import { ThemedText } from '../textos/ThemedText';
+import { API_URLS } from '@/core/config/apiconfig';
 
 
-const url = process.env.EXPO_PUBLIC_API_URL_DESARROLLO;
 
 
 
-export const TarjetasDePruebas = ({ dato, isDeportista }:any) => {
+
+export const TarjetasDePruebas = ({ dato, isDeportista, index }:any) => {
 
 
     const { primary, opaco, secondary, background, disabledColor } = useThemeColors();
 
 
     return (
-        <TouchableOpacity style={[styles.cardContainer,
-            {backgroundColor:(isDeportista) ? secondary : background, borderBottomColor:opaco}
+        <TouchableOpacity style={[styles.cardContainer, { borderTopWidth: index === 1 ? 1 : 0,
+            backgroundColor:(isDeportista) ? secondary  : background, borderColor:opaco}
         ]}>
             <View style={{ flexDirection:'row', paddingVertical:10, paddingHorizontal:15, alignItems:'center' }}>
 
@@ -29,8 +30,8 @@ export const TarjetasDePruebas = ({ dato, isDeportista }:any) => {
                     }
                     
                     <Image style={styles.avatarImage}
-                        source={dato.img 
-                        ? { uri: `${url}/uploads/usuarios/${dato.img}` } 
+                        source={dato.deportista.img 
+                        ? { uri: `${API_URLS.base_url}/uploads/usuarios/${dato.deportista.img}` } 
                         : require('../../../assets/images/user/no-img.webp')}
                     /> 
                 </View>
@@ -57,7 +58,8 @@ export const TarjetasDePruebas = ({ dato, isDeportista }:any) => {
                                 <Ionicons name="medal" size={16} color={ primary } />
                                 {(dato?.posicion)
                                 ?   <ThemedText style={[styles.statText]}>{ dato.posicion }</ThemedText>
-                                :   <Ionicons name="ban" size={16} color='red' />
+                                :   <ThemedText style={[styles.statText]}>{ index }</ThemedText>
+                                // :   <Ionicons name="ban" size={16} color='red' />
                                 }
                             </View>
                         </View>
@@ -74,8 +76,8 @@ export const TarjetasDePruebas = ({ dato, isDeportista }:any) => {
 
 const styles = StyleSheet.create({
     cardContainer: {
-        shadowColor: '#000',
-        elevation:5,
+        // shadowColor: '#000',
+        // elevation:5,
         borderBottomWidth:1, 
         marginBottom:1,
         width:'100%'

@@ -9,15 +9,15 @@ const url = process.env.EXPO_PUBLIC_API_URL_DESARROLLO;
 
 
 
-export const TarjetasDeFondoPuntos = ({ dato, isDeportista }:any) => {
+export const TarjetasDeFondoPuntos = ({ dato, isDeportista, index }:any) => {
 
 
     const { primary, opaco, secondary, background, disabledColor } = useThemeColors();
 
 
     return (
-        <TouchableOpacity style={[styles.cardContainer,
-            {backgroundColor:(isDeportista) ? secondary : background, borderBottomColor:opaco}
+        <TouchableOpacity style={[styles.cardContainer, { borderTopWidth: index === 1 ? 1 : 0,
+            backgroundColor:(isDeportista) ? secondary : background, borderColor:opaco}
         ]}>
             <View style={{ flexDirection:'row', paddingVertical:10, paddingHorizontal:15, alignItems:'center' }}>
 
@@ -29,8 +29,8 @@ export const TarjetasDeFondoPuntos = ({ dato, isDeportista }:any) => {
                     }
                     
                     <Image style={styles.avatarImage}
-                        source={dato.img 
-                        ? { uri: `${url}/uploads/usuarios/${dato.img}` } 
+                        source={dato.deportista?.img 
+                        ? { uri: `${url}/uploads/usuarios/${dato.deportista.img}` } 
                         : require('../../../assets/images/user/no-img.webp')}
                     /> 
                 </View>
@@ -38,7 +38,7 @@ export const TarjetasDeFondoPuntos = ({ dato, isDeportista }:any) => {
                 <View style={[styles.infoContainer]}>
                     <View style={styles.headerContainer}>
                         <ThemedText style={styles.name} numberOfLines={1}>
-                            { dato?.deportista.nombre } 
+                            { dato.deportista.nombre } 
                         </ThemedText>
                         <ThemedText style={[styles.details, {color:(isDeportista) ? opaco : disabledColor}]} numberOfLines={2}>
                             { dato.club_inscrito?.entidad?.nombre } 
@@ -47,7 +47,7 @@ export const TarjetasDeFondoPuntos = ({ dato, isDeportista }:any) => {
                         <View style={styles.statsContainer}>
                             <View style={[styles.statItem]}>
                                 <Ionicons name="star" size={16} color={ primary } />
-                                <ThemedText style={[styles.statText]}>77</ThemedText>
+                                <ThemedText style={[styles.statText]}>{ dato.puntos }</ThemedText>
                             </View>
                             <View style={[styles.statItem]}>
                                 <Ionicons name="clipboard" size={16} color={ primary } />
@@ -57,14 +57,13 @@ export const TarjetasDeFondoPuntos = ({ dato, isDeportista }:any) => {
                                 <Ionicons name="medal" size={16} color={ primary } />
                                 {(dato?.posicion)
                                 ?   <ThemedText style={[styles.statText]}>{ dato.posicion }</ThemedText>
-                                :   <Ionicons name="ban" size={16} color='red' />
+                                :   <ThemedText style={[styles.statText]}>{ index }</ThemedText>
                                 }
                             </View>
                         </View>
-
+                        
                     </View>
                 </View>
-
             </View>
         </TouchableOpacity>
     )

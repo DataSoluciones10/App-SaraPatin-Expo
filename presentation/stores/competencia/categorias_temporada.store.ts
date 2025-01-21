@@ -19,15 +19,16 @@ interface CategoriasTemporadaState {
     total: number;
     
     
+    startActivarCategoriaTem: (data:any) => void,
+    startCategoriasClearActive: () => void,
+    categoriTemporadaXId: (id:string) => Promise<boolean>,
+    categoriasXPatinXTipoCompetencia: (id:string) => Promise<any[]>,
     // startCategoriasXArbitro: (datos:any) => Promise<boolean>,
-    // startCategoriasXTemporada: (id:string) => Promise<boolean>,
     // startActiveTipoPatin: (categoria: any) => Promise<boolean>,
     // startCerrarFaseXPatin: (temporada: any) => Promise<boolean>,
     // actualizarCategoriaXNumeracion: (dato:any) => Promise<any>,
     // startActivarPrueba: (prueba: any) => Promise<boolean>,
     // actualizarCategoriaTemporada: (dato:any) => Promise<any>,
-    // startActivarCategoriaTem: (data:any) => void,
-    categoriasXPatinXTipoCompetencia: (id:string) => Promise<any[]>,
 }
 
 
@@ -43,9 +44,27 @@ const storeApi: StateCreator<CategoriasTemporadaState> = (set) => ({
     
 
 
-    // startActivarCategoriaTem: (data: any) => {
-    //     set({ activeCategoriaTemporada: data });
-    // },
+    startCategoriasClearActive: () => {
+        set({ activeCategoriaTemporada: null });
+    },
+
+
+
+    startActivarCategoriaTem: (data: any) => {
+        set({ activeCategoriaTemporada: data });
+    },
+
+
+
+    categoriTemporadaXId: async(id:string) => {
+        try {
+            const data = await categoriaTemporadaXID(id);
+            set({ activeCategoriaTemporada: data });
+            return true;
+        } catch (error:any) {
+            return false;
+        }
+    },
 
 
 
@@ -84,17 +103,7 @@ const storeApi: StateCreator<CategoriasTemporadaState> = (set) => ({
     
 
 
-    // startCategoriasXTemporada: async(id:string) => {
-    //     set({ isLoadingCategoriaTemporada: true });
-    //     try {
-    //         const data = await listadoCategoriaTemporada(id);
-    //         set({ categoriasTemporada: data, isLoadingCategoriaTemporada: false });
-    //         return true;
-    //     } catch (error:any) {
-    //         set({ isLoadingCategoriaTemporada: false });
-    //         return false;
-    //     }
-    // },
+   
 
 
 

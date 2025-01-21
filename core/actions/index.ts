@@ -13,5 +13,5 @@ export * from './usuarios/profesores.actions';
 export * from './utilities/descargas.actions';
 export * from './competencia/temporadas.actions';
 export * from './deportistas/abono_factura.actions';
-
+export * from './competencia/clasificatoria.actions';
 export * from './deportistas/factura_deportista.actions';

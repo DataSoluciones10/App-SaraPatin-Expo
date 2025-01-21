@@ -1,6 +1,8 @@
 
-import { View, FlatList, Text } from 'react-native';
-import { MensajeListaVacia, TarjetasDeFondoPuntos } from '@/presentation/components'
+import { View, FlatList, Text, Animated, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import { MensajeListaVacia, TarjetaPruebasGrupos, TarjetasDeFondoPuntos } from '@/presentation/components'
+import { LinearGradient } from 'expo-linear-gradient';
+import React from 'react';
 
 
 
@@ -32,10 +34,18 @@ import { MensajeListaVacia, TarjetasDeFondoPuntos } from '@/presentation/compone
 
 export const VerPruebasXGrupos = () => {
 
+        // <View style={{flex: 1, justifyContent:'center', alignItems:'center'}}>
+        //     <Text style={{color: 'red'}}>Pendiente por trabajar Grupos</Text>
+        // </View>
 
     return (
-        <View style={{flex: 1, justifyContent:'center', alignItems:'center'}}>
-            <Text style={{color: 'red'}}>Pendiente por trabajar Grupos</Text>
+
+        <View style={{marginHorizontal:15}}>
+            <TarjetaPruebasGrupos />
         </View>
+
     )
 }
+
+
+

@@ -12,3 +12,7 @@ export * from './cache/deportistas/useAbonoFacturaDeportista';
 export * from './hooks/useFuncionesTanStack';
 export * from './hooks/useAlertConConfirm';
 export * from './hooks/useAlertInfo';
+
+
+export * from './sockets/useSocketCategoriaTemporada';
+export * from './sockets/useSocketPruebas';

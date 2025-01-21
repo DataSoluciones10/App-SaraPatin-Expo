@@ -1,44 +1,52 @@
 
+import { useEffect } from 'react';
+import { View, FlatList } from 'react-native';
+import { useLocalSearchParams } from 'expo-router';
+
 import { MensajeListaVacia, TarjetasDePruebas } from '@/presentation/components'
-import { View, FlatList } from 'react-native'
-
-
-
-
-    const baseDatos = {
-        faltas: ['1', '2', '3'],
-        deportista: { nombre: 'David Cortes Messi' },
-        club_inscrito: { entidad: { nombre: 'Leonas de Fuego' } },
-        tiempo: '00:34:345',
-        numero_competencia: { numero_competencia: '010' },
-        posicion: '1',
-    };
-        
-
-
-    
-    const datos = Array.from({ length: 20 }, (_, index) => ({
-        id: (index + 1).toString(),
-        ...baseDatos,
-    }));
-
+import { useSocketPruebas } from '@/presentation/hooks';
+import { useCategoriasTemporadaStore, usePruebasStore } from '@/presentation/stores';
 
 
 
 
 export const VerPruebasXTiempo = () => {
 
+
+    const { id, entidad } = useLocalSearchParams();
+    const { activeCategoriaTemporada } = useCategoriasTemporadaStore();
+    const { pruebasDeportista, startListadoPruebasXFiltros, clearActiveListPruebas } = usePruebasStore();
+
+
+    useEffect(() => {
+        if( id && activeCategoriaTemporada ){
+            startListadoPruebasXFiltros({
+                id, tipoReporte:'DEPORTISTAS',
+                rama: activeCategoriaTemporada.rama_activa,
+                categoria: activeCategoriaTemporada.categoria_activa,
+                prueba: activeCategoriaTemporada.prueba_activa,
+            });
+        }
+
+        return () => clearActiveListPruebas('DEPORTISTAS');
+    }, [id, activeCategoriaTemporada])
+
+
+
+    // Sockets de Pruebas X Tiempo
+    useSocketPruebas(`${id}`);
+
+
+
     return (
         <View style={{ flex: 1 }}>
             <FlatList
-                data={datos || []}
+                data={pruebasDeportista || []}
                 keyExtractor={(item:any) => item.id}
-                renderItem={({ item }) => (
-                    <TarjetasDePruebas dato={item} 
-                        // isDeportista={entidad === item.club_inscrito._id} 
-                    />
+                renderItem={({ item, index }) => (
+                    <TarjetasDePruebas dato={item} isDeportista={entidad === item.club_inscrito._id} index={index + 1} />
                 )}
-                contentContainerStyle={{flexGrow:1, paddingTop:10, paddingBottom:20}}
+                contentContainerStyle={{flexGrow:1, paddingTop:5, paddingBottom:20}}
                 showsVerticalScrollIndicator={ false }
                 ListEmptyComponent={ <MensajeListaVacia titulo="No hay registros de competencia." icon="play" />}
             />
