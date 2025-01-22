@@ -1,47 +1,46 @@
 
-import { View, FlatList, Text, Animated, TouchableOpacity, Image, StyleSheet } from 'react-native';
-import { MensajeListaVacia, TarjetaPruebasGrupos, TarjetasDeFondoPuntos } from '@/presentation/components'
-import { LinearGradient } from 'expo-linear-gradient';
-import React from 'react';
+import { useEffect } from 'react';
 
-
-
-
-
-
-    const baseDatos = {
-        faltas: ['1', '2', '3'],
-        deportista: { nombre: 'David Cortes Messi' },
-        club_inscrito: { entidad: { nombre: 'Leonas de Fuego' } },
-        tiempo: '00:34:345',
-        numero_competencia: { numero_competencia: '010' },
-        posicion: '1',
-    };
-        
-
-
-
-
-    
-    const datos = Array.from({ length: 20 }, (_, index) => ({
-        id: (index + 1).toString(),
-        ...baseDatos,
-    }));
-
+import { View, FlatList } from 'react-native';
+import { MensajeListaVacia, TarjetaPruebasGrupos } from '@/presentation/components'
+import { useClasificatoriaStore } from '@/presentation/stores';
+import { useLocalSearchParams } from 'expo-router';
+import { useSocketPruebaGrupos } from '@/presentation/hooks';
 
 
 
 
 export const VerPruebasXGrupos = () => {
 
-        // <View style={{flex: 1, justifyContent:'center', alignItems:'center'}}>
-        //     <Text style={{color: 'red'}}>Pendiente por trabajar Grupos</Text>
-        // </View>
+
+    const { id, entidad } = useLocalSearchParams();
+    const { clasificatorias, datosPruebasXGrupos, startListadoPruebaXGrupos } = useClasificatoriaStore();
+
+    
+    useEffect(() => {
+        if( id ){ startListadoPruebaXGrupos(`${id}`) }
+        return () => { datosPruebasXGrupos([]) }
+    }, [id])
+
+
+    // Sockets de Pruebas X Grupos
+    useSocketPruebaGrupos(`${id}`);
+
+
 
     return (
 
         <View style={{marginHorizontal:15}}>
-            <TarjetaPruebasGrupos />
+            <FlatList
+                data={clasificatorias || []}
+                keyExtractor={(item:any) => item.bateria}
+                renderItem={({ item, index }) => (
+                    <TarjetaPruebasGrupos dato={item} entidad={entidad} index={index + 1} />
+                )}
+                contentContainerStyle={{flexGrow:1, paddingTop:10, paddingBottom:20}}
+                showsVerticalScrollIndicator={ false }
+                ListEmptyComponent={ <MensajeListaVacia titulo="No hay registros de competencia." icon="play" />}
+            />
         </View>
 
     )

@@ -2,7 +2,7 @@
 import { StateCreator, create } from "zustand";
 import { devtools } from "zustand/middleware";
 
-import { listadoPuntosXFiltro } from "@/core/actions";
+import { listadoClasificatoriaXOlimpica, listadoPuntosXFiltro } from "@/core/actions";
 
 
 
@@ -18,16 +18,15 @@ interface ClasificatoriasState {
     
 
     datosClasificatoriaPuntos: (datos:any[]) => void,
+    datosPruebasXGrupos: (dato:any) => void,
     startListadoPuntosXFiltros: (prueba: any) => Promise<any>,
+    startListadoPruebaXGrupos: (id:string) => Promise<boolean>,
 
 
     // limpiarListadoClasificatorias: () => void,
     // limpiarListadoClasiXJuez: () => void,
-    // setClasificatoriaActive: (dato:any) => void,
     // removeClasificatoriaActive: () => void,
-
     // startListadoClasificatoriaXArbitro: () => Promise<boolean>,
-    // listadoClasificatoriaXOlimpica: (id:string) => Promise<boolean>,
     // listadoClasificatoriaXFiltro: (id:any) => Promise<boolean>,
     // startCrearVelocidadOlimpica: (clasificatoria: any) => Promise<boolean>,
     // startGenerarClasificatorias: (datos:any) => Promise<boolean>,
@@ -53,15 +52,14 @@ const storeApi: StateCreator<ClasificatoriasState> = (set) => ({
 
     activeClasificatoria: null,
     clasificatorias: [],
-    clasificatoriasXJuez: [],
     clasificatoriasXPuntos: [],
+    clasificatoriasXJuez: [],
+    
     isLoadingClasificatoria: false,
 
 
 
-    // limpiarListadoClasificatorias: () => {
-    //     set({ clasificatorias: [] });
-    // },
+    
 
 
     // limpiarListadoClasiXJuez: () => {
@@ -77,6 +75,12 @@ const storeApi: StateCreator<ClasificatoriasState> = (set) => ({
     // removeClasificatoriaActive: () => {
     //     set({ activeClasificatoria: null });
     // },
+
+
+
+    datosPruebasXGrupos: (datos:any) => {
+        set({ clasificatorias: datos });
+    },
 
 
     datosClasificatoriaPuntos: (datos:any) => {
@@ -97,16 +101,15 @@ const storeApi: StateCreator<ClasificatoriasState> = (set) => ({
 
 
 
-    // listadoClasificatoriaXOlimpica: async(id:string) => {
-    //     try {
-    //         const data = await ClasificatoriaService.listadoClasificatoriaXOlimpica(id);
-    //         set({ clasificatorias: data });
-    //         return true;
-    //     } catch (error:any) {
-    //         Swal.fire('Error', error.message, 'error');
-    //         return false;
-    //     }
-    // },
+    startListadoPruebaXGrupos: async(id:string) => {
+        try {
+            const data = await listadoClasificatoriaXOlimpica(id);
+            set({ clasificatorias: data });
+            return true;
+        } catch (error:any) {
+            return false;
+        }
+    },
 
 
 

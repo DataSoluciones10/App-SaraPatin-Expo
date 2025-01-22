@@ -13,7 +13,6 @@ export const useSocketPruebas = (id:string) => {
     const { socket } = useSocketStore();
     const { listadoPruebasDeportista } = usePruebasStore();
 
-
     useEffect(() => {
         if (!socket || !id) return;
         socket?.emit('join-room', id);
@@ -21,7 +20,6 @@ export const useSocketPruebas = (id:string) => {
 
         return () => { socket?.off('pruebas-categoria'); };
     }, [socket])
-
 };
 
 
@@ -34,7 +32,6 @@ export const useSocketFondoPuntos = (id:string) => {
     const { socket } = useSocketStore();
     const { datosClasificatoriaPuntos } = useClasificatoriaStore();
 
-
     useEffect(() => {
         if (!socket || !id) return;
         socket?.emit('join-room', id);
@@ -42,6 +39,23 @@ export const useSocketFondoPuntos = (id:string) => {
 
         return () => { socket?.off('prueba-puntos') };
     }, [socket, id])
-
 };
 
+
+
+
+
+export const useSocketPruebaGrupos = (id:string) => {
+
+    const { socket } = useSocketStore();
+    const { datosPruebasXGrupos } = useClasificatoriaStore();
+
+    useEffect(() => {
+        if (!socket || !id) return;
+
+        socket?.emit('join-room', id);
+        socket?.on('olimpica-velocidad', (pruebas:any) => { datosPruebasXGrupos([...pruebas]) });
+
+        return () => { socket?.off('olimpica-velocidad') };
+    }, [socket, id])
+};

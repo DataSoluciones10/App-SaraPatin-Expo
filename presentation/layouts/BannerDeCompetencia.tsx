@@ -11,10 +11,6 @@ import { ThemedText } from "../components";
 import { useCategoriasTemporadaStore } from "../stores";
 
 
-const BANNER_HEIGHT = 150;
-
-
-
 
 export const BannerDeCompetencia = ({ children }:any) => {
 
@@ -24,22 +20,28 @@ export const BannerDeCompetencia = ({ children }:any) => {
     const { text, opaco, background, primary, disabledColor } = useThemeColors();
     const { activeCategoriaTemporada } = useCategoriasTemporadaStore();
     
-
-    
     const isDarkMode = colorScheme === 'dark';
     const categoria = activeCategoriaTemporada;
-    const competencia = (categoria) ? `${categoria.competencia?.nombre}` : 'No hay datos de competencia';
-    const rama = (categoria && categoria.rama_activa === 'VARON') ? 'VARONES' :
-                (categoria && categoria.rama_activa === 'DAMA') ? 'DAMAS' : '';
 
-    
-    const categorias = (categoria && categoria.categoria_activa)
-    ? (isNaN(categoria.categoria_activa)
-        ? `${categoria.categoria_activa.toUpperCase()}` 
-        : `${categoria.categoria_activa} AÑOS`)
-    : 'NO ASIGNADA';
 
-    const pruebas = (categoria && categoria.prueba_activa) ? `${categoria.prueba_activa}` : 'PRUEBA NO ASIGNADA';
+    const copetencia = categoria?.competencia?.nombre || 'No hay datos de competencia';
+    const rama = categoria?.rama_activa === 'VARON' 
+        ? 'VARONES' : categoria?.rama_activa === 'DAMA' 
+        ? 'DAMAS' : '';
+
+    // Extraemos fase y patin con manejo seguro
+    const fase = categoria?.temporada?.nombre || '';
+    const patin = categoria?.titulo || '';
+
+    // Determinamos las categorías
+    const categorias = categoria?.categoria_activa 
+        ? isNaN(categoria.categoria_activa)
+            ? categoria.categoria_activa.toUpperCase() : `${categoria.categoria_activa} AÑOS`
+        : 'NO ASIGNADA';
+
+    const prueba = (categoria && categoria.prueba_activa) ? `${categoria.prueba_activa}` : 'PRUEBA NO ASIGNADA';
+
+
 
 
 
@@ -72,18 +74,20 @@ export const BannerDeCompetencia = ({ children }:any) => {
                     </View>
 
                     <View style={styles.contentContainer}>
-                        {(rama) &&
-                        <View style={[styles.categoryBadge, { backgroundColor: primary }]}>
-                            <LinearGradient colors={['rgba(255,255,255,0.2)', 'transparent']} style={styles.badgeGradient}>
-                                <ThemedText type="semi-bold" style={styles.badgeText}>
-                                    {`${rama} - ${categorias}`}
-                                </ThemedText>
-                            </LinearGradient>
-                        </View>
+                        {(rama)
+                        ?   <View style={[styles.categoryBadge, { backgroundColor: primary }]}>
+                                <LinearGradient colors={[primary, 'transparent']} style={styles.badgeGradient}>
+                                    <ThemedText type="semi-bold" style={styles.badgeText}>
+                                        {`${rama} - ${categorias}`}
+                                    </ThemedText>
+                                </LinearGradient>
+                            </View>
+                        
+                        :   <View style={{height:20}} />
                         }
                         
                         <ThemedText type="h2" style={styles.title}>
-                            { pruebas }
+                            { prueba }
                         </ThemedText>
 
                         <View style={styles.dividerContainer}>
@@ -93,7 +97,10 @@ export const BannerDeCompetencia = ({ children }:any) => {
                         </View>
 
                         <ThemedText type="semi-bold" style={[styles.competitionText, {color:disabledColor}]}>
-                            { competencia }
+                            { copetencia }
+                        </ThemedText>
+                        <ThemedText type="semi-bold" style={[styles.faseText, {color:disabledColor}]}>
+                            {`${fase} - ${patin}`}
                         </ThemedText>
                     </View>
                 </BlurView>
@@ -112,7 +119,7 @@ export const BannerDeCompetencia = ({ children }:any) => {
 
 const styles = StyleSheet.create({
     banner: {
-        minHeight: BANNER_HEIGHT,
+        minHeight: 150,
         width: '100%',
     },
     
@@ -151,7 +158,7 @@ const styles = StyleSheet.create({
 
     line: {
         position: 'absolute',
-        height: BANNER_HEIGHT * 2,
+        height: 150 * 2,
         width: 120,
         transform: [{ rotate: '45deg' }],
     },
@@ -166,7 +173,7 @@ const styles = StyleSheet.create({
     categoryBadge: {
         borderRadius: 20,
         overflow: 'hidden',
-        marginBottom: 10,
+        marginVertical: 5,
     },
 
     badgeGradient: {
@@ -211,9 +218,15 @@ const styles = StyleSheet.create({
     },
 
     competitionText: {
-        fontSize: 13,
+        fontSize: 12,
         textAlign: 'center',
         letterSpacing: 0.5,
         paddingTop: 4,
+    },
+
+    faseText: {
+        fontSize: 11,
+        textAlign: 'center',
+        letterSpacing: 0.5,
     },
 });

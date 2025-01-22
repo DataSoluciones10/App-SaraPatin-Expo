@@ -6,31 +6,29 @@ import { clasificatoriaApi } from "@/core/apis";
 
 
 
-
-
-
     
-    export const listadoPuntosXFiltro = async({id, rama, categoria, prueba }:any):Promise<any[]> => {
-        try {
-            const { data } = await clasificatoriaApi.get<any>(`/puntos/filtros/${id}?rama=${rama}&categoria=${categoria}&prueba=${prueba}`);
-            return data.data;
-        } catch (error: any) {
-            const errores = error.response.data['msg'] || error.response.data.errors[0]['msg'];
-            throw new Error(errores);
-        }
+export const listadoPuntosXFiltro = async({id, rama, categoria, prueba }:any):Promise<any[]> => {
+    try {
+        const { data } = await clasificatoriaApi.get<any>(`/puntos/filtros/${id}?rama=${rama}&categoria=${categoria}&prueba=${prueba}`);
+        return data.data;
+    } catch (error: any) {
+        const errores = error.response.data['msg'] || error.response.data.errors[0]['msg'];
+        throw new Error(errores);
     }
+}
 
 
 
-//     static listadoClasificatoriaXOlimpica = async(id:string):Promise<any[]> => {
-//         try {
-//             const { data } = await clasificatoriaApi.get<any>(`/olimpica/${id}`);
-//             return data.data;
-//         } catch (error: any) {
-//             const errores = error.response.data['msg'] || error.response.data.errors[0]['msg'];
-//             throw new Error(errores);
-//         }
-//     }
+
+export const listadoClasificatoriaXOlimpica = async(id:string):Promise<any[]> => {
+    try {
+        const { data } = await clasificatoriaApi.get<any>(`/olimpica/${id}`);
+        return data.data;
+    } catch (error: any) {
+        const errores = error.response.data['msg'] || error.response.data.errors[0]['msg'];
+        throw new Error(errores);
+    }
+}
 
 
 

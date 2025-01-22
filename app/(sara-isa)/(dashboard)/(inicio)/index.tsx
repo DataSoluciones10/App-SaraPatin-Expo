@@ -25,11 +25,11 @@ const DashboardScreen = () => {
                 <CarruselPrincipal />
 
                 {/* Carrusel de Imagenes */}
-                <View className='mt-10 mb-5'>
+                <View className='mt-10 mb-3'>
                     <CarruselHorizontal datos={deportesData} titulo='Expertos en:' />
                 </View>
 
-                <View className='mt-7 mb-5'>
+                <View className='mt-7 mb-3'>
                     <CarruselHorizontal datos={deportesData} titulo='Ofrecemos:' />
                 </View>
 

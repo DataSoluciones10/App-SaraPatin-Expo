@@ -1,23 +1,20 @@
 
 import useThemeColors from '@/presentation/hooks/global/useThemeColors';
 import { LinearGradient } from 'expo-linear-gradient'
-import { View, Text, StyleSheet, Image, TouchableOpacity, Animated, useColorScheme } from 'react-native'
+import { View, Text, StyleSheet, Image, TouchableOpacity, useColorScheme } from 'react-native'
 import { ThemedText } from '../textos/ThemedText';
-
-
-
-const url = process.env.EXPO_PUBLIC_API_URL_DESARROLLO;
+import { API_URLS } from '@/core/config/apiconfig';
 
 
 
 
-export const TarjetaPruebasGrupos = () => {
+
+export const TarjetaPruebasGrupos = ({ dato, entidad, index}:any) => {
 
 
-    const { primary, opaco, disabledColor } = useThemeColors();
+    const { primary, opaco, disabledColor, secondary } = useThemeColors();
     const colorScheme  = useColorScheme();
     const isDarkMode = colorScheme === 'dark';
-
 
 
     const darkGradients = {
@@ -55,39 +52,38 @@ export const TarjetaPruebasGrupos = () => {
             <LinearGradient colors={currentGradient.background} style={styles.backgroundGradient}
                 start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}
             >
-
                 <View style={[styles.numeroContainer, {backgroundColor: primary}]}>
-                    <Text style={styles.numeroText}>{10}</Text>
+                    <Text style={styles.numeroText}>{ index }</Text>
                 </View>
 
                 <View style={[styles.header, {borderBottomColor: primary}]}>
-                    <ThemedText style={styles.titulo}>{`GRUPO ${2}`}</ThemedText>
-                    <Text style={[styles.tiempo, {color: disabledColor}]}>{`Tiempo: 00:000:000`}</Text>
+                    <ThemedText style={styles.titulo}>{`GRUPO ${ dato.bateria }`}</ThemedText>
+                    <Text style={[styles.tiempo, {color: disabledColor}]}>{`Tiempo: ${dato.tiempo}`}</Text>
                 </View>
 
                 <View style={styles.deportistasContainer}>
-                    {'123'.split('').map((d:any) => (
-                    <TouchableOpacity key={d} style={[styles.deportistaCard,
-                        { backgroundColor: (true) ? '' : primary, borderColor: opaco } ]}
+                    {dato?.deportistas.map((d:any) => (
+                    <TouchableOpacity key={d.id} style={[styles.deportistaCard,
+                        { backgroundColor: (entidad === d.club_inscrito?._id) ? secondary : '', borderColor: opaco } ]}
                     >
                         <View style={styles.numeroSeccion}>
-                            <ThemedText style={{fontSize:11, color:disabledColor}}>Número</ThemedText>
+                            <ThemedText style={{fontSize:11, color: opaco}}>Número</ThemedText>
                             <ThemedText type="semi-bold" style={{marginTop:-1}}>
-                                010
+                                { d.numero_competencia.numero_competencia }
                             </ThemedText>
                         </View>
         
                         <View style={{flex:1, paddingHorizontal:10, flexDirection:'column'}}>
                             <ThemedText type="semi-bold" style={{fontSize:14, textAlign:'center', alignSelf:'stretch'}} numberOfLines={1}>
-                                David Messi Cortes Rincon
+                                { d.deportista.nombre }
                             </ThemedText>
-                            <ThemedText numberOfLines={1} style={{fontSize:12, textAlign:'center', color:disabledColor}}>
-                                Leonas de Fuego 
+                            <ThemedText numberOfLines={1} style={{fontSize:12, textAlign:'center', color:opaco}}>
+                                { d.club_inscrito.entidad.nombre }
                             </ThemedText>
                         </View>
         
                         <View style={styles.numeroSeccion}>
-                            <Image source={{uri: `${url}/uploads/deportistas/zzzz`}}
+                            <Image source={{uri: `${API_URLS.base_url}/uploads/deportistas/${d.deportista._id}`}}
                                 style={styles.foto}
                             />
                         </View>
@@ -177,8 +173,8 @@ const styles = StyleSheet.create({
     },
 
     foto: {
-        width: 50,
-        height: 50,
+        width: 45,
+        height: 45,
         borderRadius: 5,
     },
 });

@@ -42,3 +42,4 @@ export * from './tarjetas/TarjetaPruebasGrupos';
 export * from './textos/ThemedLink';
 export * from './textos/ThemedText';
 export * from './textos/ThemedView';
+export * from './components/NumeroVueltasFondo';
