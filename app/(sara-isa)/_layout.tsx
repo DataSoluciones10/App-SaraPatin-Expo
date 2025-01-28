@@ -62,6 +62,7 @@ const RootLayout = () => {
     return (
 
         <QueryClientProvider client={ queryClient }>
+
             <Stack screenOptions={{ headerShadowVisible: false, headerShown:false,
                 headerStyle: { backgroundColor:background }, contentStyle: {backgroundColor: background},
             }}>

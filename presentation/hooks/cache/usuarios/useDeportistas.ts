@@ -97,11 +97,12 @@ export const useDeportistasInscripcion = () => {
     });
 
 
+
+
     return {
         inscripcionesSemiQuery,
         inscripcionesNovatosQuery,
         InscripcionesLigadosQuery,
-        // loadNextPage: InscripcionesNovatos.fetchNextPage,
     }
 }
 

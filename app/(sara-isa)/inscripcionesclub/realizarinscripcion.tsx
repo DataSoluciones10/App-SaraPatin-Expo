@@ -93,17 +93,17 @@ const RealizarInscripcion = () => {
                     {(inscripcionActiva) &&
                     <View>
                         <CarruselUserHorizontal titulo='Semiprofesional'
-                            items={items} setItems={setItems} 
+                            items={items} setItems={setItems} loadNextPage={inscripcionesSemiQuery.fetchNextPage}
                             datos={inscripcionesSemiQuery.data?.pages.flatMap((page) => page) ?? []}
                         />
 
                         <CarruselUserHorizontal titulo='Novatos'
-                            items={items} setItems={setItems} 
+                            items={items} setItems={setItems} loadNextPage={inscripcionesNovatosQuery.fetchNextPage}
                             datos={inscripcionesNovatosQuery.data?.pages.flatMap((page) => page) ?? []}
                         />
 
                         <CarruselUserHorizontal titulo='Ligados'
-                            items={items} setItems={setItems} 
+                            items={items} setItems={setItems} loadNextPage={InscripcionesLigadosQuery.fetchNextPage}
                             datos={InscripcionesLigadosQuery.data?.pages.flatMap((page) => page) ?? []}
                         />
                     </View>

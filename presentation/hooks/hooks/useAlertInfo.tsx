@@ -1,12 +1,9 @@
 
-
 import { useState } from 'react';
 
 import { Modal, View, TouchableOpacity, StyleSheet, Platform, useWindowDimensions, Text } from 'react-native';
 import useThemeColors from '@/presentation/hooks/global/useThemeColors';
 import { ThemedText } from '@/presentation/components';
-
-
 
 
 
@@ -21,15 +18,14 @@ interface InfoAlertProps {
 
 
 
-
 export const useAlertInfo = () => {
-
 
 
     const { width } = useWindowDimensions();
     const { primary, success, error, background, warning } = useThemeColors();
     const [isVisible, setIsVisible] = useState(false);
     const [config, setConfig] = useState<InfoAlertProps>({ message: '' });
+
 
     const getAlertColor = (type: InfoAlertProps['type'] = 'primary') => {
         const alertColors = {

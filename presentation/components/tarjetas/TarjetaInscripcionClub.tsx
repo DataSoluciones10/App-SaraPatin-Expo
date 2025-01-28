@@ -15,7 +15,7 @@ interface Props {
     subtitulo1: string;
     isClub:boolean;
     onPress:any;
-    iconos: boolean;
+    iconos?: boolean;
     oro?: string;
     plata?: string;
     bronce?: string;

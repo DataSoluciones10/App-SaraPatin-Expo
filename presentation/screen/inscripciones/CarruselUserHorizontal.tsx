@@ -1,11 +1,9 @@
 
-import { useCallback } from 'react';
-import { View, FlatList } from 'react-native';
+import { useCallback, useEffect, useRef } from 'react';
+import { View, FlatList, NativeSyntheticEvent, NativeScrollEvent } from 'react-native';
 import { useInscripcionStore } from '@/presentation/stores';
 import { ThemedText, TituloObjetoVacio } from '@/presentation/components';
 import { PosterInscripciones } from './PosterInscripciones';
-
-
 
 
 
@@ -14,16 +12,22 @@ interface Props {
     datos: any;
     items: string[];
     setItems: any;
-    loadNextPage?: any;
+    loadNextPage?: () => void;
 }
-
 
 
 
 export const CarruselUserHorizontal = ({ titulo, datos, items, setItems, loadNextPage }:Props) => {
 
-    
+
+    const isLoanding = useRef(false);
     const { idsInscripciones } = useInscripcionStore();
+
+
+    useEffect(() => {
+        setTimeout(() => { isLoanding.current = false; }, 200);
+    }, [datos])
+    
 
 
     const handleToggleSelect = useCallback((name:any) => {
@@ -34,6 +38,20 @@ export const CarruselUserHorizontal = ({ titulo, datos, items, setItems, loadNex
             return newSelected;
         });
     }, [setItems]);
+
+
+
+    const onScroll = (event:NativeSyntheticEvent<NativeScrollEvent>) => {
+        if( isLoanding.current ) return;
+
+        const { contentOffset, layoutMeasurement, contentSize } = event.nativeEvent;
+        const isEndReached = (contentOffset.x + layoutMeasurement.width + 600) >= contentSize.width;
+        if( !isEndReached ) return;
+
+        isLoanding.current = true;
+        loadNextPage && loadNextPage();
+        // console.log('david messi')
+    }
 
 
     
@@ -56,11 +74,11 @@ export const CarruselUserHorizontal = ({ titulo, datos, items, setItems, loadNex
                         img={item.img}
                         isInscrito={idsInscripciones.includes(item.id)}
                         nombre={item.nombre}
-                        // inscribir={items.includes(item.id)}
                         inscribir={items.some((i:any) => i.id === item.id )}
                         onPress={ () => handleToggleSelect(item) }
                     />
                 }
+                onScroll={ onScroll }
             />
             ) : (
                 <View className="flex-row h-20 mx-2">

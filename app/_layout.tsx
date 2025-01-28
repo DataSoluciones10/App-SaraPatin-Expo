@@ -50,7 +50,6 @@ export default function RootLayout() {
 
 
 
-
     return (
         <GestureHandlerRootView style={{backgroundColor:bgcolor, flex:1}}>
             <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
