@@ -23,28 +23,12 @@ export const FAB = ({ style, iconName, onPress }: Props) => {
 
     return (
         <TouchableOpacity
-            style={[
-                {
-                position: 'absolute',
-                bottom: 30,
-                right: 20,
-                width: 60,
-                height: 60,
-                shadowColor: primary,
-                backgroundColor: primary,
-                shadowOffset: {
-                    width: 0,
-                    height: 10,
+            style={[ style,
+                { position:'absolute', bottom:30, right:20, width:60, height:60,
+                    shadowColor:primary, backgroundColor: primary, shadowOffset: { width:0, height:10 },
+                    shadowOpacity:0.4, shadowRadius:10, elevation:3, borderRadius:13,
+                    alignItems:'center', justifyContent:'center',
                 },
-                shadowOpacity: 0.4,
-                shadowRadius: 10,
-                elevation: 3,
-                borderRadius: 13,
-
-                alignItems: 'center',
-                justifyContent: 'center',
-                },
-                style,
             ]}
             onPress={onPress}
         >

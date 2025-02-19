@@ -29,7 +29,6 @@ export const MensajeListaVacia = ({ titulo, icon='file-tray-full-outline', style
             <View>
                 <Ionicons name={ icon } size={50} color={opaco} />
             </View>
-            
             <ThemedText type="h3" style={{color:opaco, fontWeight:'bold', textAlign:'center'}}>{ titulo }</ThemedText>
         </ThemedView>
 

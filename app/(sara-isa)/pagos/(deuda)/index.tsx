@@ -54,11 +54,9 @@ const PagosPendientes = () => {
 
     }
 
-
     return (
         <DisenioPagina title='Pagos Pendientes'>
             <AlertModal />
-
             <BackdropScreen titulo="Procesando su petición..." visible={cargando} />
 
             <FlatList
@@ -79,16 +77,15 @@ const PagosPendientes = () => {
 
             <FAB iconName='refresh' onPress={() => handleGenerarFacturas() }/>
 
-
-
             <ModalScreen titulo="Agregar Abono">
                 <FormAbonosFacDeportista />
             </ModalScreen>
-            
         </DisenioPagina>
     )
 
 }
 
 
+
 export default PagosPendientes
+
